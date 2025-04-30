@@ -22,7 +22,7 @@ provide("searchInput", searchInput)
 </script>
 
 <template>
-  <Sidebar v-bind="props">
+  <Sidebar v-bind="props" class="relative max-h-[100%] sticky" >
     <SidebarHeader>
       <Input placeholder="Search..." class="h-7 !text-xs" v-model="searchInput" />
     </SidebarHeader>

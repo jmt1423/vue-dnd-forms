@@ -82,10 +82,10 @@ provide('selectedIndex', selectedIndex)
 </script>
 
 <template>
-  <SidebarProvider>
+  <SidebarProvider >
     <AppSidebar />
     <SidebarInset>
-      <header class="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background">
+      <header class="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background/80 backdrop-blur-2xl z-10">
         <div class="flex flex-1 items-center gap-2 px-3">
           <SidebarTrigger class="max-md:hidden"/>
           <Separator orientation="vertical" class="mr-2 h-4" />
@@ -117,7 +117,7 @@ provide('selectedIndex', selectedIndex)
         <FormPreview ref="previewRef" />
       </header>
       <div class="flex flex-1 flex-col gap-4 p-4 items-center justify-center">
-        <div class="mx-auto min-h-[85vh] p-4 h-fit w-[60%] max-w-3xl rounded-xl bg-primary/10 dark:bg-zinc-800 shadow-xl">
+        <div class="mx-auto min-h-[85%] p-4 h-fit min-w-fit w-[70%] max-w-3xl rounded-xl bg-primary/10 dark:bg-zinc-800 shadow-xl">
           <div ref="formFields" class="h-full space-y-1.5">
             <div v-for="(field, index) in fields" :key="field.$formkit" class="!mb-1">
               <div class="flex items-center gap-1.5">
