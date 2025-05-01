@@ -17,15 +17,28 @@ const props = withDefaults(defineProps<SidebarProps>(), {
   collapsible: 'offcanvas',
 })
 
-const { state, isMobile, openMobile, setOpenMobile } = useSidebar()
+const { state, isMobile, setOpenMobile, openMobile } = useSidebar()
 </script>
 
 <template>
+  <div
+      v-if="collapsible === 'none'"
+      data-slot="sidebar"
+      :class="cn(
+    'bg-sidebar text-sidebar-foreground flex max-h-[100%] w-(--sidebar-width) flex-col',
+    'max-md:hidden',
+    props.class
+  )"
+      v-bind="$attrs"
+  >
+    <slot />
+  </div>
+
   <!-- Sheet for the right sidebar when using offcanvas -->
   <Sheet
-      v-if="isMobile && collapsible === 'offcanvas'"
-      :open="openMobile"
-      @update:open="setOpenMobile"
+    v-else-if="side === 'right' && collapsible === 'offcanvas' && isMobile"
+    :open="openMobile"
+    @update:open="setOpenMobile"
   >
     <SheetContent
       data-sidebar="sidebar"
@@ -44,6 +57,7 @@ const { state, isMobile, openMobile, setOpenMobile } = useSidebar()
   </Sheet>
 
   <div
+      v-else
       class="group peer text-sidebar-foreground block"
       data-slot="sidebar"
       :data-state="state"
@@ -60,7 +74,6 @@ const { state, isMobile, openMobile, setOpenMobile } = useSidebar()
         variant === 'floating' || variant === 'inset'
           ? 'group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
           : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
-        (variant === 'floating' && collapsible === 'offcanvas' ? 'max-md:hidden' : 'max-md:!w-(--sidebar-width-icon)'),
         'max-md:!w-(--sidebar-width-icon)',
       )"
     />
@@ -79,6 +92,8 @@ const { state, isMobile, openMobile, setOpenMobile } = useSidebar()
         variant === 'floating' || variant === 'inset'
           ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
           : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l',
+        // Hide the standard right sidebar when using Sheet for offcanvas
+        // (side === 'right' && collapsible === 'offcanvas' && !isMobile) ? 'hidden' : '',
         props.class,
       )"
         v-bind="$attrs"

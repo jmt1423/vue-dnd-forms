@@ -37,6 +37,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>([], {
   draggingClass: 'opacity-50',
   sortable: isSortable.value,
   accepts: () => true,
+  disabled: true,
   performTransfer: ({ currentParent, targetParent, draggedNodes }) => {
     if (targetParent === currentParent) {
       return
@@ -160,7 +161,7 @@ provide('selectedIndex', selectedIndex)
                     variant="ghost"
                     size="icon"
                     @click.stop="deleteField(index)"
-                    class="h-4 w-4 md:h-5 md:w-5 hover:!bg-destructive/80"
+                    class="h-4 w-4 md:h-5 md:w-5 hover:!bg-destructive/90 hover:text-white"
                 >
                   <Trash2 class="!h-3 !w-3" />
                 </Button>
