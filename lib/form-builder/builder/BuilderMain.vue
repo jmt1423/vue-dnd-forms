@@ -4,7 +4,7 @@ import type { FormKitSchemaFormKit } from '@formkit/core'
 
 import { FormKitSchema } from "@formkit/vue"
 import { useDragAndDrop } from '@formkit/drag-and-drop/vue'
-import { Eye, Trash2 } from 'lucide-vue-next'
+import { Eye, Trash2, ChevronUp, ChevronDown } from 'lucide-vue-next'
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from '../../ui/breadcrumb'
 import { Button } from "../../ui/button"
@@ -14,7 +14,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../
 
 import AppSidebar from "../sidebar-component/AppSidebar.vue"
 import FormPreview from "./FormPreview.vue"
-import SidebarRight from "../sidebar-component/SidebarRight.vue"
+import SidebarRightv2 from "../sidebar-component/SidebarRightv2.vue";
 import { formElements, formSchema } from '../utils/form-elements'
 
 const isSortable = ref(false)
@@ -84,10 +84,11 @@ provide('selectedIndex', selectedIndex)
 <template>
   <SidebarProvider >
     <AppSidebar />
+    <SidebarTrigger class="max-md:hidden mt-4"/>
+    <SidebarProvider>
     <SidebarInset>
-      <header class="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background/80 backdrop-blur-2xl z-10">
+      <header class="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background/80 backdrop-blur-2xl">
         <div class="flex flex-1 items-center gap-2 px-3">
-          <SidebarTrigger class="max-md:hidden"/>
           <Separator orientation="vertical" class="mr-2 h-4" />
           <Breadcrumb>
             <BreadcrumbList>
@@ -115,30 +116,31 @@ provide('selectedIndex', selectedIndex)
 
         </div>
         <FormPreview ref="previewRef" />
+        <SidebarTrigger class="mr-1"/>
       </header>
-      <div class="flex flex-1 flex-col gap-4 p-4 items-center justify-center">
-        <div class="mx-auto min-h-[85%] p-4 h-fit min-w-fit w-[70%] max-w-3xl rounded-xl bg-primary/10 dark:bg-zinc-800 shadow-xl">
-          <div ref="formFields" class="h-full space-y-1.5">
+      <div class="flex flex-1 flex-col ">
+        <div class="mx-auto min-h-[70%] p-4 h-fit min-w-fit w-[90%] md:w-[90%] lg:w-[70%] rounded-xl bg-primary/10 dark:bg-zinc-800 shadow-xl">
+          <div ref="formFields" class="h-full">
             <div v-for="(field, index) in fields" :key="field.$formkit" class="!mb-1">
               <div class="flex items-center gap-1.5">
                 <div class="flex flex-col gap-1">
                   <Button
                       variant="outline"
                       size="icon"
-                      class="h-5 w-5 md:h-6 md:w-6 text-[10px] md:text-xs"
+                      class="h-5 w-5 md:h-6 md:w-6"
                       :disabled="index === 0"
                       @click.stop="moveField(index, index - 1)"
                   >
-                    ↑
+                    <ChevronUp />
                   </Button>
                   <Button
                       variant="outline"
                       size="icon"
-                      class="h-5 w-5 md:h-6 md:w-6 text-[10px] md:text-xs"
+                      class="h-5 w-5 md:h-6 md:w-6"
                       :disabled="index === unref(fields).length - 1"
                       @click.stop="moveField(index, index + 1)"
                   >
-                    ↓
+                    <ChevronDown />
                   </Button>
                 </div>
                 <div class="flex-1" @click="clickedField(index)">
@@ -158,9 +160,9 @@ provide('selectedIndex', selectedIndex)
                     variant="ghost"
                     size="icon"
                     @click.stop="deleteField(index)"
-                    class="h-4 w-4 md:h-5 md:w-5 text-[10px] md:text-xs hover:!bg-destructive/80"
+                    class="h-4 w-4 md:h-5 md:w-5 hover:!bg-destructive/80"
                 >
-                  <Trash2 class="!h-3 !w-3 md:!h-3 md:!w-3" />
+                  <Trash2 class="!h-3 !w-3" />
                 </Button>
               </div>
             </div>
@@ -168,6 +170,7 @@ provide('selectedIndex', selectedIndex)
         </div>
       </div>
     </SidebarInset>
-    <SidebarRight />
+      <SidebarRightv2 side="right"/>
+    </SidebarProvider>
   </SidebarProvider>
 </template>

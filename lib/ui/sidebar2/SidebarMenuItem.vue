@@ -9,9 +9,10 @@ const props = defineProps<{
 
 <template>
   <li
-    data-slot="sidebar-menu-sub-item"
-    data-sidebar="menu-sub-item"
-    :class="cn('group/menu-sub-item relative', props.class)"
+    data-slot="sidebar-menu-item"
+    data-sidebar="menu-item"
+    :class="cn('group/menu-item relative', props.class)"
+    draggable="true"
   >
     <slot />
   </li>

@@ -1,23 +1,26 @@
 <script setup lang="ts">
 import {
-  Sidebar,
-  SidebarContent, SidebarFooter,
-  SidebarHeader,
-  type SidebarProps,
+  SidebarFooter, SidebarHeader,
 } from '../../ui/sidebar'
-import FormEdit from "../builder/FormEdit.vue";
+import type { SidebarProps } from '../../ui/sidebar';
+import {
+  Sidebar,
+  SidebarContent,
+} from '../../ui/sidebar'
 import ThemeSwitcher from "../builder/ThemeSwitcher.vue";
-
+import FormEdit from "../builder/FormEdit.vue";
 
 const props = withDefaults(defineProps<SidebarProps>(), {
-  collapsible: 'none',
+  collapsible: 'offcanvas',
+  variant: 'floating',
 })
+
 </script>
 
 <template>
   <Sidebar
-    class="max-md:!hidden h-full"
-    v-bind="props"
+      v-bind="props"
+      id="sidebar-right"
   >
     <SidebarHeader class="h-8 border-b border-sidebar-border">
       <h2 class="text-xs md:text-sm font-medium text-foreground/90">Field Settings</h2>
@@ -30,3 +33,4 @@ const props = withDefaults(defineProps<SidebarProps>(), {
     </SidebarFooter>
   </Sidebar>
 </template>
+

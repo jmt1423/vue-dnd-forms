@@ -8,7 +8,8 @@ import {
   Paperclip, Phone,
   SlidersHorizontal,
   SquareCheck,
-  Type
+  Type,
+  Pipette
 } from 'lucide-vue-next'
 
 export { formElements } from './form-elements'
@@ -25,6 +26,11 @@ export const fieldProps = [
     name: 'email',
     tooltip: 'Allows user to enter email',
     icon: Mail,
+  },
+  {
+    name: 'color',
+    tooltip: 'Allows user to select color',
+    icon: Pipette
   },
   {
     name: 'number',

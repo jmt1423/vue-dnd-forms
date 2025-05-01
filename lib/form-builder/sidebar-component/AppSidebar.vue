@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { SidebarProps } from '../../ui/sidebar'
 import {provide, ref} from 'vue'
+import {SidebarInput} from "../../ui/sidebar";
 
 import NavMain from './NavMain.vue'
 import {
@@ -8,8 +9,6 @@ import {
   SidebarContent,
   SidebarHeader,
 } from '../../ui/sidebar'
-
-import {Input} from "../../ui/input";
 
 const props = withDefaults(defineProps<SidebarProps>(), {
   variant: 'floating',
@@ -22,9 +21,9 @@ provide("searchInput", searchInput)
 </script>
 
 <template>
-  <Sidebar v-bind="props" class="relative max-h-[100%] sticky" >
+  <Sidebar v-bind="props" class="max-h-[100%] sticky">
     <SidebarHeader>
-      <Input placeholder="Search..." class="h-7 !text-xs" v-model="searchInput" />
+      <SidebarInput placeholder="Search..." class="rounded-lg" v-model="searchInput" />
     </SidebarHeader>
     <SidebarContent>
       <NavMain />

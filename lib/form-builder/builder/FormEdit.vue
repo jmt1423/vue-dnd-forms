@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col !h-fit">
-    <ScrollArea class="md:h-[60vh] lg:h-[65vh] w-full">
+    <ScrollArea class="h-full w-fit">
       <div class="p-2 md:p-3">
         <div
           v-if="!fields[selectedIndex]"

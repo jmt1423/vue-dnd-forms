@@ -72,6 +72,17 @@ export const formElements: FormKitSchemaFormKit[] = [
     description: 'Multiple choice checkbox',
   },
   {
+    $formkit: 'color',
+    label: 'Color Field',
+    value: '#00ff00',
+    help: 'This is help text',
+    name: 'Color',
+    id: 'color_field',
+    validation: '',
+    validationVisibility: 'blur',
+    description: 'Color picker',
+  },
+  {
     $formkit: 'date',
     label: 'Date Field',
     help: 'This is help text',

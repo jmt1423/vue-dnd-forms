@@ -2,10 +2,6 @@
 import type { SidebarProps } from './index'
 import { cn } from '../../lib/utils'
 import { useSidebar } from './utils'
-import { Sheet, SheetContent } from '../sheet'
-import SheetHeader from '../sheet/SheetHeader.vue'
-import SheetTitle from '../sheet/SheetTitle.vue'
-import SheetDescription from '../sheet/SheetDescription.vue'
 
 defineOptions({
   inheritAttrs: false,
@@ -17,55 +13,46 @@ const props = withDefaults(defineProps<SidebarProps>(), {
   collapsible: 'offcanvas',
 })
 
-const { state, isMobile, openMobile, setOpenMobile } = useSidebar()
+const { state } = useSidebar()
 </script>
 
 <template>
-  <!-- Sheet for the right sidebar when using offcanvas -->
-  <Sheet
-      v-if="isMobile && collapsible === 'offcanvas'"
-      :open="openMobile"
-      @update:open="setOpenMobile"
-  >
-    <SheetContent
-      data-sidebar="sidebar"
+  <div
+      v-if="collapsible === 'none'"
       data-slot="sidebar"
-      :side="side"
-      class="bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
-    >
-      <SheetHeader class="sr-only">
-        <SheetTitle>Sidebar</SheetTitle>
-        <SheetDescription>Controls the right sidebar.</SheetDescription>
-      </SheetHeader>
-      <div class="flex h-full w-full flex-col">
-        <slot />
-      </div>
-    </SheetContent>
-  </Sheet>
+      :class="cn(
+  'w-0 sticky top-0 bg-sidebar text-sidebar-foreground flex md:w-(--sidebar-width) flex-col',
+  'border-sidebar-border rounded-lg border drop-shadow-lg drop-shadow-black/20',
+  props.class
+)"
+      v-bind="$attrs"
+  >
+    <slot />
+  </div>
 
   <div
-      class="group peer text-sidebar-foreground block"
-      data-slot="sidebar"
-      :data-state="state"
-      :data-collapsible="state === 'collapsed' ? collapsible : ''"
-      :data-variant="variant"
-      :data-side="side"
+    v-else
+    class="group peer text-sidebar-foreground block"
+    data-slot="sidebar"
+    :data-state="state"
+    :data-collapsible="state === 'collapsed' ? collapsible : ''"
+    :data-variant="variant"
+    :data-side="side"
   >
     <!-- This is what handles the sidebar gap on desktop -->
     <div
-        :class="cn(
+      :class="cn(
         'relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-in-out',
         'group-data-[collapsible=offcanvas]:w-0',
         'group-data-[side=right]:rotate-180',
         variant === 'floating' || variant === 'inset'
           ? 'group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
           : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
-        (variant === 'floating' && collapsible === 'offcanvas' ? 'max-md:hidden' : 'max-md:!w-(--sidebar-width-icon)'),
         'max-md:!w-(--sidebar-width-icon)',
       )"
     />
     <div
-        :class="cn(
+      :class="cn(
         'fixed inset-y-0 z-10 flex h-svh transition-[width] duration-200 ease-in-out',
         // Width handling for desktop
         'w-(--sidebar-width)',
@@ -78,16 +65,16 @@ const { state, isMobile, openMobile, setOpenMobile } = useSidebar()
         // Adjust the padding for floating and inset variants
         variant === 'floating' || variant === 'inset'
           ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
-          : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l',
+          : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=right]:border-l',
         props.class,
       )"
-        v-bind="$attrs"
+      v-bind="$attrs"
     >
       <div
-          data-sidebar="sidebar"
-          :class="cn(
+        data-sidebar="sidebar"
+        :class="cn(
           'bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:drop-shadow-lg group-data-[variant=floating]:drop-shadow-black/20',
-          'max-md:items-center max-md:w-[3rem]'
+          'max-md:items-center max-md:w-[3rem]',
         )"
       >
         <slot />
