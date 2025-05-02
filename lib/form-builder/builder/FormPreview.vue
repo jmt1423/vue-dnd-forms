@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { provide, ref, inject } from 'vue'
 import type { Ref } from 'vue'
-import type {FormKitSchemaFormKit} from '@formkit/core'
+import type { FormKitSchemaFormKit} from '@formkit/core'
 import {
   Dialog,
   DialogContent,
