@@ -1,9 +1,9 @@
-import type { FormKitSchemaFormKit } from '@formkit/core'
 import { ref } from 'vue'
+import type { FormKitSchemaDefinition } from '@formkit/core'
 
-export const formSchema = ref<FormKitSchemaFormKit[]>([])
+export const formSchema = ref<FormKitSchemaDefinition>([])
 
-export const formElements: FormKitSchemaFormKit[] = [
+export const formElements: FormKitSchemaDefinition = [
   {
     $formkit: 'text',
     name: 'Text',

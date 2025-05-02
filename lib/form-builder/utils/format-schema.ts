@@ -3,6 +3,7 @@ import type {FormKitSchemaFormKit} from "@formkit/core";
 
 export default function createFormattedSchema(fields: Ref<FormKitSchemaFormKit[]> | undefined) {
     return computed(() => {
+        if (!fields) return []
         // Transform fields to remove unwanted elements and update IDs
         return fields?.value.map((field, index) => {
             const {
