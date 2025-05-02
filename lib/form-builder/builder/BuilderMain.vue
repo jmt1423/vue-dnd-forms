@@ -1,24 +1,18 @@
 <script setup lang="ts">
 import { Eye } from 'lucide-vue-next'
-import {provide, ref} from 'vue'
+import {ref} from 'vue'
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from '../../ui/breadcrumb'
 import { Button } from "../../ui/button"
 import { Separator } from '../../ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../../ui/sidebar'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui/tooltip"
-import type { FormKitSchemaFormKit } from '@formkit/core'
 import AppSidebar from "../sidebar-component/AppSidebar.vue"
 import FormPreview from "./FormPreview.vue"
 import SidebarRightv2 from "../sidebar-component/SidebarRightv2.vue";
 import FormDropArea from "./FormDropArea.vue";
 
 const previewRef = ref<InstanceType<typeof FormPreview>>()
-const fields = ref<FormKitSchemaFormKit[]>([])
-const selectedIndex = ref(0)
-
-provide('fields', fields)
-provide('selectedIndex', selectedIndex)
 </script>
 
 <template>
@@ -57,10 +51,7 @@ provide('selectedIndex', selectedIndex)
         <FormPreview ref="previewRef" />
         <SidebarTrigger class="mr-1"/>
       </header>
-      <FormDropArea
-          v-model:modelValue="fields"
-          v-model:selectedIndex="selectedIndex"
-      />
+      <FormDropArea />
     </SidebarInset>
       <SidebarRightv2 side="right"/>
     </SidebarProvider>

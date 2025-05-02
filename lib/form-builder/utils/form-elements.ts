@@ -2,6 +2,7 @@ import type { FormKitSchemaFormKit } from '@formkit/core'
 import { ref } from 'vue'
 
 export const formSchema = ref<FormKitSchemaFormKit[]>([])
+export const selectedField = ref(0)
 
 export const formElements: FormKitSchemaFormKit[] = [
   {

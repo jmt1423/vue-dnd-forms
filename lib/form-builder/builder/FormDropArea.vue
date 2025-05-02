@@ -1,32 +1,14 @@
 <script setup lang="ts">
 
-import {computed, provide, ref, unref, watch} from "vue";
+import {ref, unref} from "vue";
 import {Button} from "../../ui/button";
 import {FormKitSchema} from "@formkit/vue";
-import {ChevronDown, ChevronUp, Eye, Trash2} from "lucide-vue-next";
-import {formElements, formSchema} from "../utils/form-elements";
+import {ChevronDown, ChevronUp, Trash2} from "lucide-vue-next";
+import {formElements, formSchema, selectedField} from "../utils/form-elements";
 import {useDragAndDrop} from "@formkit/drag-and-drop/vue";
 import type {FormKitSchemaFormKit} from "@formkit/core";
 
-// const selectedIndex = ref(0)
 const isSortable = ref(false)
-
-const emit = defineEmits<{
-  'update:modelValue': [FormKitSchemaFormKit[]],
-  'update:selectedIndex': [number]
-}>()
-
-const props = defineProps<{
-  modelValue: FormKitSchemaFormKit[],
-  selectedIndex?: number,
-}>()
-
-const selectedIndex = computed({
-  get: () => props.selectedIndex ?? 0,
-  set: (value) => {
-    emit('update:selectedIndex', value)
-  }
-})
 
 const deleteField = (index: number) => {
   formSchema.value = formSchema.value.filter((_: unknown, i: number) => i !== index)
@@ -34,8 +16,7 @@ const deleteField = (index: number) => {
 }
 
 const clickedField = (index: number) => {
-  selectedIndex.value = index
-  console.log('Selected index:', selectedIndex.value)
+  selectedField.value = index
 }
 
 const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>([], {
@@ -50,8 +31,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>([], {
       return
     }
 
-    const targetValues = targetParent.data.getValues(targetParent.el) as FormKitSchemaFormKit[]
-
+    // const targetValues = targetParent.data.getValues(targetParent.el) as FormKitSchemaFormKit[]
     const newValues = draggedNodes
         .map((node) => {
           if (!node.data?.value) return null
@@ -62,9 +42,9 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>([], {
         .filter((el): el is FormKitSchemaFormKit => el !== null)
 
     if (newValues.length > 0) {
-      const updatedValues = [...targetValues, ...newValues]
-      targetParent.data.setValues(updatedValues, targetParent.el)
-      formSchema.value = updatedValues
+      // const updatedValues = [...targetValues, ...newValues]
+      // targetParent.data.setValues(updatedValues, targetParent.el)
+      formSchema.value = [...formSchema.value, ...newValues]
     }
   },
   handleNodeDrop: (data) => {
@@ -73,31 +53,24 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>([], {
   },
 })
 
-watch(fields, (newFields) => {
-  emit('update:modelValue', newFields)
-})
-
 const moveField = (fromIndex: number, toIndex: number) => {
-  const currentFields = unref(fields)
+  const currentFields = unref(formSchema)
   if (toIndex < 0 || toIndex >= currentFields.length) return
 
   const updatedFields = [...currentFields]
   const [movedItem] = updatedFields.splice(fromIndex, 1)
   updatedFields.splice(toIndex, 0, movedItem)
 
-  fields.value = updatedFields
   formSchema.value = updatedFields
 }
 
-// provide('fields', fields)
-// provide('selectedIndex', selectedIndex)
 </script>
 
 <template>
   <div class="flex flex-1 flex-col ">
     <div class="mx-auto min-h-[70%] p-4 h-fit min-w-fit w-[90%] md:w-[90%] lg:w-[70%] rounded-xl bg-primary/10 dark:bg-zinc-800 shadow-xl">
       <div ref="formFields" class="h-full">
-        <div v-for="(field, index) in fields" :key="field.$formkit" class="!mb-1">
+        <div v-for="(field, index) in formSchema" :key="field.$formkit" class="!mb-1">
           <div class="flex items-center gap-1.5">
             <div class="flex flex-col gap-1">
               <Button
@@ -113,7 +86,7 @@ const moveField = (fromIndex: number, toIndex: number) => {
                   variant="outline"
                   size="icon"
                   class="h-5 w-5 md:h-6 md:w-6"
-                  :disabled="index === unref(fields).length - 1"
+                  :disabled="index === unref(formSchema).length - 1"
                   @click.stop="moveField(index, index + 1)"
               >
                 <ChevronDown />
@@ -123,7 +96,7 @@ const moveField = (fromIndex: number, toIndex: number) => {
               <div
                   :class="[
                         'rounded transition-all duration-200 p-1',
-                        selectedIndex === index
+                        selectedField === index
                           ? 'border border-primary/50 bg-primary/5'
                           : 'border border-transparent hover:border-border/20 hover:bg-primary/10',
                       ]"

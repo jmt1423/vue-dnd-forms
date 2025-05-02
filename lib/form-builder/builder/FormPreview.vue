@@ -22,22 +22,14 @@
 </template>
 
 <script setup lang="ts">
-import { provide, ref, inject } from 'vue'
-import type { Ref } from 'vue'
-import type { FormKitSchemaFormKit} from '@formkit/core'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '../../ui/dialog'
+import {provide, ref} from 'vue'
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,} from '../../ui/dialog'
+import {formSchema} from "../utils/form-elements";
 import createFormattedSchema from '../utils/format-schema'
 
 const isOpen = ref(false)
 const data = ref({})
-const fields = inject<Ref<FormKitSchemaFormKit[]>>('fields')
-const formattedSchema = createFormattedSchema(fields)
+const formattedSchema = createFormattedSchema(formSchema)
 
 provide('isPreviewOpen', isOpen)
 
