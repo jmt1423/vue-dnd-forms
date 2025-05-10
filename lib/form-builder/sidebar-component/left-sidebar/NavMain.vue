@@ -5,17 +5,17 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '../../ui/sidebar'
+} from '../../../ui/sidebar'
 import { inject, computed, ref } from 'vue'
-import { fieldProps } from '../utils/field-props'
-import { formElements } from '../utils/field-props'
-import { ScrollArea } from '../../ui/scroll-area'
+import { fieldProps } from '../../utils/field-props'
+import { formElements } from '../../utils/field-props'
+import { ScrollArea } from '../../../ui/scroll-area'
 
 const searchInput = inject('searchInput', ref(''))
 
 const filteredFormElements = computed(() => {
   if (!searchInput.value.trim()) {
-    return formElements // Return all elements if search is empty
+    return formElements // Return all elements if the search is empty
   }
 
   const query = searchInput.value.toLowerCase()

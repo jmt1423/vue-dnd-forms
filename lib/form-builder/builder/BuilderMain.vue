@@ -7,9 +7,9 @@ import { Button } from "../../ui/button"
 import { Separator } from '../../ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../../ui/sidebar'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui/tooltip"
-import AppSidebar from "../sidebar-component/AppSidebar.vue"
+import AppSidebar from "../sidebar-component/left-sidebar/AppSidebar.vue"
 import FormPreview from "./FormPreview.vue"
-import SidebarRightv2 from "../sidebar-component/SidebarRightv2.vue";
+import SidebarRight from "../sidebar-component/right-sidebar/SidebarRight.vue";
 import FormDropArea from "./FormDropArea.vue";
 
 const previewRef = ref<InstanceType<typeof FormPreview>>()
@@ -53,7 +53,7 @@ const previewRef = ref<InstanceType<typeof FormPreview>>()
       </header>
       <FormDropArea />
     </SidebarInset>
-      <SidebarRightv2 side="right"/>
+      <SidebarRight side="right"/>
     </SidebarProvider>
   </SidebarProvider>
 </template>

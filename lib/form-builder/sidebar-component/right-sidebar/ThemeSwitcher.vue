@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Button } from '../../ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../ui/dropdown-menu'
+import { Button } from '../../../ui/button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../ui/dropdown-menu'
 import { useColorMode } from '@vueuse/core'
 import { Sun, Moon } from 'lucide-vue-next'
 

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {
   SidebarFooter, SidebarHeader,
-} from '../../ui/sidebar'
-import type { SidebarProps } from '../../ui/sidebar';
+} from '../../../ui/sidebar'
+import type { SidebarProps } from '../../../ui/sidebar';
 import {
   Sidebar,
   SidebarContent,
-} from '../../ui/sidebar'
-import ThemeSwitcher from "../builder/ThemeSwitcher.vue";
-import FormEdit from "../builder/FormEdit.vue";
+} from '../../../ui/sidebar'
+import ThemeSwitcher from "./ThemeSwitcher.vue";
+import FormEditMain from "./form-edits/FormEditMain.vue";
 
 const props = withDefaults(defineProps<SidebarProps>(), {
   collapsible: 'offcanvas',
@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<SidebarProps>(), {
       <h2 class="text-xs md:text-sm font-medium text-foreground/90">Field Settings</h2>
     </SidebarHeader>
     <SidebarContent>
-      <FormEdit />
+      <FormEditMain />
     </SidebarContent>
     <SidebarFooter>
       <ThemeSwitcher />

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { SidebarProps } from '../../ui/sidebar'
+import type { SidebarProps } from '../../../ui/sidebar'
 import {provide, ref} from 'vue'
-import {SidebarInput} from "../../ui/sidebar";
+import {SidebarInput} from "../../../ui/sidebar";
 
 import NavMain from './NavMain.vue'
 import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
-} from '../../ui/sidebar'
+} from '../../../ui/sidebar'
 
 const props = withDefaults(defineProps<SidebarProps>(), {
   variant: 'floating',

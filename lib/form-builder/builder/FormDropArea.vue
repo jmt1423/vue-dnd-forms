@@ -4,7 +4,7 @@ import {ref, unref} from "vue";
 import {Button} from "../../ui/button";
 import {FormKitSchema} from "@formkit/vue";
 import {ChevronDown, ChevronUp, Trash2} from "lucide-vue-next";
-import {formElements, formSchema, selectedField} from "../utils/form-elements";
+import {formElements, formSchema, selectedIndex} from "../utils/form-elements";
 import {useDragAndDrop} from "@formkit/drag-and-drop/vue";
 import type {FormKitSchemaFormKit} from "@formkit/core";
 
@@ -16,7 +16,7 @@ const deleteField = (index: number) => {
 }
 
 const clickedField = (index: number) => {
-  selectedField.value = index
+  selectedIndex.value = index
 }
 
 const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>([], {
@@ -96,7 +96,7 @@ const moveField = (fromIndex: number, toIndex: number) => {
               <div
                   :class="[
                         'rounded transition-all duration-200 p-1',
-                        selectedField === index
+                        selectedIndex === index
                           ? 'border border-primary/50 bg-primary/5'
                           : 'border border-transparent hover:border-border/20 hover:bg-primary/10',
                       ]"

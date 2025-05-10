@@ -2,7 +2,6 @@ import type { Ref } from 'vue'
 import { computed } from 'vue'
 import type { FormKitSchemaFormKit } from '@formkit/core'
 import { formSchema } from './form-elements.ts'
-import { ref } from 'vue'
 import type { WritableComputedRef } from 'vue'
 
 export function useFormField(selectedField: Ref<FormKitSchemaFormKit | undefined>,
@@ -10,8 +9,6 @@ export function useFormField(selectedField: Ref<FormKitSchemaFormKit | undefined
                            fields?: Ref<FormKitSchemaFormKit[]>){
 
 
-  const required = ref<boolean>(false)
-  
   const label = computed({
     get: () => selectedField.value?.label || '',
     set: (newLabel: string) => {
@@ -48,21 +45,34 @@ export function useFormField(selectedField: Ref<FormKitSchemaFormKit | undefined
       }
     }
   })
-  
-  const handleChangeRequired = () => {
-    required.value = !required.value
 
-    if (formSchema.value.length > 0) {
-      const updatedSchema = [...formSchema.value]
-      updatedSchema[selectedIndex.value] = {
-        ...updatedSchema[selectedIndex.value],
-        validation: required.value ? 'required' : '',
-      }
-      formSchema.value = updatedSchema
-      if (fields) {
-        fields.value = updatedSchema
+  const validationString = computed({
+    get: () => selectedField.value?.validation || '',
+    set: (value: string) => {
+      if (formSchema.value.length > 0) {
+        const updatedSchema = [...formSchema.value]
+        updatedSchema[selectedIndex.value] = {
+          ...updatedSchema[selectedIndex.value],
+          validation: value,
+        }
+        formSchema.value = updatedSchema
+        if (fields) {
+          fields.value = updatedSchema
+        }
       }
     }
+  })
+
+  const updateValidationString = (value: string) => {
+    const currentValidation = validationString.value.split('|').filter(Boolean)
+    let newValidation: string[]
+
+    if(currentValidation.includes(value)) {
+      newValidation = currentValidation.filter((item: string) => item !== value)
+    } else {
+      newValidation = [...currentValidation, value]
+    }
+    validationString.value = newValidation.join('|')
   }
   
   const help = computed({
@@ -190,7 +200,7 @@ export function useFormField(selectedField: Ref<FormKitSchemaFormKit | undefined
   return {
     label,
     placeholder,
-    handleChangeRequired,
+    updateValidationString,
     help,
     whichNumber,
     numOfFiles,
