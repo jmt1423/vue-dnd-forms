@@ -8,18 +8,18 @@ import {
 } from '../../../ui/sidebar'
 import { inject, computed, ref } from 'vue'
 import { fieldProps } from '../../utils/field-props'
-import { formElements } from '../../utils/field-props'
+import { defaultFormElements } from '../../utils/field-props'
 import { ScrollArea } from '../../../ui/scroll-area'
 
 const searchInput = inject('searchInput', ref(''))
 
 const filteredFormElements = computed(() => {
   if (!searchInput.value.trim()) {
-    return formElements // Return all elements if the search is empty
+    return defaultFormElements // Return all elements if the search is empty
   }
 
   const query = searchInput.value.toLowerCase()
-  return formElements.filter(element =>
+  return defaultFormElements.filter(element =>
       element.name.toLowerCase().includes(query) ||
       element.description.toLowerCase().includes(query) ||
       element.$formkit.toLowerCase().includes(query)
@@ -37,7 +37,7 @@ const filteredFormElements = computed(() => {
             v-for="item in filteredFormElements"
             :key="item.name"
         >
-          <SidebarMenuItem>
+          <SidebarMenuItem :class="item.name.trim().replace(/\s+/g, '-').toLowerCase()">
               <SidebarMenuButton :tooltip="item.description" class="max-md:flex max-md:flex-col max-md:items-center max-md:justify-center">
                 <component :is="fieldProps.find((prop) => prop.name === item.$formkit)?.icon" class="max-md:mt-3" />
                 <div class="flex flex-col">

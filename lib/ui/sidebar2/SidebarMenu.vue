@@ -2,14 +2,14 @@
 import {type HTMLAttributes, provide} from 'vue'
 import { cn } from '../../lib/utils.ts'
 import { useDragAndDrop } from '@formkit/drag-and-drop/vue'
-import { formElements } from '../../form-builder/utils/form-elements.ts'
+import { defaultFormElements } from '../../form-builder/utils/default-form-elements.ts'
 import type { FormKitSchemaFormKit } from '@formkit/core'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
 }>()
 
-const [formEls, els] = useDragAndDrop(formElements, {
+const [formEls, els] = useDragAndDrop(defaultFormElements, {
   group: 'form-builder',
   nativeDrag: true,
   draggingClass: 'opacity-50',
@@ -20,7 +20,7 @@ const [formEls, els] = useDragAndDrop(formElements, {
       const targetValues = targetParent.data.getValues(targetParent.el) as FormKitSchemaFormKit[]
       const newValues = draggedNodes
           .map((node) => {
-            const originalElement = formElements.find(
+            const originalElement = defaultFormElements.find(
                 (el) => el.$formkit === node.data.value.$formkit,
             )
             if (!originalElement) return null

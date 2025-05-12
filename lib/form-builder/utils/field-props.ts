@@ -12,7 +12,7 @@ import {
   Pipette
 } from 'lucide-vue-next'
 
-export { formElements } from './form-elements'
+export { defaultFormElements } from './default-form-elements.ts'
 
 export type { FormKitSchemaFormKit } from '@formkit/core'
 

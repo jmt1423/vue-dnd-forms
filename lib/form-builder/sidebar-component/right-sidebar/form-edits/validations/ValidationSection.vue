@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {formSchema, selectedIndex} from "../../../../utils/form-elements";
+import {formSchema, selectedIndex} from "../../../../utils/default-form-elements.ts";
 import {Label} from "../../../../../ui/label";
 import {Checkbox} from "../../../../../ui/checkbox";
 import {computed} from "vue";

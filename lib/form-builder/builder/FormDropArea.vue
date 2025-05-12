@@ -4,7 +4,7 @@ import {ref, unref} from "vue";
 import {Button} from "../../ui/button";
 import {FormKitSchema} from "@formkit/vue";
 import {ChevronDown, ChevronUp, Trash2} from "lucide-vue-next";
-import {formElements, formSchema, selectedIndex} from "../utils/form-elements";
+import {defaultFormElements, formSchema, selectedIndex} from "../utils/default-form-elements.ts";
 import {useDragAndDrop} from "@formkit/drag-and-drop/vue";
 import type {FormKitSchemaFormKit} from "@formkit/core";
 
@@ -35,7 +35,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>([], {
     const newValues = draggedNodes
         .map((node) => {
           if (!node.data?.value) return null
-          const originalElement = formElements.find((el) => el.$formkit === node.data.value.$formkit)
+          const originalElement = defaultFormElements.find((el) => el.$formkit === node.data.value.$formkit)
           if (!originalElement) return null
           return JSON.parse(JSON.stringify(originalElement)) as FormKitSchemaFormKit
         })

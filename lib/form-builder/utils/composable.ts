@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import { computed } from 'vue'
 import type { FormKitSchemaFormKit } from '@formkit/core'
-import { formSchema } from './form-elements.ts'
+import { formSchema } from './default-form-elements.ts'
 import type { WritableComputedRef } from 'vue'
 
 export function useFormField(selectedField: Ref<FormKitSchemaFormKit | undefined>,
@@ -94,7 +94,7 @@ export function useFormField(selectedField: Ref<FormKitSchemaFormKit | undefined
     },
   })
 
-  const whichNumber = computed({
+  const whichNumber: WritableComputedRef<any, string> = computed({
     get: () => selectedField.value?.number || 'integer',
     set: (value: string) => {
       if (value === 'integer') {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import {formSchema, selectedIndex} from "../../../utils/form-elements";
+import {formSchema, selectedIndex} from "../../../utils/default-form-elements.ts";
 import FieldTypeHeader from "./FieldTypeHeader.vue";
 import UniversalEdits from "./edit-inputs/UniversalEdits.vue";
 import PlaceholderEdit from "./edit-inputs/PlaceholderEdit.vue";

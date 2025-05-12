@@ -17,11 +17,13 @@ const previewRef = ref<InstanceType<typeof FormPreview>>()
 
 <template>
   <SidebarProvider >
-    <AppSidebar />
+    <AppSidebar data-cy="sidebar-left"/>
     <SidebarTrigger class="max-md:hidden mt-4"/>
     <SidebarProvider>
     <SidebarInset>
-      <header class="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background/80 backdrop-blur-2xl">
+      <header
+          data-cy="builder-header"
+          class="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background/80 backdrop-blur-2xl">
         <div class="flex flex-1 items-center gap-2 px-3">
           <Separator orientation="vertical" class="mr-2 h-4" />
           <Breadcrumb>
@@ -38,7 +40,7 @@ const previewRef = ref<InstanceType<typeof FormPreview>>()
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Button variant="outline" size="icon" @click="previewRef?.open()" class="h-6 w-6 !p-3">
+                <Button data-cy="preview-button" variant="outline" size="icon" @click="previewRef?.open()" class="h-6 w-6 !p-3">
                   <Eye />
                 </Button>
               </TooltipTrigger>
@@ -48,12 +50,12 @@ const previewRef = ref<InstanceType<typeof FormPreview>>()
             </Tooltip>
           </TooltipProvider>
         </div>
-        <FormPreview ref="previewRef" />
+        <FormPreview ref="previewRef" data-cy="form-preview"/>
         <SidebarTrigger class="mr-1"/>
       </header>
-      <FormDropArea />
+      <FormDropArea data-cy="form-drop-area" />
     </SidebarInset>
-      <SidebarRight side="right"/>
+      <SidebarRight side="right" data-cy="sidebar-right"/>
     </SidebarProvider>
   </SidebarProvider>
 </template>

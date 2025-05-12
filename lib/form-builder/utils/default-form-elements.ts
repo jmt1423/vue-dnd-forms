@@ -4,7 +4,7 @@ import { ref } from 'vue'
 export const formSchema = ref<FormKitSchemaFormKit[]>([])
 export const selectedIndex = ref(0)
 
-export const formElements: FormKitSchemaFormKit[] = [
+export const defaultFormElements: FormKitSchemaFormKit[] = [
   {
     $formkit: 'text',
     name: 'Text',

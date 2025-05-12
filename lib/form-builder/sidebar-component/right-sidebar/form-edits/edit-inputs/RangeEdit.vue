@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useFormField} from "../../../../utils/composable";
-import {formSchema, selectedIndex} from "../../../../utils/form-elements";
+import {formSchema, selectedIndex} from "../../../../utils/default-form-elements.ts";
 import {Input} from "../../../../../ui/input";
 import {MoveRight} from "lucide-vue-next";
 import FormFieldLayout from "./FormFieldLayout.vue";

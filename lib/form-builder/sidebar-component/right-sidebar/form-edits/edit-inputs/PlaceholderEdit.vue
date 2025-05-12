@@ -3,7 +3,7 @@ import {useFormField} from "../../../../utils/composable";
 import {Label} from "../../../../../ui/label";
 import {Input} from "../../../../../ui/input";
 import FormFieldLayout from "./FormFieldLayout.vue";
-import {selectedIndex, formSchema} from "../../../../utils/form-elements";
+import {selectedIndex, formSchema} from "../../../../utils/default-form-elements.ts";
 import {computed} from "vue";
 
 const selectedField = computed(() => formSchema.value[selectedIndex.value])

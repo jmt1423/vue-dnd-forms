@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useFormField} from "../../../../utils/composable";
-import {formSchema, selectedIndex} from "../../../../utils/form-elements";
+import {formSchema, selectedIndex} from "../../../../utils/default-form-elements";
 import {Label} from "../../../../../ui/label";
 import {Checkbox} from "../../../../../ui/checkbox";
 import ValidationLayout from "./ValidationLayout.vue";

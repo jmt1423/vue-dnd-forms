@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Label} from "../../../../../ui/label";
 import {Input} from "../../../../../ui/input";
-import {formSchema, selectedIndex} from "../../../../utils/form-elements";
+import {formSchema, selectedIndex} from "../../../../utils/default-form-elements.ts";
 import {computed} from "vue";
 import {useFormField} from "../../../../utils/composable";
 import FormFieldLayout from "./FormFieldLayout.vue";

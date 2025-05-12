@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import {provide, ref} from 'vue'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,} from '../../ui/dialog'
-import {formSchema} from "../utils/form-elements";
+import {formSchema} from "../utils/default-form-elements.ts";
 import createFormattedSchema from '../utils/format-schema'
 
 const isOpen = ref(false)

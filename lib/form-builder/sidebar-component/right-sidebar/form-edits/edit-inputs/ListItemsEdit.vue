@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useFormField} from "../../../../utils/composable.ts";
-import {formSchema, selectedIndex} from "../../../../utils/form-elements.ts";
+import {formSchema, selectedIndex} from "../../../../utils/default-form-elements.ts";
 import {
   TagsInput,
   TagsInputInput,
