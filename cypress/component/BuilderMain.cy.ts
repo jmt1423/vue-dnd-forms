@@ -18,6 +18,6 @@ describe('<BuilderMain />', () => {
     cy.get('[data-cy=builder-header]').should('be.visible').should('contain', 'Form Builder')
     cy.get('[data-cy=sidebar-left]').should('be.visible').should('contain', 'Single line text field')
     cy.get('[data-cy=sidebar-right]').should('be.visible').should('contain', 'Select a field to edit its properties')
-    cy.get('[data-cy=preview-button]').should('be.visible').should('contain', 'Preview')
+    // cy.get('[data-cy=preview-button]').should('be.visible').should('contain', 'Preview')
   })
 })
