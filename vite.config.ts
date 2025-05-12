@@ -12,6 +12,10 @@ export default defineConfig({
     },
   },
   test: {
-    dir: './tests/unit',
+    coverage: {
+      enabled: true,
+      provider: 'v8',
+      include: ['lib/**/*.{ts,tsx}', "lib/**/*.vue"],
+    }
   }
 })
