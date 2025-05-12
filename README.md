@@ -1,3 +1,5 @@
+[![Component tests](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/component-test-runner.yml/badge.svg)](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/component-test-runner.yml)[![Cypress E2E Tests](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/e2e-test-runner.yml/badge.svg)](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/e2e-test-runner.yml)[![Unit tests](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/unit-test-runner.yml/badge.svg)](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/unit-test-runner.yml)
+
 # Vue DnD Forms
 
 A powerful and customizable form builder built with Vue 3, FormKit, FormKit DnD, Shadcn-Vue, and Tailwind CSS v4. This drag-and-drop form builder allows you to create complex forms with a user-friendly interface.
