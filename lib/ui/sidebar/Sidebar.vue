@@ -7,6 +7,8 @@ import SheetHeader from '../sheet/SheetHeader.vue'
 import SheetTitle from '../sheet/SheetTitle.vue'
 import SheetDescription from '../sheet/SheetDescription.vue'
 
+const { state, isMobile, setOpenMobile, openMobile } = useSidebar()
+
 defineOptions({
   inheritAttrs: false,
 })
@@ -16,8 +18,6 @@ const props = withDefaults(defineProps<SidebarProps>(), {
   variant: 'sidebar',
   collapsible: 'offcanvas',
 })
-
-const { state, isMobile, setOpenMobile, openMobile } = useSidebar()
 </script>
 
 <template>
@@ -34,7 +34,6 @@ const { state, isMobile, setOpenMobile, openMobile } = useSidebar()
     <slot />
   </div>
 
-  <!-- Sheet for the right sidebar when using offcanvas -->
   <Sheet
     v-else-if="side === 'right' && collapsible === 'offcanvas' && isMobile"
     :open="openMobile"
@@ -65,7 +64,6 @@ const { state, isMobile, setOpenMobile, openMobile } = useSidebar()
       :data-variant="variant"
       :data-side="side"
   >
-    <!-- This is what handles the sidebar gap on desktop -->
     <div
         :class="cn(
         'relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-in-out',
@@ -74,26 +72,18 @@ const { state, isMobile, setOpenMobile, openMobile } = useSidebar()
         variant === 'floating' || variant === 'inset'
           ? 'group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
           : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
-        'max-md:!w-(--sidebar-width-icon)',
       )"
     />
     <div
         :class="cn(
         'fixed inset-y-0 z-10 flex h-svh transition-[width] duration-200 ease-in-out',
-        // Width handling for desktop
         'w-(--sidebar-width)',
-        // Always icon width on mobile
-        'max-md:!w-(--sidebar-width-icon) max-md:data-[sidebar-collapsed=true]',
-        // Positioning
         side === 'left'
           ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
           : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
-        // Adjust the padding for floating and inset variants
         variant === 'floating' || variant === 'inset'
           ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
           : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l',
-        // Hide the standard right sidebar when using Sheet for offcanvas
-        // (side === 'right' && collapsible === 'offcanvas' && !isMobile) ? 'hidden' : '',
         props.class,
       )"
         v-bind="$attrs"
@@ -101,7 +91,7 @@ const { state, isMobile, setOpenMobile, openMobile } = useSidebar()
       <div
           data-sidebar="sidebar"
           :class="cn(
-          'bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:drop-shadow-lg group-data-[variant=floating]:drop-shadow-black/20',
+          'bg-sidebar flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:drop-shadow-lg group-data-[variant=floating]:drop-shadow-black/20',
           'max-md:items-center max-md:w-[3rem]'
         )"
       >

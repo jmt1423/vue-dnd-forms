@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { SidebarProps } from '../../../ui/sidebar'
-import {provide, ref} from 'vue'
 import {SidebarInput} from "../../../ui/sidebar";
+import { provide, ref } from 'vue'
 
 import NavMain from './NavMain.vue'
 import {

@@ -2,7 +2,7 @@
 import { cn } from '../../lib/utils.ts'
 import { useEventListener, useMediaQuery, useVModel } from '@vueuse/core'
 import { TooltipProvider } from 'reka-ui'
-import {computed, type HTMLAttributes, type Ref, ref } from 'vue'
+import {computed, type HTMLAttributes, type Ref, ref, watch} from 'vue'
 import { provideSidebarContext, SIDEBAR_COOKIE_MAX_AGE, SIDEBAR_COOKIE_NAME, SIDEBAR_KEYBOARD_SHORTCUT, SIDEBAR_WIDTH, SIDEBAR_WIDTH_ICON } from './utils'
 
 const props = withDefaults(defineProps<{
@@ -14,12 +14,22 @@ const props = withDefaults(defineProps<{
   open: undefined,
 })
 
+const getSavedState = () => {
+  const cookieValue = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith(`${SIDEBAR_COOKIE_NAME}=`))
+      ?.split("=")[1];
+
+  return cookieValue === "true";
+}
+
 const emits = defineEmits<{
   'update:open': [open: boolean]
 }>()
 
 const isMobile = useMediaQuery('(max-width: 769px)')
 const openMobile = ref(false)
+const lastDesktopState = ref(getSavedState())
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen ?? false,
@@ -48,6 +58,17 @@ useEventListener('keydown', (event: KeyboardEvent) => {
     toggleSidebar()
   }
 })
+
+watch(isMobile, (mobile, oldMobile) => {
+  if (mobile) {
+    if (!oldMobile) {
+      lastDesktopState.value = open.value
+    }
+    setOpen(false)
+  } else {
+    setOpen(lastDesktopState.value)
+  }
+}, { immediate: false })
 
 // We add a state so that we can do data-state="expanded" or "collapsed".
 // This makes it easier to style the sidebar with Tailwind classes.
