@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { cn } from '../../lib/utils.ts'
 import { useEventListener, useMediaQuery, useVModel } from '@vueuse/core'
+import { onMounted } from 'vue'
 import { TooltipProvider } from 'reka-ui'
 import {computed, type HTMLAttributes, type Ref, ref, watch} from 'vue'
 import { provideSidebarContext, SIDEBAR_COOKIE_MAX_AGE, SIDEBAR_COOKIE_NAME, SIDEBAR_KEYBOARD_SHORTCUT, SIDEBAR_WIDTH, SIDEBAR_WIDTH_ICON } from './utils'
@@ -14,22 +15,24 @@ const props = withDefaults(defineProps<{
   open: undefined,
 })
 
-const getSavedState = () => {
-  const cookieValue = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith(`${SIDEBAR_COOKIE_NAME}=`))
-      ?.split("=")[1];
-
-  return cookieValue === "true";
-}
-
 const emits = defineEmits<{
   'update:open': [open: boolean]
 }>()
 
+onMounted(() => {
+  loadedOnMobile.value = isMobile.value
+  initialLoadComplete.value = true
+})
+
 const isMobile = useMediaQuery('(max-width: 769px)')
 const openMobile = ref(false)
-const lastDesktopState = ref(getSavedState())
+const lastDesktopState = ref(
+    document.cookie
+        .split(';')
+        .find((row) => row.startsWith(`${SIDEBAR_COOKIE_NAME}=`))?.split('=')[1] === 'true')
+const initialLoadComplete = ref(false)
+const loadedOnMobile = ref(false)
+const hasExpandedFromMobile = ref(false)
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen ?? false,
@@ -66,7 +69,13 @@ watch(isMobile, (mobile, oldMobile) => {
     }
     setOpen(false)
   } else {
-    setOpen(lastDesktopState.value)
+    if (initialLoadComplete.value && loadedOnMobile.value && !hasExpandedFromMobile.value) {
+      setOpen(true)
+      hasExpandedFromMobile.value = true
+    } else {
+      setOpen(lastDesktopState.value)
+    }
+
   }
 }, { immediate: false })
 
