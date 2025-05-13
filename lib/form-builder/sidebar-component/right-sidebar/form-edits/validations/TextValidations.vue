@@ -9,7 +9,8 @@ import {computed} from "vue";
 const selectedField = computed(() => formSchema.value[selectedIndex.value])
 
 const {
-  updateValidationString
+  updateValidationString,
+  isValidationChecked
 } = useFormField(selectedField, selectedIndex, formSchema)
 </script>
 
@@ -17,6 +18,7 @@ const {
   <ValidationLayout>
     <Checkbox
         @update:model-value="updateValidationString('alphanumeric')"
+        :model-value="isValidationChecked('alphanumeric')"
         id="isAlphanumeric"
         class="h-4 w-4 rounded border-border text-primary focus:ring-1 focus:ring-ring"
     />
@@ -27,6 +29,7 @@ const {
   <ValidationLayout>
     <Checkbox
         @update:model-value="updateValidationString('alpha_spaces')"
+        :model-value="isValidationChecked('alpha_spaces')"
         id="isAlphaSpaces"
         class="h-4 w-4 rounded border-border text-primary focus:ring-1 focus:ring-ring"
     />
@@ -37,6 +40,7 @@ const {
   <ValidationLayout>
     <Checkbox
         @update:model-value="updateValidationString('contains_alpha')"
+        :model-value="isValidationChecked('contains_alpha')"
         id="hasAlpha"
         class="h-4 w-4 rounded border-border text-primary focus:ring-1 focus:ring-ring"
     />
@@ -47,6 +51,7 @@ const {
   <ValidationLayout>
     <Checkbox
         @update:model-value="updateValidationString('lowercase')"
+        :model-value="isValidationChecked('lowercase')"
         id="isLowercase"
         class="h-4 w-4 rounded border-border text-primary focus:ring-1 focus:ring-ring"
     />
@@ -57,6 +62,7 @@ const {
   <ValidationLayout>
     <Checkbox
         @update:model-value="updateValidationString('uppercase')"
+        :model-value="isValidationChecked('uppercase')"
         id="isUppercase"
         class="h-4 w-4 rounded border-border text-primary focus:ring-1 focus:ring-ring"
     />
@@ -65,7 +71,3 @@ const {
     >
   </ValidationLayout>
 </template>
-
-<style scoped>
-
-</style>

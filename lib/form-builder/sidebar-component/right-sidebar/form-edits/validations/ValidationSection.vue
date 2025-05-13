@@ -8,22 +8,19 @@ import ValidationLayout from "./ValidationLayout.vue";
 import TextValidations from "./TextValidations.vue";
 
 const selectedField = computed(() => formSchema.value[selectedIndex.value])
-const hasField = computed(() => !!formSchema.value[selectedIndex.value])
 const {
-  updateValidationString
+  updateValidationString,
+  isValidationChecked,
+  showTextValidation
 } = useFormField(selectedField, selectedIndex, formSchema)
 
-const showTextValidation = computed(() => {
-  if(!hasField.value) return false
-  const excludedFields = ['text', 'textarea', 'password']
-  return excludedFields.includes(formSchema.value[selectedIndex.value].$formkit)
-})
 </script>
 
 <template>
   <ValidationLayout>
       <Checkbox
           @update:model-value="updateValidationString('required')"
+          :model-value="isValidationChecked('required')"
           id="isRequired"
           class="h-4 w-4 rounded border-border text-primary focus:ring-1 focus:ring-ring"
       />

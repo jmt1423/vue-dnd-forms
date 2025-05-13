@@ -1,8 +1,8 @@
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import { ref, computed } from 'vue'
-import { useFormField } from "../../lib/form-builder/utils/composable.ts"
-import * as formElementsModule from "../../lib/form-builder/utils/default-form-elements.ts"
-import createFormattedSchema from "../../lib/form-builder/utils/format-schema.ts";
+import { useFormField } from "../../lib/form-builder/utils/composable"
+import * as formElementsModule from "../../lib/form-builder/utils/default-form-elements"
+import createFormattedSchema from "../../lib/form-builder/utils/format-schema";
 
 describe('useFormField composable functions test suite', () => {
   afterEach(() => {
@@ -130,6 +130,82 @@ describe('useFormField composable functions test suite', () => {
 
     updateValidationString('required')
     expect(mockSchema.value[selectedIndex.value].validation).not.toContain('required')
+  })
+})
+
+describe('tests for showing and hiding validation inputs', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+  const mockSchema = ref([
+    {
+      $formkit: 'text',
+      label: 'initial',
+    }
+  ])
+  const selectedIndex = ref(0)
+  const fields = mockSchema
+  const selectedField = computed(() => mockSchema.value[selectedIndex.value])
+
+  it('should return true for text field types', () => {
+    vi.spyOn(formElementsModule, 'formSchema', 'get').mockReturnValue(mockSchema)
+    const { showTextValidation } = useFormField(selectedField, selectedIndex, fields)
+    expect(showTextValidation.value).toBe(true)
+
+  })
+  it('should return true for text area field types', () => {
+    vi.spyOn(formElementsModule, 'formSchema', 'get').mockReturnValue(mockSchema)
+    mockSchema.value[selectedIndex.value].$formkit = 'textarea'
+    const { showTextValidation } = useFormField(selectedField, selectedIndex, fields)
+    expect(showTextValidation.value).toBe(true)
+  })
+  it('should return true for password fields', () => {
+    vi.spyOn(formElementsModule, 'formSchema', 'get').mockReturnValue(mockSchema)
+    mockSchema.value[selectedIndex.value].$formkit = 'password'
+    const { showTextValidation } = useFormField(selectedField, selectedIndex, fields)
+    expect(showTextValidation.value).toBe(true)
+  })
+  it('should return false for all other field types', () => {
+    vi.spyOn(formElementsModule, 'formSchema', 'get').mockReturnValue(mockSchema)
+    mockSchema.value[selectedIndex.value].$formkit = 'number'
+    const { showTextValidation } = useFormField(selectedField, selectedIndex, fields)
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'email'
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'url'
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'checkbox'
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'color'
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'date'
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'time'
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'datetime-local'
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'file'
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'radio'
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'select'
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'telephone'
+    expect(showTextValidation.value).toBe(false)
+
+    mockSchema.value[selectedIndex.value].$formkit = 'range'
+    expect(showTextValidation.value).toBe(false)
   })
 })
 
