@@ -40,7 +40,7 @@ provide("formEls", els)
         data-slot="sidebar-menu"
         ref="formEls"
         data-sidebar="menu"
-        :class="cn('flex w-full min-w-0 flex-col gap-4', props.class)"
+        :class="cn('flex w-full min-w-0 flex-col gap-4 h-full', props.class)"
     >
       <slot />
     </ul>

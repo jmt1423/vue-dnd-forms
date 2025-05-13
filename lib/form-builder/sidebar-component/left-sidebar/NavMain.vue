@@ -39,10 +39,12 @@ const filteredFormElements = computed(() => {
         >
           <SidebarMenuItem :class="item.name.trim().replace(/\s+/g, '-').toLowerCase()">
               <SidebarMenuButton :tooltip="item.description" class="max-md:flex max-md:flex-col max-md:items-center max-md:justify-center">
-                <component :is="fieldProps.find((prop) => prop.name === item.$formkit)?.icon" class="max-md:mt-3" />
-                <div class="flex flex-col">
-                  <span class="max-md:hidden !text-[11px] text-secondary-foreground/80" style="font-weight: bold">{{ item.name }}</span>
-                  <span class="max-md:hidden  !text-[9px] text-muted-foreground">{{item.description}}</span>
+                <div class="w-full h-full flex flex-row items-center gap-3 p-3">
+                  <component :is="fieldProps.find((prop) => prop.name === item.$formkit)?.icon" class="w-4 h-4" />
+                  <div class="flex flex-col">
+                    <span class="max-md:hidden !text-[11px] text-secondary-foreground/80" style="font-weight: bold">{{ item.name }}</span>
+                    <span class="max-md:hidden  !text-[9px] text-muted-foreground">{{item.description}}</span>
+                  </div>
                 </div>
               </SidebarMenuButton>
           </SidebarMenuItem>
