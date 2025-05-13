@@ -66,7 +66,7 @@ const moveField = (fromIndex: number, toIndex: number) => {
 <template>
   <div class="flex flex-1 flex-col ">
     <div class="mx-auto min-h-[70%] p-4 h-fit min-w-fit w-[90%] md:w-[90%] lg:w-[70%] rounded-xl bg-primary/10 dark:bg-zinc-800 shadow-xl">
-      <div ref="formFields" class="h-full form-drop-area-2">
+      <div ref="formFields" class="h-full">
         <div v-for="(field, index) in formSchema" :key="field.$formkit" class="!mb-1">
           <div class="flex items-center gap-1.5">
             <div class="flex flex-col gap-1">
