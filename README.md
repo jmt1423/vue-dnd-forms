@@ -1,6 +1,6 @@
 ![cypress](https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e) ![Vitest](https://img.shields.io/badge/-Vitest-252529?style=for-the-badge&logo=vitest&logoColor=FCC72B) ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-[![CI Tests](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/CI-tests.yml/badge.svg)](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/CI-tests.yml)
+[![CI Tests](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/CI-tests.yml/badge.svg?branch=master)](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/CI-tests.yml)
 
 # Vue DnD Forms
 
