@@ -14,7 +14,10 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
-        
+
+    container:
+      image: mcr.microsoft.com/playwright:v1.52.0-noble
+
     steps:
     - uses: actions/checkout@v4
     
@@ -26,9 +29,6 @@ jobs:
         
     - name: Install dependencies
       run: npm ci
-      
-    - name: Install Playwright Browsers (once)
-      run: npx playwright install --with-deps
       
     - name: Run Vitest tests
       run: npm test
