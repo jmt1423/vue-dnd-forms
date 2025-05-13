@@ -30,8 +30,6 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>([], {
     if (targetParent === currentParent) {
       return
     }
-
-    // const targetValues = targetParent.data.getValues(targetParent.el) as FormKitSchemaFormKit[]
     const newValues = draggedNodes
         .map((node) => {
           if (!node.data?.value) return null
@@ -42,9 +40,8 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>([], {
         .filter((el): el is FormKitSchemaFormKit => el !== null)
 
     if (newValues.length > 0) {
-      // const updatedValues = [...targetValues, ...newValues]
-      // targetParent.data.setValues(updatedValues, targetParent.el)
       formSchema.value = [...formSchema.value, ...newValues]
+      selectedIndex.value = formSchema.value.length - 1
     }
   },
   handleNodeDrop: (data) => {

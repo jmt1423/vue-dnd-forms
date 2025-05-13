@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import { computed } from 'vue'
 import type { FormKitSchemaFormKit } from '@formkit/core'
-import { formSchema } from './default-form-elements.ts'
+import {formSchema} from './default-form-elements.ts'
 import type { WritableComputedRef } from 'vue'
 
 export function useFormField(selectedField: Ref<FormKitSchemaFormKit | undefined>,
@@ -197,6 +197,19 @@ export function useFormField(selectedField: Ref<FormKitSchemaFormKit | undefined
     },
   })
 
+  const isValidationChecked = (validationType: string) => {
+    const hasField = computed(() => !!formSchema.value[selectedIndex.value])
+    if (!hasField.value) return false
+    return selectedField?.value?.validation?.includes(validationType) || false
+  }
+
+  const showTextValidation = computed(() => {
+    const hasField = computed(() => !!formSchema.value[selectedIndex.value])
+    if(!hasField.value) return false
+    const excludedFields = ['text', 'textarea', 'password']
+    return excludedFields.includes(formSchema.value[selectedIndex.value].$formkit)
+  })
+
   return {
     label,
     placeholder,
@@ -207,5 +220,7 @@ export function useFormField(selectedField: Ref<FormKitSchemaFormKit | undefined
     modelValue,
     min,
     max,
+    isValidationChecked,
+    showTextValidation
   }
 }

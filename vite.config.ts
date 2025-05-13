@@ -13,7 +13,7 @@ export default defineConfig({
   },
   test: {
     coverage: {
-      enabled: true,
+      enabled: false,
       provider: 'v8',
       include: ['lib/**/*.{ts,tsx}', "lib/**/*.vue"],
     }
