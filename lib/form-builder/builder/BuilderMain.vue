@@ -17,7 +17,7 @@ const previewRef = ref<InstanceType<typeof FormPreview>>()
 
 <template>
   <SidebarProvider >
-    <AppSidebar data-cy="sidebar-left"/>
+    <AppSidebar />
     <SidebarTrigger class="max-md:hidden mt-4"/>
     <SidebarProvider>
     <SidebarInset>
@@ -40,7 +40,7 @@ const previewRef = ref<InstanceType<typeof FormPreview>>()
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Button data-cy="preview-button" variant="outline" size="icon" @click="previewRef?.open()" class="h-6 w-6 !p-3">
+                <Button variant="outline" size="icon" @click="previewRef?.open()" class="h-6 w-6 !p-3">
                   <Eye />
                 </Button>
               </TooltipTrigger>
@@ -53,9 +53,9 @@ const previewRef = ref<InstanceType<typeof FormPreview>>()
         <FormPreview ref="previewRef" data-cy="form-preview"/>
         <SidebarTrigger class="mr-1"/>
       </header>
-      <FormDropArea data-cy="form-drop-area" />
+      <FormDropArea />
     </SidebarInset>
-      <SidebarRight side="right" data-cy="sidebar-right"/>
+      <SidebarRight side="right" />
     </SidebarProvider>
   </SidebarProvider>
 </template>

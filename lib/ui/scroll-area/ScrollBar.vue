@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '../../lib/utils'
+import { cn } from '../../form-builder/utils/utils.ts'
 import { ScrollAreaScrollbar, type ScrollAreaScrollbarProps, ScrollAreaThumb } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
 

@@ -1,47 +1,46 @@
 <script setup lang="ts">
-import {type HTMLAttributes, provide} from 'vue'
-import { cn } from '../../lib/utils.ts'
-import { useDragAndDrop } from '@formkit/drag-and-drop/vue'
-import { defaultFormElements } from '../../form-builder/utils/default-form-elements.ts'
-import type { FormKitSchemaFormKit } from '@formkit/core'
+import { type HTMLAttributes, provide } from "vue";
+import { cn } from "../../form-builder/utils/utils.ts";
+import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
+import { defaultFormElements } from "../../form-builder/utils/default-form-elements.ts";
 
 const props = defineProps<{
-  class?: HTMLAttributes['class']
-}>()
+  class?: HTMLAttributes["class"];
+}>();
+
+function generateKey() {
+  return Date.now().toString(36) + Math.random().toString(36).substring(2);
+}
 
 const [formEls, els] = useDragAndDrop(defaultFormElements, {
-  group: 'form-builder',
+  group: "form-builder",
   nativeDrag: true,
-  draggingClass: 'opacity-50',
+  draggingClass: "opacity-50",
   sortable: false,
   accepts: () => false,
-  performTransfer: ({ currentParent, targetParent, draggedNodes }) => {
-    if (targetParent !== currentParent) {
-      const targetValues = targetParent.data.getValues(targetParent.el) as FormKitSchemaFormKit[]
-      const newValues = draggedNodes
-          .map((node) => {
-            const originalElement = defaultFormElements.find(
-                (el) => el.$formkit === node.data.value.$formkit,
-            )
-            if (!originalElement) return null
-            return { ...originalElement } as FormKitSchemaFormKit
-          })
-          .filter((el): el is FormKitSchemaFormKit => el !== null)
-      targetParent.data.setValues([...targetValues, ...newValues], targetParent.el)
-    }
+  onDragstart: ({draggedNodes}) => {
+    draggedNodes.forEach((node) => {
+      if (node.data?.value) {
+        const newKey = generateKey();
+        node.data.value = {
+          ...node.data.value,
+          __key: newKey,
+        };
+      }
+    });
   },
-})
+});
 
-provide("formEls", els)
+provide("formEls", els);
 </script>
 
 <template>
-    <ul
-        data-slot="sidebar-menu"
-        ref="formEls"
-        data-sidebar="menu"
-        :class="cn('flex w-full min-w-0 flex-col gap-4 h-full', props.class)"
-    >
-      <slot />
-    </ul>
+  <ul
+    data-slot="sidebar-menu"
+    ref="formEls"
+    data-sidebar="menu"
+    :class="cn('flex w-full min-w-0 flex-col gap-4 h-full', props.class)"
+  >
+    <slot />
+  </ul>
 </template>

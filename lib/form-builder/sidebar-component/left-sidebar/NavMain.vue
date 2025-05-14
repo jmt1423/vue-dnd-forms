@@ -11,7 +11,7 @@ import { fieldProps } from '../../utils/field-props'
 import { defaultFormElements } from '../../utils/field-props'
 import { ScrollArea } from '../../../ui/scroll-area'
 import { useSidebar } from '../../../ui/sidebar'
-import { cn } from '../../../lib/utils'
+import { cn } from '../../utils/utils.ts'
 
 const { state } = useSidebar()
 
@@ -30,6 +30,8 @@ const filteredFormElements = computed(() => {
   )
 })
 
+
+
 </script>
 
 <template>
@@ -42,26 +44,27 @@ const filteredFormElements = computed(() => {
             :key="item.name"
         >
           <SidebarMenuItem :class="item.name.trim().replace(/\s+/g, '-').toLowerCase()">
-            <SidebarMenuButton
-                :tooltip="state === 'collapsed' ? item.description : ''"
-                class="relative flex items-center p-0"
-            >
-              <div :class="cn('flex flex-row w-full h-fit items-center', state === 'collapsed' ? '' : 'p-2')">
-                <component
-                    :is="fieldProps.find((prop) => prop.name === item.$formkit)?.icon"
-                    class="h-4 w-4 shrink-0"
-                />
-                <div
-                    class="ml-3 flex flex-col justify-center overflow-hidden max-md:hidden"
-                    v-show="state !== 'collapsed'"
-                >
-                  <span class="!text-[11px] text-secondary-foreground/80 font-medium">{{ item.name }}</span>
-                  <span class="!text-[9px] text-muted-foreground truncate">{{ item.description }}</span>
+              <SidebarMenuButton
+                  :tooltip="state === 'collapsed' ? item.description : ''"
+                  class="relative flex items-center p-0 overflow-visible"
+              >
+                <div :class="cn('flex flex-row w-full h-fit items-center', state === 'collapsed' ? '' : 'p-2')">
+                  <component
+                      :is="fieldProps.find((prop) => prop.name === item.$formkit)?.icon"
+                      class="h-4 w-4 shrink-0"
+                  />
+                  <div
+                      class="ml-3 flex flex-col justify-center overflow-hidden max-md:hidden"
+                      v-show="state !== 'collapsed'"
+                  >
+                    <span class="!text-[11px] text-secondary-foreground/80 font-medium">{{ item.name }}</span>
+                    <span class="!text-[9px] text-muted-foreground truncate">{{ item.description }}</span>
+                  </div>
                 </div>
-              </div>
-
-            </SidebarMenuButton>
+              </SidebarMenuButton>
           </SidebarMenuItem>
+
+
 
         </div>
       </SidebarMenu>

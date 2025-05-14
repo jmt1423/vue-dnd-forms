@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SidebarProps } from './index'
-import { cn } from '../../lib/utils'
+import { cn } from '../../form-builder/utils/utils.ts'
 import { useSidebar } from './utils'
 import { Sheet, SheetContent } from '../sheet'
 import SheetHeader from '../sheet/SheetHeader.vue'
