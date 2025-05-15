@@ -18,7 +18,7 @@ const [formEls, els] = useDragAndDrop(defaultFormElements, {
   draggingClass: "opacity-50",
   sortable: false,
   accepts: () => false,
-  onDragstart: ({draggedNodes}) => {
+  onDragstart: ({ draggedNodes }) => {
     draggedNodes.forEach((node) => {
       if (node.data?.value) {
         const newKey = generateKey();

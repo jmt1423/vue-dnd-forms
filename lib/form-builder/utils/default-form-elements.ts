@@ -13,7 +13,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     placeholder: 'Enter your name',
     help: 'This is help text',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Single line text field',
   },
   {
@@ -24,7 +24,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     placeholder: 'Enter your address',
     help: 'This is help text',
     validation: '', // TODO: add in ability to change max and min characters
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Multi-line text field',
   },
   {
@@ -35,7 +35,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     placeholder: 'Enter your email',
     help: 'This is help text',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Email field input',
   },
   {
@@ -47,7 +47,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     number: 'integer',
     help: 'This is help text',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Single number input',
   },
   {
@@ -58,7 +58,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     name: 'URL',
     id: 'url_field',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'URL field input',
   },
   {
@@ -69,7 +69,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     options: ['One'],
     id: 'checkbox_field',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Multiple choice checkbox',
   },
   {
@@ -80,7 +80,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     name: 'Color',
     id: 'color_field',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Color picker',
   },
   {
@@ -90,7 +90,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     name: 'Date',
     id: 'date_field',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Date input picker'
   },
   {
@@ -100,7 +100,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     name: 'Time',
     id: 'time_field',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Time input picker'
   },
   {
@@ -110,7 +110,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     name: 'Date-Time',
     id: 'datetime_local_field',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Date and time input'
   },
   {
@@ -121,7 +121,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     id: 'file_field',
     validation: '',
     multiple: false,
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'One or more file uploads'
   },
   {
@@ -132,7 +132,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     name: 'Password',
     id: 'password_field',
     validation: '', // TODO: Add validation confirmation
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Password masked field'
   },
   {
@@ -143,7 +143,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     name: 'Radio',
     id: 'radio_field',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Single choice select'
   },
   {
@@ -167,7 +167,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     min: 0,
     max: 10,
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Slider field input'
   },
   {
@@ -177,7 +177,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     name: 'Dropdown Select',
     id: 'select_field',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     options: ['one'],
     description: 'Selection dropdown'
   },
@@ -189,7 +189,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     name: 'Telephone Number',
     id: 'tel_field',
     validation: '',
-    validationVisibility: 'blur',
+    validationVisibility: 'live',
     description: 'Telephone input field'
   },
 ]

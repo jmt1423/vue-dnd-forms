@@ -2,14 +2,11 @@
 import { Button } from "../../ui/button";
 import { FormKitSchema } from "@formkit/vue";
 import { Trash2 } from "lucide-vue-next";
-import {
-  formSchema,
-  selectedIndex,
-} from "../utils/default-form-elements.ts";
+import { insert } from "../utils/insert.ts";
+import { formSchema, selectedIndex } from "../utils/default-form-elements.ts";
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
 import type { FormKitSchemaFormKit } from "@formkit/core";
-import { eq } from '../utils/utils.ts'
-import {remapNodes} from "@formkit/drag-and-drop";
+import { ref } from "vue";
 
 const deleteField = (index: number) => {
   formSchema.value = formSchema.value.filter(
@@ -22,33 +19,58 @@ const clickedField = (index: number) => {
   selectedIndex.value = index;
 };
 
-const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>([], {
-  group: "form-builder",
-  nativeDrag: true,
-  draggingClass: "opacity-50 shadow-lg shadow-cyan-500 rounded-md",
-  sortable: true,
-  accepts: () => true,
-  draggable: (node: any) => {
-    // Only consider <li> elements that contain form fields as draggable
-    return node.tagName === "LI" && node.classList.contains('!cursor-grab');
+const initialFields = ref<FormKitSchemaFormKit[]>([]);
+
+const insertPointClasses = [
+  "absolute",
+  "bg-green-500",
+  "z-[1000]",
+  "rounded-full",
+  "duration-[5ms]",
+  "before:block",
+  'before:content-["Drop_here"]', // More professional text
+  "before:whitespace-nowrap",
+  "before:bg-green-500",
+  "before:py-1.5", // Slightly more padding
+  "before:px-3", // Slightly more padding
+  "before:rounded-md", // More modern look
+  "before:text-xs",
+  "before:font-medium", // Better readability
+  "before:absolute",
+  "before:top-1/2",
+  "before:left-1/2",
+  "before:-translate-y-1/2",
+  "before:-translate-x-1/2",
+  "before:text-white",
+  "before:shadow-sm", // Subtle shadow
+  "before:transition-all",
+  "before:border",
+  "before:border-green-400/20",
+];
+
+const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
+  initialFields.value,
+  {
+    group: "form-builder",
+    nativeDrag: true,
+    draggingClass: "opacity-30 rounded-md bg-green-400/50",
+    sortable: true,
+    plugins: [
+      insert({
+        insertPoint: () => {
+          const div = document.createElement("div");
+          for (const cls of insertPointClasses) div.classList.add(cls);
+          return div;
+        },
+      }),
+    ],
+    accepts: () => true,
+    draggable: (node: any) => {
+      // Only consider <li> elements that contain form fields as draggable
+      return node.tagName === "LI" && node.classList.contains("!cursor-grab");
+    },
   },
-  performSort({ parent, draggedNodes, targetNodes }) {
-    remapNodes(parent.el)
-    const draggedValues = draggedNodes.map((node) => node.data.value);
-
-    const filteredFields = fields.value.filter(
-      (field) => !draggedValues.some((d) => eq(field, d))
-    );
-
-    const insertIndex = targetNodes[0].data.index;
-    filteredFields.splice(insertIndex, 0, ...draggedValues);
-
-    fields.value = filteredFields;
-    formSchema.value = filteredFields;
-  },
-});
-
-
+);
 </script>
 
 <template>
@@ -60,26 +82,23 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>([], {
         <li
           v-for="(field, index) in fields"
           :key="(field as FormKitSchemaFormKit)?.$formkit + index"
-          class="!mb-1 !cursor-grab"
+          :class="[
+            'rounded-lg transition-all duration-200 p-1 !mb-1 !cursor-grab',
+            selectedIndex === index
+              ? 'border border-primary/30 bg-primary/5'
+              : 'border bg-primary/5 border-transparent hover:border-border/20 hover:bg-primary/10',
+          ]"
           draggable="true"
         >
           <div class="flex items-center gap-1.5">
             <div class="flex-1" @click="clickedField(index)">
-              <div
-                :class="[
-                  'rounded transition-all duration-200 p-1',
-                  selectedIndex === index
-                    ? 'border border-primary/50 bg-primary/5'
-                    : 'border border-transparent hover:border-border/20 hover:bg-primary/10',
-                ]"
-              >
+              <div>
                 <FormKitSchema
                   :schema="[field as FormKitSchemaFormKit]"
                   :key="`form-item-${index}`"
                 />
               </div>
             </div>
-
             <Button
               variant="ghost"
               size="icon"

@@ -12,6 +12,14 @@ export function eqRegExp(x: RegExp, y: RegExp): boolean {
   );
 }
 
+export function pd(e: Event) {
+  e.preventDefault();
+}
+
+export function eventCoordinates(data: DragEvent | PointerEvent) {
+  return { x: data.clientX, y: data.clientY };
+}
+
 export function eq(
   valA: unknown,
   valB: unknown,
