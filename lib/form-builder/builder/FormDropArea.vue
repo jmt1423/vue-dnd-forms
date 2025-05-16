@@ -2,7 +2,7 @@
 import { Button } from "../../ui/button";
 import { FormKitSchema } from "@formkit/vue";
 import { Trash2 } from "lucide-vue-next";
-import { insert } from "../utils/insert.ts";
+import { customInsertPlugin } from "../utils/custom-insert-plugin.ts";
 import { formSchema, selectedIndex } from "../utils/default-form-elements.ts";
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
 import type { FormKitSchemaFormKit } from "@formkit/core";
@@ -28,21 +28,21 @@ const insertPointClasses = [
   "rounded-full",
   "duration-[5ms]",
   "before:block",
-  'before:content-["Drop_here"]', // More professional text
+  'before:content-["Drop_here"]',
   "before:whitespace-nowrap",
   "before:bg-green-500",
-  "before:py-1.5", // Slightly more padding
-  "before:px-3", // Slightly more padding
-  "before:rounded-md", // More modern look
+  "before:py-1.5",
+  "before:px-3",
+  "before:rounded-md",
   "before:text-xs",
-  "before:font-medium", // Better readability
+  "before:font-medium",
   "before:absolute",
   "before:top-1/2",
   "before:left-1/2",
   "before:-translate-y-1/2",
   "before:-translate-x-1/2",
   "before:text-white",
-  "before:shadow-sm", // Subtle shadow
+  "before:shadow-sm",
   "before:transition-all",
   "before:border",
   "before:border-green-400/20",
@@ -54,9 +54,10 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
     group: "form-builder",
     nativeDrag: true,
     draggingClass: "opacity-30 rounded-md bg-green-400/50",
+    accepts: () => true,
     sortable: true,
     plugins: [
-      insert({
+      customInsertPlugin({
         insertPoint: () => {
           const div = document.createElement("div");
           for (const cls of insertPointClasses) div.classList.add(cls);
@@ -64,11 +65,6 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
         },
       }),
     ],
-    accepts: () => true,
-    draggable: (node: any) => {
-      // Only consider <li> elements that contain form fields as draggable
-      return node.tagName === "LI" && node.classList.contains("!cursor-grab");
-    },
   },
 );
 </script>
@@ -78,7 +74,11 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
     <div
       class="mx-auto min-h-[70%] p-4 h-fit min-w-fit w-[90%] md:w-[90%] lg:w-[70%] rounded-xl bg-primary/10 dark:bg-zinc-800 shadow-xl"
     >
-      <ul ref="formFields" class="h-full w-full flex flex-col gap-1">
+      <ul
+        ref="formFields"
+        class="h-full w-full flex flex-col gap-1"
+        data-testid="drop-area"
+      >
         <li
           v-for="(field, index) in fields"
           :key="(field as FormKitSchemaFormKit)?.$formkit + index"

@@ -45,8 +45,7 @@ export const insertState: InsertState<unknown> = {
 
 let documentController: AbortController | undefined;
 
-// WIP: This is a work in progress and not yet fully functional
-export function insert<T>(insertConfig: InsertConfig<T>) {
+export function customInsertPlugin<T>(insertConfig: InsertConfig<T>) {
   return (parent: HTMLElement) => {
     const parentData = parents.get(parent);
 
@@ -172,7 +171,7 @@ function checkPosition(e: DragEvent | PointerEvent) {
 
   const el = document.elementFromPoint(e.clientX, e.clientY);
 
-  // 1. If the element is not an HTMLElement or is the insert point itself, do nothing.
+  // 1. If the element is not an HTMLElement or is the customInsertPlugin point itself, do nothing.
   if (!(el instanceof HTMLElement) || el === insertState.insertPoint?.el) {
     if (insertState.insertPoint) {
       insertState.insertPoint.el.style.display = "none";
@@ -195,7 +194,7 @@ function checkPosition(e: DragEvent | PointerEvent) {
 
   // 3. If the cursor is NOT within any registered parent...
   if (!isWithinAParent) {
-    // Hide the insert point if it exists
+    // Hide the customInsertPlugin point if it exists
     if (insertState.insertPoint) {
       insertState.insertPoint.el.style.display = "none";
     }
@@ -208,7 +207,7 @@ function checkPosition(e: DragEvent | PointerEvent) {
       );
     }
 
-    // Reset insert state related to dragged over elements
+    // Reset customInsertPlugin state related to dragged over elements
     insertState.draggedOverNodes = [];
     insertState.draggedOverParent = null;
 
@@ -759,10 +758,6 @@ export function handleEnd<T>(
   state: DragState<T> | SynthDragState<T> | BaseDragState<T>,
 ) {
   if (!isDragState(state) && !isSynthDragState(state)) return;
-
-  const draggedValues = state.draggedNodes.map((node) => node.data.value);
-
-  const formKitElement = draggedValues as unknown as FormKitSchemaFormKit[];
 
   const insertPoint = insertState.insertPoint;
 
