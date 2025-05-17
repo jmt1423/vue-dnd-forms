@@ -11,7 +11,7 @@ import {
 } from '../../../ui/sidebar'
 
 const props = withDefaults(defineProps<SidebarProps>(), {
-  variant: 'floating',
+  variant: 'inset',
   collapsible: 'icon',
 })
 

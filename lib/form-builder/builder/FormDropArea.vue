@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { Button } from "../../ui/button";
 import { FormKitSchema } from "@formkit/vue";
-import { Trash2 } from "lucide-vue-next";
+import { Trash2, Loader2 } from "lucide-vue-next";
 import { customInsertPlugin } from "../utils/custom-insert-plugin.ts";
 import { formSchema, selectedIndex } from "../utils/default-form-elements.ts";
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
 import type { FormKitSchemaFormKit } from "@formkit/core";
 import { ref } from "vue";
+import { isLoading } from "../utils/composable.ts";
+import { Loader } from "../../ui/loader";
 
 const deleteField = (index: number) => {
   formSchema.value = formSchema.value.filter(
@@ -70,10 +72,13 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
 </script>
 
 <template>
-  <div class="flex flex-1 flex-col">
+  <div class="flex flex-1 flex-col justify-center mb-3">
     <div
-      class="mx-auto min-h-[70%] p-4 h-fit min-w-fit w-[90%] md:w-[90%] lg:w-[70%] rounded-xl bg-primary/10 dark:bg-zinc-800 shadow-xl"
+      class="relative mx-auto min-h-[80%] p-4 !h-fit min-w-fit w-[90%] md:w-[90%] lg:w-[70%] rounded-xl bg-primary/10 dark:bg-zinc-800 shadow-xl"
     >
+      <Loader v-show="isLoading">
+        <Loader2 class="w-6 h-6 animate-spin text-green-800" />
+      </Loader>
       <ul
         ref="formFields"
         class="h-full w-full flex flex-col gap-1"

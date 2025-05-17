@@ -1,8 +1,10 @@
-import type { Ref } from 'vue'
+import { ref, type Ref } from "vue";
 import { computed } from 'vue'
 import type { FormKitSchemaFormKit } from '@formkit/core'
 import {formSchema} from './default-form-elements.ts'
 import type { WritableComputedRef } from 'vue'
+
+export const isLoading = ref(false)
 
 export function useFormField(selectedField: Ref<FormKitSchemaFormKit | undefined>,
                            selectedIndex: Ref<number>,

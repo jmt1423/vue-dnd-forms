@@ -63,9 +63,6 @@ const filteredFormElements = computed(() => {
                 </div>
               </SidebarMenuButton>
           </SidebarMenuItem>
-
-
-
         </div>
       </SidebarMenu>
     </SidebarGroup>
