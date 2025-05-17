@@ -5,12 +5,14 @@ import OpenAI from "openai";
 import instructions from "./Instructions.txt?raw";
 import { Button } from "../../ui/button";
 import { ref } from "vue";
-import { toast } from 'vue-sonner'
-import { formSchema } from "../utils/default-form-elements.ts";
+import { toast } from "vue-sonner";
+import { formSchema } from "../utils/default-form-elements";
 import type { FormKitSchemaFormKit } from "@formkit/core";
-import { isLoading } from "../utils/composable.ts";
+import { isLoading } from "../utils/composable";
+import { cn } from "../utils/utils";
 
 const inputRef = ref("");
+const isFocusedVal = ref(false);
 
 const parseFormSchema = (jsonString: string): FormKitSchemaFormKit[] => {
   try {
@@ -25,12 +27,12 @@ const parseFormSchema = (jsonString: string): FormKitSchemaFormKit[] => {
 const handleClick = async () => {
   if (inputRef.value === "") {
     console.log("Empty input");
-    toast('Empty chat prompt!', {
-      description: 'Please enter a prompt to generate a form.',
+    toast("Empty chat prompt!", {
+      description: "Please enter a prompt to generate a form.",
       action: {
-        label: 'Close',
+        label: "Close",
       },
-    })
+    });
     return;
   }
 
@@ -47,23 +49,46 @@ const handleClick = async () => {
   });
 
   console.log(response.output_text);
-  formSchema.value = parseFormSchema(response.output_text) as FormKitSchemaFormKit[];
+  formSchema.value = parseFormSchema(
+    response.output_text,
+  ) as FormKitSchemaFormKit[];
   isLoading.value = false;
   inputRef.value = "";
+};
+
+const isFocused = () => {
+  isFocusedVal.value = !isFocusedVal.value;
 };
 </script>
 
 <template>
-  <div class="flex border-1 rounded-lg max-md:w-[80%] !w-[50%] card relative bg-secondary">
+  <div
+    :class="
+      cn(
+        'flex rounded-lg max-md:w-[80%] !w-[50%] card relative bg-secondary items-center justify-center',
+        isFocusedVal ? 'border ring ring-ring' : 'border border-primary/10',
+        isLoading
+          ? 'bg-primary/5 shadow-inner animate-pulse transition-colors duration-300'
+          : '',
+      )
+    "
+  >
     <span class="start-0 inset-y-0 flex items-center justify-center px-2">
-      <BotMessageSquare class="size-6 text-muted-foreground" />
+      <BotMessageSquare :class="cn('size-6 text-muted-foreground')" />
     </span>
     <Input
+      @focusin="isFocused"
+      @focusout="isFocused"
       class="border-none shadow-none focus-visible:border-none focus-visible:ring-0"
       placeholder="Prompt AI"
       v-model="inputRef"
     />
-    <Button variant="ghost" @click="handleClick()" :disabled="isLoading">
+    <Button
+      variant="ghost"
+      class="hover:bg-green-500 dark:hover:bg-green-500 hover:text-white dark:hover:text-black w-7 h-7 mr-2"
+      @click="handleClick()"
+      :disabled="isLoading"
+    >
       <SendHorizonal />
     </Button>
   </div>

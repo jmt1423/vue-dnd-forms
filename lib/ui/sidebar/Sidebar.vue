@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<SidebarProps>(), {
       v-if="collapsible === 'none'"
       data-slot="sidebar"
       :class="cn(
-    'bg-sidebar text-sidebar-foreground flex max-h-[100%] w-(--sidebar-width) flex-col',
+    'bg-sidebar text-sidebar-foreground flex max-h-[100%] w-[--sidebar-width] flex-col',
     'max-md:hidden',
     props.class
   )"

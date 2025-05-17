@@ -55,6 +55,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
   {
     group: "form-builder",
     nativeDrag: true,
+    multiDrag: true,
     draggingClass: "opacity-30 rounded-md bg-green-400/50",
     accepts: () => true,
     sortable: true,
@@ -77,18 +78,25 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
       class="relative mx-auto min-h-[80%] p-4 !h-fit min-w-fit w-[90%] md:w-[90%] lg:w-[70%] rounded-xl bg-primary/10 dark:bg-zinc-800 shadow-xl"
     >
       <Loader v-show="isLoading">
-        <Loader2 class="w-6 h-6 animate-spin text-green-800" />
+        <div
+          class="flex flex-col items-center justify-center gap-3 p-4 bg-secondary rounded-lg shadow-md"
+        >
+          <Loader2 class="w-8 h-8 animate-spin text-primary" />
+          <span class="font-medium text-sm text-zinc-700 dark:text-zinc-300"
+            >Creating your new form...</span
+          >
+        </div>
       </Loader>
       <ul
         ref="formFields"
-        class="h-full w-full flex flex-col gap-1"
+        class="h-full w-full grid grid-cols-2 gap-x-4"
         data-testid="drop-area"
       >
         <li
           v-for="(field, index) in fields"
           :key="(field as FormKitSchemaFormKit)?.$formkit + index"
           :class="[
-            'rounded-lg transition-all duration-200 p-1 !mb-1 !cursor-grab',
+            'rounded-lg transition-all duration-200 p-1 !mb-1 !cursor-grab h-fit',
             selectedIndex === index
               ? 'border border-primary/30 bg-primary/5'
               : 'border bg-primary/5 border-transparent hover:border-border/20 hover:bg-primary/10',

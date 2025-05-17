@@ -12,6 +12,7 @@ import type {
   Coordinates,
   InsertState,
   Node,
+  DragStateProps,
 } from "@formkit/drag-and-drop";
 
 import { formSchema } from "./default-form-elements.ts";
@@ -45,6 +46,24 @@ export const insertState: InsertState<unknown> = {
 
 let documentController: AbortController | undefined;
 
+/**
+ * Safari does not like the fast updates moveBetween() tries to do, so this
+ * delay will throttle the number of calls it is allowed in milliseconds
+ */
+const throttle = (fn: Function) => {
+  const delay = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ? 100 : 0;
+  let timerFlag: number | null = null; // Variable to keep track of the timer
+  // Returning a throttled version
+  return (...args: any[]) => {
+    if (timerFlag === null) {
+      fn(...args);
+      timerFlag = setTimeout(() => {
+        timerFlag = null;
+      }, delay);
+    }
+  };
+}
+
 export function customInsertPlugin<T>(insertConfig: InsertConfig<T>) {
   return (parent: HTMLElement) => {
     const parentData = parents.get(parent);
@@ -70,20 +89,20 @@ export function customInsertPlugin<T>(insertConfig: InsertConfig<T>) {
         insertParentConfig.handleParentDragover =
           insertConfig.handleParentDragover || handleParentDragover;
 
-        const originalHandleend = insertParentConfig.handleEnd;
+        const originalHandleEnd = insertParentConfig.handleEnd;
 
         insertParentConfig.handleEnd = (
           state: DragState<T> | SynthDragState<T>,
         ) => {
           handleEnd(state);
 
-          originalHandleend(state);
+          originalHandleEnd(state);
         };
 
         parentData.on("dragStarted", () => {
           documentController = addEvents(document, {
-            dragover: checkPosition,
-            pointermove: checkPosition,
+            dragover: throttle(checkPosition),
+            pointermove: throttle(checkPosition),
           });
         });
 
@@ -97,11 +116,15 @@ export function customInsertPlugin<T>(insertConfig: InsertConfig<T>) {
           defineRanges(parent);
         });
 
-        watch(formSchema, (newSchema) => {
-          if (newSchema && newSchema.length > 0) {
-            setParentValues(parent, parentData, [...newSchema])
-          }
-        }, { deep: true });
+        watch(
+          formSchema,
+          (newSchema) => {
+            if (newSchema) {
+              setParentValues(parent, parentData, [...newSchema]);
+            }
+          },
+          { deep: true },
+        );
 
         state.on("scrollStarted", () => {
           if (insertState.insertPoint)
@@ -424,6 +447,8 @@ export function handleNodeDragover<T>(data: NodeDragEventData<T>) {
   data.e.preventDefault();
 }
 
+const throttledMoveBetween = throttle(moveBetween);
+
 function processParentDragEvent<T>(
   e: DragEvent | PointerEvent,
   targetData: ParentEventData<T>["targetData"],
@@ -458,7 +483,7 @@ function processParentDragEvent<T>(
   }
 
   if (realTargetParent.el === state.currentParent?.el) {
-    moveBetween(realTargetParent, state);
+    throttledMoveBetween(realTargetParent, state);
   } else {
     moveOutside(realTargetParent, state);
   }
@@ -481,6 +506,33 @@ export function handleParentPointerover<T>(data: PointeroverParentEvent<T>) {
   if (state.scrolling) return;
 
   processParentDragEvent(detail.e, targetData, state);
+}
+
+function handleInsertBasedOnRange<T>(
+  foundRange: [NodeRecord<any>, string] | null,
+  data: ParentRecord<T>,
+) {
+  if (!foundRange) {
+    return;
+  }
+
+  const key = foundRange[1] as "ascending" | "descending";
+
+  if (foundRange) {
+    const position = foundRange[0].data.range
+      ? foundRange[0].data.range[key]
+      : undefined;
+
+    if (position) {
+      positionInsertPoint(
+        data,
+        position,
+        foundRange[1] === "ascending",
+        foundRange[0],
+        insertState as InsertState<T>,
+      );
+    }
+  }
 }
 
 export function moveBetween<T>(data: ParentRecord<T>, state: DragState<T>) {
@@ -534,27 +586,7 @@ export function moveBetween<T>(data: ParentRecord<T>, state: DragState<T>) {
 
   const foundRange = findClosest(data.data.enabledNodes, state);
 
-  if (!foundRange) {
-    return;
-  }
-
-  const key = foundRange[1] as "ascending" | "descending";
-
-  if (foundRange) {
-    const position = foundRange[0].data.range
-      ? foundRange[0].data.range[key]
-      : undefined;
-
-    if (position) {
-      positionInsertPoint(
-        data,
-        position,
-        foundRange[1] === "ascending",
-        foundRange[0],
-        insertState as InsertState<T>,
-      );
-    }
-  }
+  handleInsertBasedOnRange(foundRange, data);
 }
 
 function moveOutside<T>(data: ParentRecord<T>, state: DragState<T>) {
@@ -605,66 +637,68 @@ function moveOutside<T>(data: ParentRecord<T>, state: DragState<T>) {
 
     const foundRange = findClosest(enabledNodes, state);
 
-    if (!foundRange) {
-      return;
-    }
-
-    const key = foundRange[1] as "ascending" | "descending";
-
-    if (foundRange) {
-      const position = foundRange[0].data.range
-        ? foundRange[0].data.range[key]
-        : undefined;
-
-      if (position)
-        positionInsertPoint(
-          data,
-          position,
-          foundRange[1] === "ascending",
-          foundRange[0],
-          insertState as InsertState<T>,
-        );
-    }
+    handleInsertBasedOnRange(foundRange, data);
   }
 }
 
+let lastFoundRange: [NodeRecord<any>, string] | null = null;
+let lastCoordinates = { x: 0, y: 0 };
+
 function findClosest<T>(enabledNodes: NodeRecord<T>[], state: DragState<T>) {
+  // Return cached result if coordinates haven't changed significantly
+  const deltaX = Math.abs(state.coordinates.x - lastCoordinates.x);
+  const deltaY = Math.abs(state.coordinates.y - lastCoordinates.y);
+  if (lastFoundRange && deltaX < 5 && deltaY < 5) {
+    return lastFoundRange;
+  }
+
+  // Search through enabled nodes to find closest match
   let foundRange: [NodeRecord<T>, string] | null = null;
 
   for (let x = 0; x < enabledNodes.length; x++) {
     if (!state || !enabledNodes[x].data.range) continue;
 
-    if (enabledNodes[x].data.range!.ascending) {
+    const nodeRange = enabledNodes[x].data.range;
+
+    // Check ascending range
+    if (nodeRange?.ascending) {
       if (
-        state.coordinates.y > enabledNodes[x].data.range!.ascending!.y[0] &&
-        state.coordinates.y < enabledNodes[x].data.range!.ascending!.y[1] &&
-        state.coordinates.x > enabledNodes[x].data.range!.ascending!.x[0] &&
-        state.coordinates.x < enabledNodes[x].data.range!.ascending!.x[1]
+        state.coordinates.y > nodeRange.ascending.y[0] &&
+        state.coordinates.y < nodeRange.ascending.y[1] &&
+        state.coordinates.x > nodeRange.ascending.x[0] &&
+        state.coordinates.x < nodeRange.ascending.x[1]
       ) {
         foundRange = [enabledNodes[x], "ascending"];
         break;
       }
     }
 
-    if (enabledNodes[x].data.range!.descending) {
+    // Check descending range
+    if (nodeRange?.descending) {
       if (
-        state.coordinates.y > enabledNodes[x].data.range!.descending!.y[0] &&
-        state.coordinates.y < enabledNodes[x].data.range!.descending!.y[1] &&
-        state.coordinates.x > enabledNodes[x].data.range!.descending!.x[0] &&
-        state.coordinates.x < enabledNodes[x].data.range!.descending!.x[1]
+        state.coordinates.y > nodeRange.descending.y[0] &&
+        state.coordinates.y < nodeRange.descending.y[1] &&
+        state.coordinates.x > nodeRange.descending.x[0] &&
+        state.coordinates.x < nodeRange.descending.x[1]
       ) {
         foundRange = [enabledNodes[x], "descending"];
-
         break;
       }
     }
   }
 
+  // Hide insert point if moving between different parents
   if (
     insertState.insertPoint &&
     state.initialParent?.el !== state.currentParent?.el
   ) {
     insertState.insertPoint.el.style.display = "none";
+  }
+
+  // Update memoization values when result is found
+  if (foundRange) {
+    lastFoundRange = foundRange;
+    lastCoordinates = { ...state.coordinates };
   }
 
   return foundRange;
@@ -747,6 +781,31 @@ function positionInsertPoint<T>(
   insertState.targetIndex = node.data.index;
 
   insertState.ascending = ascending;
+}
+
+function insertItemsIntoParentFromOutside<T>(
+  state: DragStateProps<T> & BaseDragState<T>,
+  newParentValues: T[],
+  index: number,
+  insertValues: Array<T>,
+) {
+  setParentValues(state.initialParent.el, state.initialParent.data, [
+    ...newParentValues,
+  ]);
+
+  // Now get the target parent values.
+  const targetParentValues = parentValues(
+    state.currentParent.el,
+    state.currentParent.data,
+  );
+
+  targetParentValues.splice(index, 0, ...insertValues);
+
+  setParentValues(state.currentParent.el, state.currentParent.data, [
+    ...targetParentValues,
+  ]);
+
+  formSchema.value = [...(targetParentValues as FormKitSchemaFormKit[])];
 }
 
 /**
@@ -833,7 +892,6 @@ export function handleEnd<T>(
         state.initialParent.data.config.onSort(sortEventData);
       }
     } else if (transferred && insertState.draggedOverNodes.length) {
-
       const draggedParentValues = parentValues(
         state.initialParent.el,
         state.initialParent.data,
@@ -862,44 +920,9 @@ export function handleEnd<T>(
       ];
 
       if (state.currentParent.el.contains(state.initialParent.el)) {
-        console.log('could be here')
-        // Update initial parent values first
-        setParentValues(state.initialParent.el, state.initialParent.data, [
-          ...newParentValues,
-        ]);
-
-        // Now get the target parent values.
-        const targetParentValues = parentValues(
-          state.currentParent.el,
-          state.currentParent.data,
-        );
-
-        targetParentValues.splice(index, 0, ...insertValues);
-
-        setParentValues(state.currentParent.el, state.currentParent.data, [
-          ...targetParentValues,
-        ]);
-
-        formSchema.value = [...targetParentValues as FormKitSchemaFormKit[]]
-
+        insertItemsIntoParentFromOutside(state, newParentValues, index, insertValues);
       } else {
-
-        setParentValues(state.initialParent.el, state.initialParent.data, [
-          ...newParentValues,
-        ]);
-
-        const targetParentValues = parentValues(
-          state.currentParent.el,
-          state.currentParent.data,
-        );
-
-        targetParentValues.splice(index, 0, ...insertValues);
-
-        setParentValues(state.currentParent.el, state.currentParent.data, [
-          ...targetParentValues,
-        ]);
-
-        formSchema.value = [...targetParentValues as FormKitSchemaFormKit[]]
+        insertItemsIntoParentFromOutside(state, newParentValues, index, insertValues);
       }
 
       const data = {
@@ -959,9 +982,10 @@ export function handleEnd<T>(
         [...draggedOverParentValues],
       );
 
-      formSchema.value = [...draggedOverParentValues as FormKitSchemaFormKit[]]
+      formSchema.value = [
+        ...(draggedOverParentValues as FormKitSchemaFormKit[]),
+      ];
     } else {
-      console.log('or here')
 
       const draggedValues = state.draggedNodes.map((node) => node.data.value);
 
@@ -1003,7 +1027,9 @@ export function handleEnd<T>(
         ...newParentValues,
       ]);
 
-      formSchema.value = [...draggedOverParentValues as FormKitSchemaFormKit[]]
+      formSchema.value = [
+        ...(draggedOverParentValues as FormKitSchemaFormKit[]),
+      ];
     }
 
     const data: InsertEvent<T> = {
@@ -1047,6 +1073,4 @@ export function handleEnd<T>(
   insertState.draggedOverNodes = [];
 
   insertState.draggedOverParent = null;
-
-  console.log(formSchema.value);
 }

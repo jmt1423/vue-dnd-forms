@@ -9,12 +9,22 @@
         </DialogDescription>
       </DialogHeader>
       <div class="py-4 px-3">
-        <FormKit type="form" v-model="data" @submit="handleSubmit">
+        <FormKit
+          type="form"
+          :actions="false"
+          v-model="data"
+          @submit="handleSubmit"
+          form-class="w-full !grid !grid-cols-2 gap-x-4"
+        >
           <FormKitSchema :schema="formattedSchema" />
         </FormKit>
         <div class="mt-4 p-3 bg-muted/30 rounded border border-border/50">
-          <h3 class="text-[11px] font-medium mb-2 text-foreground/80">Form Data:</h3>
-          <pre class="text-[11px] text-muted-foreground">{{ JSON.stringify(data, null, 2) }}</pre>
+          <h3 class="text-[11px] font-medium mb-2 text-foreground/80">
+            Form Data:
+          </h3>
+          <pre class="text-[11px] text-muted-foreground">{{
+            JSON.stringify(data, null, 2)
+          }}</pre>
         </div>
       </div>
     </DialogContent>
@@ -22,38 +32,44 @@
 </template>
 
 <script setup lang="ts">
-import {provide, ref} from 'vue'
-import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,} from '../../ui/dialog'
-import {formSchema} from "../utils/default-form-elements.ts";
-import createFormattedSchema from '../utils/format-schema'
+import { provide, ref } from "vue";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "../../ui/dialog";
+import { formSchema } from "../utils/default-form-elements.ts";
+import createFormattedSchema from "../utils/format-schema";
 
-const isOpen = ref(false)
-const data = ref({})
-const formattedSchema = createFormattedSchema(formSchema)
+const isOpen = ref(false);
+const data = ref({});
+const formattedSchema = createFormattedSchema(formSchema);
 
-provide('isPreviewOpen', isOpen)
+provide("isPreviewOpen", isOpen);
 
 const handleSubmit = async (formData: Record<string, unknown>) => {
-  console.log('Form submitted:', formData)
-  await new Promise((r) => setTimeout(r, 1000))
-  alert('Form submitted!')
-  data.value = {}
-}
+  console.log("Form submitted:", formData);
+  await new Promise((r) => setTimeout(r, 1000));
+  alert("Form submitted!");
+  data.value = {};
+};
 
 const open = () => {
-  isOpen.value = true
-  data.value = {}
-}
+  isOpen.value = true;
+  data.value = {};
+};
 
 const close = () => {
-  isOpen.value = false
-  data.value = {}
-}
+  isOpen.value = false;
+  data.value = {};
+};
 
 defineExpose({
   open,
   close,
-})
+});
 </script>
 
 <!--suppress CssUnusedSymbol -->
