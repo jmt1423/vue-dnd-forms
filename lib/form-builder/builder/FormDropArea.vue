@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { Button } from "../../ui/button";
 import { FormKitSchema } from "@formkit/vue";
-import { Trash2, Loader2 } from "lucide-vue-next";
-import { customInsertPlugin } from "../utils/custom-insert-plugin.ts";
-import { formSchema, selectedIndex } from "../utils/default-form-elements.ts";
+import { Trash2, ChevronsLeftRight } from "lucide-vue-next";
+import { customInsertPlugin } from "../utils/custom-insert-plugin";
+import { formSchema, selectedIndex } from "../utils/default-form-elements";
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
 import type { FormKitSchemaFormKit } from "@formkit/core";
-import { ref } from "vue";
-import { isLoading } from "../utils/composable.ts";
+import { isLoading } from "../utils/composable";
 import { Loader } from "../../ui/loader";
+import { cn } from "../utils/utils";
 
 const deleteField = (index: number) => {
   formSchema.value = formSchema.value.filter(
@@ -17,16 +17,24 @@ const deleteField = (index: number) => {
   fields.value = fields.value.filter((_, i) => i !== index);
 };
 
+const changeColSpan = async (index: number) => {
+  const classValue = formSchema.value[index].outerClass;
+  if (classValue === "!col-span-2") {
+    formSchema.value[index].outerClass = "!col-span-1";
+  } else {
+    formSchema.value[index].outerClass = "!col-span-2";
+  }
+  fields.value[index].outerClass = formSchema.value[index].outerClass;
+};
+
 const clickedField = (index: number) => {
   selectedIndex.value = index;
 };
 
-const initialFields = ref<FormKitSchemaFormKit[]>([]);
-
 const insertPointClasses = [
   "absolute",
   "bg-green-500",
-  "z-[1000]",
+  "z-[2000]",
   "rounded-full",
   "duration-[5ms]",
   "before:block",
@@ -51,7 +59,7 @@ const insertPointClasses = [
 ];
 
 const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
-  initialFields.value,
+  formSchema.value,
   {
     group: "form-builder",
     nativeDrag: true,
@@ -81,37 +89,53 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
         <div
           class="flex flex-col items-center justify-center gap-3 p-4 bg-secondary rounded-lg shadow-md"
         >
-          <Loader2 class="w-8 h-8 animate-spin text-primary" />
           <span class="font-medium text-sm text-zinc-700 dark:text-zinc-300"
             >Creating your new form...</span
           >
+          <div class="loader"></div>
         </div>
       </Loader>
       <ul
         ref="formFields"
-        class="h-full w-full grid grid-cols-2 gap-x-4"
+        :class="
+          cn(
+            'w-full grid grid-cols-2 gap-x-4',
+            fields.length === 0 ? 'h-full' : 'h-fit', // this feels jank but it works i guess
+          )
+        "
         data-testid="drop-area"
       >
         <li
           v-for="(field, index) in fields"
           :key="(field as FormKitSchemaFormKit)?.$formkit + index"
-          :class="[
-            'rounded-lg transition-all duration-200 p-1 !mb-1 !cursor-grab h-fit',
-            selectedIndex === index
-              ? 'border border-primary/30 bg-primary/5'
-              : 'border bg-primary/5 border-transparent hover:border-border/20 hover:bg-primary/10',
-          ]"
+          :class="
+            cn(
+              'rounded-lg transition-all duration-200 p-1 !mb-1 !cursor-grab h-fit !z-20',
+              selectedIndex === index
+                ? 'border border-primary/30 bg-primary/5'
+                : 'border bg-primary/5 border-transparent hover:border-border/20 hover:bg-primary/10',
+              formSchema[index].outerClass,
+              // formSchema[index].outerClass === '!col-span-2' ? '!col-span-2' : '!col-span-1',
+            )
+          "
+          @click="clickedField(index)"
           draggable="true"
         >
           <div class="flex items-center gap-1.5">
-            <div class="flex-1" @click="clickedField(index)">
-              <div>
-                <FormKitSchema
-                  :schema="[field as FormKitSchemaFormKit]"
-                  :key="`form-item-${index}`"
-                />
-              </div>
+            <div class="flex-1">
+              <FormKitSchema
+                :schema="[field as FormKitSchemaFormKit]"
+                :key="`form-item-${index}`"
+              />
             </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              @click.stop="changeColSpan(index)"
+              class="h-4 w-4 md:h-5 md:w-5 hover:!bg-ring/90 hover:text-white"
+            >
+              <ChevronsLeftRight class="!h-3 !w-3" />
+            </Button>
             <Button
               variant="ghost"
               size="icon"
@@ -126,3 +150,76 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
     </div>
   </div>
 </template>
+
+<style scoped>
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 70px;
+  height: 26px;
+  background: #44a500;
+  border-radius: 50px;
+  --c: no-repeat radial-gradient(farthest-side, #000 92%, #0000);
+  --s: 18px 18px;
+  -webkit-mask:
+    var(--c) left 4px top 50%,
+    var(--c) center,
+    var(--c) right 4px top 50%,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: l1 2s infinite;
+}
+@keyframes l1 {
+  0% {
+    -webkit-mask-size:
+      0 0,
+      0 0,
+      0 0,
+      auto;
+  }
+  16.67% {
+    -webkit-mask-size:
+      var(--s),
+      0 0,
+      0 0,
+      auto;
+  }
+  33.33% {
+    -webkit-mask-size:
+      var(--s),
+      var(--s),
+      0 0,
+      auto;
+  }
+  50% {
+    -webkit-mask-size: var(--s), var(--s), var(--s), auto;
+  }
+  66.67% {
+    -webkit-mask-size:
+      0 0,
+      var(--s),
+      var(--s),
+      auto;
+  }
+  83.33% {
+    -webkit-mask-size:
+      0 0,
+      0 0,
+      var(--s),
+      auto;
+  }
+  100% {
+    -webkit-mask-size:
+      0 0,
+      0 0,
+      0 0,
+      auto;
+  }
+}
+
+:deep(.formkit-input[type="button"]),
+:deep(.formkit-input[type="submit"]) {
+  box-shadow: none !important;
+  margin-top: 0.75rem;
+}
+</style>

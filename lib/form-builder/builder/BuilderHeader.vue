@@ -41,11 +41,11 @@ const previewRef = ref<InstanceType<typeof FormPreview>>();
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Button variant="secondary" size="icon" class="h-6 w-6 !p-3">
+                <Button variant="secondary" size="icon" class="h-6 w-6 !p-3 hover:bg-destructive/20">
                   <Trash2 />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>
+              <TooltipContent class="bg-destructive">
                 <p>Clear form</p>
               </TooltipContent>
             </Tooltip>

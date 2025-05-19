@@ -31,6 +31,7 @@ based on the users requirements.
     "$formkit": "text",
     "name": "Text",
     "label": "Client Name",
+    "outerClass": "!col-span-2",
     "id": "text_field",
     "placeholder": "Enter your name",
     "help": "This is help text",
@@ -42,6 +43,7 @@ based on the users requirements.
     "$formkit": "textarea",
     "name": "Text Area",
     "label": "Client Address",
+    "outerClass": "!col-span-2",
     "id": "textarea_field",
     "placeholder": "Enter your address",
     "help": "This is help text",
@@ -53,6 +55,7 @@ based on the users requirements.
     "$formkit": "email",
     "name": "Email",
     "label": "Client Email",
+    "outerClass": "!col-span-2",
     "id": "email_field",
     "placeholder": "Enter your email",
     "help": "This is help text",
@@ -64,6 +67,7 @@ based on the users requirements.
     "$formkit": "number",
     "name": "Number",
     "label": "Client Age",
+    "outerClass": "!col-span-2",
     "id": "number_field",
     "placeholder": "Enter your age",
     "number": "integer",
@@ -76,6 +80,7 @@ based on the users requirements.
     "$formkit": "url",
     "label": "URL Field",
     "help": "This is help text",
+    "outerClass": "!col-span-2",
     "placeholder": "www.example.com",
     "name": "URL",
     "id": "url_field",
@@ -87,6 +92,7 @@ based on the users requirements.
     "$formkit": "checkbox",
     "label": "Label For Checkbox",
     "help": "This is help text",
+    "outerClass": "!col-span-2",
     "name": "Checkbox",
     "options": ["One"],
     "id": "checkbox_field",
@@ -99,6 +105,7 @@ based on the users requirements.
     "label": "Color Field",
     "value": "#00ff00",
     "help": "This is help text",
+    "outerClass": "!col-span-2",
     "name": "Color",
     "id": "color_field",
     "validation": "",
@@ -109,6 +116,7 @@ based on the users requirements.
     "$formkit": "date",
     "label": "Date Field",
     "help": "This is help text",
+    "outerClass": "!col-span-2",
     "name": "Date",
     "id": "date_field",
     "validation": "",
@@ -119,6 +127,7 @@ based on the users requirements.
     "$formkit": "time",
     "label": "Time Field",
     "help": "This is help text",
+    "outerClass": "!col-span-2",
     "name": "Time",
     "id": "time_field",
     "validation": "",
@@ -129,6 +138,7 @@ based on the users requirements.
     "$formkit": "datetime-local",
     "label": "Date Time Local Field",
     "help": "This is help text",
+    "outerClass": "!col-span-2",
     "name": "Date-Time",
     "id": "datetime_local_field",
     "validation": "",
@@ -139,6 +149,7 @@ based on the users requirements.
     "$formkit": "file",
     "label": "File Field",
     "help": "Select as many files as you want",
+    "outerClass": "!col-span-2",
     "name": "File Picker",
     "id": "file_field",
     "validation": "",
@@ -150,6 +161,7 @@ based on the users requirements.
     "$formkit": "password",
     "label": "Password Field",
     "placeholder": "Enter your password",
+    "outerClass": "!col-span-2",
     "help": "This is help text",
     "name": "Password",
     "id": "password_field",
@@ -162,6 +174,7 @@ based on the users requirements.
     "options": ["one"],
     "label": "Radio Field",
     "help": "This is help text",
+    "outerClass": "!col-span-2",
     "name": "Radio",
     "id": "radio_field",
     "validation": "",
@@ -173,6 +186,7 @@ based on the users requirements.
     "label": "Range Field",
     "children": "$slots.default",
     "help": "This is help text",
+    "outerClass": "!col-span-2",
     "value": "0",
     "name": "Range",
     "__raw__sectionsSchema": {
@@ -195,6 +209,7 @@ based on the users requirements.
     "$formkit": "select",
     "label": "Select Field",
     "help": "This is help text",
+    "outerClass": "!col-span-2",
     "name": "Dropdown Select",
     "id": "select_field",
     "validation": "",
@@ -207,6 +222,7 @@ based on the users requirements.
     "label": "Tel Field",
     "placeholder": "(+XX) XXXXXXXXXX",
     "help": "This is help text",
+    "outerClass": "!col-span-2",
     "name": "Telephone Number",
     "id": "tel_field",
     "validation": "",
@@ -227,6 +243,7 @@ Build me a form with two text inputs, one number input, one text area input, and
     "name": "Text",
     "label": "Client Name",
     "id": "text_field",
+    "outerClass": "!col-span-2",
     "placeholder": "Enter your name",
     "help": "This is help text",
     "validation": "",
@@ -239,6 +256,7 @@ Build me a form with two text inputs, one number input, one text area input, and
     "name": "Text",
     "label": "Client Name",
     "id": "text_field",
+    "outerClass": "!col-span-2",
     "placeholder": "Enter your name",
     "help": "This is help text",
     "validation": "",
@@ -251,6 +269,7 @@ Build me a form with two text inputs, one number input, one text area input, and
     "name": "Number",
     "label": "Client Age",
     "id": "number_field",
+    "outerClass": "!col-span-2",
     "placeholder": "Enter your age",
     "number": "integer",
     "help": "This is help text",
@@ -264,6 +283,7 @@ Build me a form with two text inputs, one number input, one text area input, and
     "name": "Text Area",
     "label": "Client Address",
     "id": "textarea_field",
+    "outerClass": "!col-span-2",
     "placeholder": "Enter your address",
     "help": "This is help text",
     "validation": "",
@@ -277,6 +297,7 @@ Build me a form with two text inputs, one number input, one text area input, and
     "children": "$slots.default",
     "help": "This is help text",
     "value": "0",
+    "outerClass": "!col-span-2",
     "name": "Range",
     "__raw__sectionsSchema": {
       "prefix": {
@@ -295,5 +316,76 @@ Build me a form with two text inputs, one number input, one text area input, and
     "description": "Slider field input"
     "__key": "FDJSKLA3233nn22k12j"
   }
+]
+</assistant_response>
+
+<user_query>
+Build me a form with two text inputs next to each other, one text area, and an email and date field side by side
+</user_query>
+
+<assistant_response>
+[
+  {
+    "$formkit": "text",
+    "name": "Text",
+    "label": "Client Name",
+    "id": "text_field",
+    "outerClass": "!col-span-1",
+    "placeholder": "Enter your name",
+    "help": "This is help text",
+    "validation": "",
+    "validationVisibility": "live",
+    "description": "Single line text field"
+    "__key": "12k3l1l1l2KC234321"
+  },
+  {
+    "$formkit": "text",
+    "name": "Text",
+    "label": "Client Name",
+    "id": "text_field",
+    "outerClass": "!col-span-1",
+    "placeholder": "Enter your name",
+    "help": "This is help text",
+    "validation": "",
+    "validationVisibility": "live",
+    "description": "Single line text field"
+    "__key": "12k3l1l1l2KC234321"
+  },
+  {
+    "$formkit": "textarea",
+    "name": "Text Area",
+    "label": "Client Address",
+    "id": "textarea_field",
+    "outerClass": "!col-span-2",
+    "placeholder": "Enter your address",
+    "help": "This is help text",
+    "validation": "",
+    "validationVisibility": "live",
+    "description": "Multi-line text field"
+    "__key": "DJKQOQ39920323"
+  },
+  {
+    "$formkit": "email",
+    "name": "Email",
+    "label": "Client Email",
+    "outerClass": "!col-span-1",
+    "id": "email_field",
+    "placeholder": "Enter your email",
+    "help": "This is help text",
+    "validation": "",
+    "validationVisibility": "live",
+    "description": "Email field input"
+  },
+  {
+    "$formkit": "date",
+    "label": "Date Field",
+    "help": "This is help text",
+    "outerClass": "!col-span-1",
+    "name": "Date",
+    "id": "date_field",
+    "validation": "",
+    "validationVisibility": "live",
+    "description": "Date input picker"
+  },
 ]
 </assistant_response>

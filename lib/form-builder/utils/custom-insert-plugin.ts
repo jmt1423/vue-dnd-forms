@@ -252,6 +252,7 @@ function createVerticalRange(
   otherCoords: Coordinates | undefined,
   isAscending: boolean,
 ): Range {
+  console.log('creating vertical range');
   const center = nodeCoords.top + nodeCoords.height / 2;
 
   if (!otherCoords) {
@@ -292,12 +293,13 @@ function createHorizontalRange(
   isAscending: boolean,
   lastInRow = false,
 ): Range {
+  console.log('creating horizontal range');
   const center = nodeCoords.left + nodeCoords.width / 2;
 
   if (!otherCoords) {
     if (isAscending) {
       return {
-        x: [center, center + nodeCoords.width],
+        x: [center, center + nodeCoords.width - 150],
         y: [nodeCoords.top, nodeCoords.bottom],
         vertical: false,
       };
@@ -799,7 +801,21 @@ function insertItemsIntoParentFromOutside<T>(
     state.currentParent.data,
   );
 
-  targetParentValues.splice(index, 0, ...insertValues);
+
+  // Ensure new elements have col-span-2 by default
+  const processedInsertValues = insertValues.map(value => {
+    if (typeof value === 'object' && value !== null) {
+      return {
+        ...value,
+        outerClass: '!col-span-2' // Force default col-span-2
+      };
+    }
+    return value;
+  });
+
+  // Insert the processed values
+  targetParentValues.splice(index, 0, ...processedInsertValues);
+
 
   setParentValues(state.currentParent.el, state.currentParent.data, [
     ...targetParentValues,

@@ -15,7 +15,7 @@ const currentFieldType = computed(() => hasField.value ? formSchema.value[select
 
 const showPlaceholder = computed(() => {
   if(!hasField.value) return false
-  const excludedFields = ['checkbox', 'radio', 'date', 'time', 'datetime-local', 'color', 'file', 'select', 'range']
+  const excludedFields = ['checkbox', 'radio', 'date', 'time', 'datetime-local', 'color', 'file', 'select', 'range', 'submit']
   return !excludedFields.includes(formSchema.value[selectedIndex.value].$formkit)
 })
 

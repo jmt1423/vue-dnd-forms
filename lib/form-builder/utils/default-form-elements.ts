@@ -1,48 +1,15 @@
 import type { FormKitSchemaFormKit } from "@formkit/core";
 import { ref } from "vue";
 
-
-// {
-//   $formkit: "text",
-//     outerClass: " !col-span-1",
-//   type: "text",
-//   name: "full_name",
-//   label: "Full Name",
-//   help: "Enter your full name as it appears on official documents",
-//   validation: "required|length:5,50"
-// },
-// {
-//   $formkit: "text",
-//     type: "text",
-//   label: "Second Input",
-//   outerClass: "!max-w-none !col-span-1",
-//   name: "second_input",
-//   help: "Enter the second piece of information",
-//   validation: "required"
-// },
-// {
-//   $formkit: "number",
-//     outerClass: " !col-span-3",
-//   type: "number",
-//   name: "age",
-//   label: "Age",
-//   help: "Please enter your age.",
-//   min: 0,
-//   max: 120,
-//   step: 1,
-//   validation: "required|min:0|max:120"
-// },
-// {
-//   $formkit: "submit",
-//     type: "submit",
-//   outerClass: "!max-w-none !col-span-2  ",
-//   name: "submit_button",
-//   label: "Submit",
-//   disabled: false,
-//   validation: "required"
-// }
-
-export const formSchema = ref<FormKitSchemaFormKit[]>([]);
+export const formSchema = ref<FormKitSchemaFormKit[]>([
+  {
+    $formkit: "submit",
+    outerClass: "!col-span-2",
+    type: "submit",
+    name: "submit_button",
+    label: "Submit",
+  },
+]);
 export const selectedIndex = ref(0);
 
 export const defaultFormElements: FormKitSchemaFormKit[] = [
@@ -50,6 +17,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "text",
     name: "Text",
     label: "Client Name",
+    outerClass: "!col-span-2",
     id: "text_field",
     placeholder: "Enter your name",
     help: "This is help text",
@@ -62,6 +30,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     name: "Text Area",
     label: "Client Address",
     id: "textarea_field",
+    outerClass: "!col-span-2",
     placeholder: "Enter your address",
     help: "This is help text",
     validation: "", // TODO: add in ability to change max and min characters
@@ -72,6 +41,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "email",
     name: "Email",
     label: "Client Email",
+    outerClass: "!col-span-2",
     id: "email_field",
     placeholder: "Enter your email",
     help: "This is help text",
@@ -83,6 +53,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "number",
     name: "Number",
     label: "Client Age",
+    outerClass: "!col-span-2",
     id: "number_field",
     placeholder: "Enter your age",
     number: "integer",
@@ -95,6 +66,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "url",
     label: "URL Field",
     help: "This is help text",
+    outerClass: "!col-span-2",
     placeholder: "www.example.com",
     name: "URL",
     id: "url_field",
@@ -106,6 +78,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "checkbox",
     label: "Label For Checkbox",
     help: "This is help text",
+    outerClass: "!col-span-2",
     name: "Checkbox",
     options: ["One"],
     id: "checkbox_field",
@@ -118,6 +91,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     label: "Color Field",
     value: "#00ff00",
     help: "This is help text",
+    outerClass: "!col-span-2",
     name: "Color",
     id: "color_field",
     validation: "",
@@ -128,6 +102,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "date",
     label: "Date Field",
     help: "This is help text",
+    outerClass: "!col-span-2",
     name: "Date",
     id: "date_field",
     validation: "",
@@ -138,6 +113,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "time",
     label: "Time Field",
     help: "This is help text",
+    outerClass: "!col-span-2",
     name: "Time",
     id: "time_field",
     validation: "",
@@ -148,6 +124,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "datetime-local",
     label: "Date Time Local Field",
     help: "This is help text",
+    outerClass: "!col-span-2",
     name: "Date-Time",
     id: "datetime_local_field",
     validation: "",
@@ -158,6 +135,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "file",
     label: "File Field",
     help: "Select as many files as you want",
+    outerClass: "!col-span-2",
     name: "File Picker",
     id: "file_field",
     validation: "",
@@ -170,6 +148,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     label: "Password Field",
     placeholder: "Enter your password",
     help: "This is help text",
+    outerClass: "!col-span-2",
     name: "Password",
     id: "password_field",
     validation: "", // TODO: Add validation confirmation
@@ -180,6 +159,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "radio",
     options: ["one"],
     label: "Radio Field",
+    outerClass: "!col-span-2",
     help: "This is help text",
     name: "Radio",
     id: "radio_field",
@@ -192,6 +172,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     label: "Range Field",
     children: "$slots.default",
     help: "This is help text",
+    outerClass: "!col-span-2",
     value: "0",
     name: "Range",
     __raw__sectionsSchema: {
@@ -215,6 +196,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "select",
     label: "Select Field",
     help: "This is help text",
+    outerClass: "!col-span-2",
     name: "Dropdown Select",
     id: "select_field",
     validation: "",
@@ -226,11 +208,20 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     $formkit: "tel",
     label: "Tel Field",
     placeholder: "(+XX) XXXXXXXXXX",
+    outerClass: "!col-span-2",
     help: "This is help text",
     name: "Telephone Number",
     id: "tel_field",
     validation: "",
     validationVisibility: "live",
     description: "Telephone input field",
+  },
+  {
+    $formkit: "submit",
+    outerClass: "!col-span-2",
+    type: "submit",
+    name: "Submit Button",
+    description: "Allows form submission",
+    label: "Submit",
   },
 ];

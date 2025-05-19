@@ -9,7 +9,8 @@ import {
   SlidersHorizontal,
   SquareCheck,
   Type,
-  Pipette
+  Pipette,
+  SendHorizonal
 } from 'lucide-vue-next'
 
 export { defaultFormElements } from './default-form-elements.ts'
@@ -97,4 +98,9 @@ export const fieldProps = [
     tooltip: 'Allows user to enter url',
     icon: Link2,
   },
+  {
+    name: 'submit',
+    tooltip: 'Allows user to submit form',
+    icon: SendHorizonal,
+  }
 ]
