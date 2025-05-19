@@ -71,7 +71,6 @@ const classes: Record<string, Record<string, boolean>> = {
     "ring-green-500": true,
     "focus-visible:ring-2": true,
     "group-data-[disabled]:!cursor-not-allowed": true,
-    "shadow-md": true,
     "group-data-[prefix-icon]:pl-4": true,
     "group-data-[suffix-icon]:pr-4": true,
     "border": true,

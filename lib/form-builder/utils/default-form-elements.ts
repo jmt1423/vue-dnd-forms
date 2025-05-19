@@ -4,7 +4,7 @@ import { ref } from "vue";
 export const formSchema = ref<FormKitSchemaFormKit[]>([
   {
     $formkit: "submit",
-    outerClass: "!col-span-2",
+    outerClass: "!col-span-2 pt-2",
     type: "submit",
     name: "submit_button",
     label: "Submit",
