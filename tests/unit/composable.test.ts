@@ -1,8 +1,8 @@
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import { ref, computed } from 'vue'
-import { useFormField } from "../../lib/form-builder/utils/composable"
-import * as formElementsModule from "../../lib/form-builder/utils/default-form-elements"
-import createFormattedSchema from "../../lib/form-builder/utils/format-schema";
+import { useFormField } from "../../lib/utils/composable"
+import * as formElementsModule from "../../lib/utils/default-form-elements"
+import createFormattedSchema from "../../lib/utils/format-schema";
 
 describe('useFormField composable functions test suite', () => {
   afterEach(() => {

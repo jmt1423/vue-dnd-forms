@@ -3302,8 +3302,8 @@ const classes: Record<string, Record<string, boolean>> = {
 const globals: Record<string, Record<string, boolean>> = {
   "outer": {
     "group": true,
-    "max-w-[24em]": true,
-    "min-w-0": true,
+    "max-w-full": true,
+    "min-w-full": true,
     "grow": true,
     "mb-3.5": true,
     "data-[disabled]:select-none": true,
