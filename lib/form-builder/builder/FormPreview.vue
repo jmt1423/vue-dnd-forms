@@ -1,7 +1,7 @@
 <!-- src/components/form-builder/FormPreview.vue -->
 <template>
   <Dialog v-model:open="isOpen" class="form-preview">
-    <DialogContent class="max-h-[90vh] overflow-y-auto sm:max-w-[500px]">
+    <DialogContent class="max-h-[90vh] overflow-y-auto sm:max-w-[500px]" :show-overlay="true">
       <DialogHeader class="pb-3 border-b border-border/50">
         <DialogTitle class="text-sm font-medium">Form Preview</DialogTitle>
         <DialogDescription class="text-[11px] text-muted-foreground">
@@ -22,6 +22,9 @@
           <h3 class="text-[11px] font-medium mb-2 text-foreground/80">
             Form Data:
           </h3>
+          <pre>
+            {{JSON.stringify(formSchema, null, 2)}}
+          </pre>
           <pre class="text-[11px] text-muted-foreground">{{
             JSON.stringify(data, null, 2)
           }}</pre>

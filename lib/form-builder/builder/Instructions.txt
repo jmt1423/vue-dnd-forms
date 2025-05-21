@@ -23,6 +23,8 @@ based on the users requirements.
 * Only give the response in a valid JSON string so it can be parsed into
   an array of objects
 
+* Always add a submit button at the end of each form schema object
+
 # Examples
 
 <default_form_elements>
@@ -228,7 +230,15 @@ based on the users requirements.
     "validation": "",
     "validationVisibility": "live",
     "description": "Telephone input field"
-  }
+  },
+  {
+    "$formkit": "submit",
+    "outerClass": "!col-span-2 pt-2",
+    "type": "submit",
+    "name": "Submit Button",
+    "description": "Allows form submission",
+    "label": "Submit",
+  },
 ]
 </default_form_elements>
 
@@ -315,7 +325,15 @@ Build me a form with two text inputs, one number input, one text area input, and
     "validationVisibility": "live",
     "description": "Slider field input"
     "__key": "FDJSKLA3233nn22k12j"
-  }
+  },
+  {
+    "$formkit": "submit",
+    "outerClass": "!col-span-2 pt-2",
+    "type": "submit",
+    "name": "Submit Button",
+    "description": "Allows form submission",
+    "label": "Submit",
+  },
 ]
 </assistant_response>
 
@@ -386,6 +404,14 @@ Build me a form with two text inputs next to each other, one text area, and an e
     "validation": "",
     "validationVisibility": "live",
     "description": "Date input picker"
+  },
+  {
+    "$formkit": "submit",
+    "outerClass": "!col-span-2 pt-2",
+    "type": "submit",
+    "name": "Submit Button",
+    "description": "Allows form submission",
+    "label": "Submit",
   },
 ]
 </assistant_response>

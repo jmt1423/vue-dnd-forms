@@ -58,7 +58,6 @@ const insertPointClasses = [
   "before:border-green-400/20",
 ];
 
-
 const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
   formSchema.value,
   {
@@ -82,9 +81,9 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
 </script>
 
 <template>
-  <div class="flex flex-1 flex-col justify-center mb-3">
+  <div class="flex flex-1 flex-col justify-start mb-3">
     <div
-      class="relative mx-auto min-h-[80%] p-4 !h-fit min-w-fit w-[90%] md:w-[90%] lg:w-[70%] rounded-xl bg-primary/10 dark:bg-zinc-800 shadow-xl"
+      class="relative mx-auto md:top-10 min-h-[80%] p-4 !h-fit w-[90%] lg:w-[70%] rounded-xl bg-primary/10 dark:bg-primary/10 shadow-xl"
     >
       <Loader v-show="isLoading">
         <div
@@ -100,7 +99,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
         ref="formFields"
         :class="
           cn(
-            'w-full grid grid-cols-2 gap-x-4',
+            'w-full grid grid-cols-2 gap-x-4 gap-y-2',
             fields.length === 0 ? 'h-full' : 'h-fit', // this feels jank but it works i guess
           )
         "
@@ -111,18 +110,17 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
           :key="(field as FormKitSchemaFormKit)?.$formkit + index"
           :class="
             cn(
-              'rounded-lg transition-all duration-200 p-1 !mb-1 !cursor-grab h-fit !z-20',
+              'rounded-lg transition-all duration-200 p-1 !cursor-grab h-full !z-20',
               selectedIndex === index
                 ? 'border border-primary/30 bg-primary/5'
                 : 'border bg-primary/5 border-transparent hover:border-border/20 hover:bg-primary/10',
               formSchema[index].outerClass,
-              // formSchema[index].outerClass === '!col-span-2' ? '!col-span-2' : '!col-span-1',
             )
           "
           @click="clickedField(index)"
           draggable="true"
         >
-          <div class="flex items-center gap-1.5">
+          <div class="flex justify-start gap-1.5 p-1">
             <div class="flex-1">
               <FormKitSchema
                 :schema="[field as FormKitSchemaFormKit]"
@@ -133,7 +131,12 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
               variant="ghost"
               size="icon"
               @click.stop="changeColSpan(index)"
-              class="h-4 w-4 md:h-5 md:w-5 hover:!bg-ring/90 hover:text-white"
+              :class="
+                cn(
+                  'h-4 w-4 md:h-5 md:w-5 hover:!bg-ring/90 hover:text-white',
+                  formSchema[index].$formkit === 'submit' ? 'hidden' : 'visible',
+                )
+              "
             >
               <ChevronsLeftRight class="!h-3 !w-3" />
             </Button>

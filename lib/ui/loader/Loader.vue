@@ -14,7 +14,6 @@ const delegatedProps = computed(() => {
 
 <template>
   <div
-    data-slot="label"
     v-bind="delegatedProps"
     :class="
       cn(

@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { useSidebar } from "../../ui/sidebar";
 import { BotMessageSquare, SendHorizonal } from "lucide-vue-next";
-import { Input } from "../../ui/input";
 import OpenAI from "openai";
 import instructions from "./Instructions.txt?raw";
 import { Button } from "../../ui/button";
@@ -10,9 +10,20 @@ import { formSchema } from "../utils/default-form-elements";
 import type { FormKitSchemaFormKit } from "@formkit/core";
 import { isLoading } from "../utils/composable";
 import { cn } from "../utils/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../../ui/tooltip";
+import { Dialog, DialogContent } from "../../ui/dialog";
+import { Textarea } from "../../ui/textarea";
+
+const { isMobile } = useSidebar();
 
 const inputRef = ref("");
 const isFocusedVal = ref(false);
+const isOpen = ref(false);
 
 const parseFormSchema = (jsonString: string): FormKitSchemaFormKit[] => {
   try {
@@ -48,7 +59,6 @@ const handleClick = async () => {
     input: inputRef.value,
   });
 
-  console.log(response.output_text);
   formSchema.value = parseFormSchema(
     response.output_text,
   ) as FormKitSchemaFormKit[];
@@ -63,10 +73,11 @@ const isFocused = () => {
 
 <template>
   <div
+    v-show="!isMobile"
     :class="
       cn(
         'flex rounded-lg max-md:w-[80%] !w-[50%] card relative bg-secondary items-center justify-center',
-        isFocusedVal ? 'border ring ring-ring' : 'border border-primary/10',
+        isFocusedVal ? 'ring-2 ring-ring' : 'border border-primary/10',
         isLoading
           ? 'bg-primary/5 shadow-inner animate-pulse transition-colors duration-300'
           : '',
@@ -76,11 +87,11 @@ const isFocused = () => {
     <span class="start-0 inset-y-0 flex items-center justify-center px-2">
       <BotMessageSquare :class="cn('size-6 text-muted-foreground')" />
     </span>
-    <Input
+    <Textarea
       @focusin="isFocused"
       @focusout="isFocused"
       class="border-none shadow-none focus-visible:border-none focus-visible:ring-0"
-      placeholder="Prompt AI"
+      placeholder="AI Assistant"
       v-model="inputRef"
     />
     <Button
@@ -92,4 +103,60 @@ const isFocused = () => {
       <SendHorizonal />
     </Button>
   </div>
+
+  <Dialog v-model:open="isOpen" class="bg-none" v-if="isMobile && isOpen">
+    <DialogContent
+      class="bg-transparent border-none shadow-none p-0 ml-20 pr-28 top-24 w-fit"
+      :show-overlay="false"
+    >
+      <div
+        :class="
+          cn(
+            'flex rounded-lg w-[50vw] card relative bg-secondary items-center justify-center',
+            isFocusedVal ? 'border ring ring-ring' : 'border border-primary/10',
+            isLoading
+              ? 'bg-primary/5 shadow-inner animate-pulse transition-colors duration-300'
+              : '',
+          )
+        "
+      >
+        <span class="start-0 inset-y-0 flex items-center justify-center px-2">
+          <BotMessageSquare :class="cn('size-6 text-muted-foreground')" />
+        </span>
+        <Textarea
+          @focusin="isFocused"
+          @focusout="isFocused"
+          class="border-none shadow-none focus-visible:border-none focus-visible:ring-0 h-fit"
+          placeholder="Prompt AI"
+          modelValue="inputRef"
+        />
+        <Button
+          variant="ghost"
+          class="hover:bg-green-500 dark:hover:bg-green-500 hover:text-white dark:hover:text-black w-7 h-7 mr-2"
+          @click="handleClick()"
+          :disabled="isLoading"
+        >
+          <SendHorizonal />
+        </Button>
+      </div>
+    </DialogContent>
+  </Dialog>
+  <TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger v-show="isMobile">
+        <Button
+          id="form-dialog-portal"
+          variant="secondary"
+          size="icon"
+          class="h-6 w-6 !p-3"
+          @click="isOpen = !isOpen"
+        >
+          <BotMessageSquare />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>AI Assistant</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
 </template>

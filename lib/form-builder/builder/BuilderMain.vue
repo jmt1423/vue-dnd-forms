@@ -18,15 +18,15 @@ import BuilderHeader from "./BuilderHeader.vue";
   <SidebarProvider>
     <AppSidebar />
     <div class="relative">
-      <SidebarTrigger class="max-md:hidden absolute left-5 top-6 z-20" />
+      <SidebarTrigger class="max-md:hidden absolute left-5 top-6 z-20 hover:text-white" />
     </div>
     <SidebarProvider>
-      <SidebarInset class="rounded-2xl my-3 mr-2 shadow-[0_0_5px_rgba(0,0,0,0.15)] max-h-[calc(100vh-1.5rem)] overflow-scroll">
+      <SidebarInset class="sidebar-inset-curve rounded-2xl my-3 mr-2 max-h-[calc(100vh-1.5rem)] overflow-y-scroll z-0 border-1 border-ring/20">
         <BuilderHeader />
         <FormDropArea />
       </SidebarInset>
       <div class="relative">
-        <SidebarTrigger class="absolute right-8 top-6 z-20 w-7 h-7"/>
+        <SidebarTrigger class="absolute right-8 top-6 z-20 w-7 h-7 hover:text-white"/>
       </div>
       <SidebarRight side="right" />
     </SidebarProvider>

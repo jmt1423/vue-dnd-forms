@@ -27,13 +27,12 @@ import {
 const clearForm = () => {
   formSchema.value = [];
 };
-
 const previewRef = ref<InstanceType<typeof FormPreview>>();
 </script>
 
 <template>
   <header
-    class="sticky top-0 flex h-14 shrink-0 items-center mr-5 rounded-2xl z-[10]"
+    class="sticky md:top-5 flex h-14 shrink-0 items-center rounded-2xl z-[1000]"
   >
     <div class="w-full flex justify-center items-center gap-3 rounded-lg">
       <AlertDialog>
@@ -41,7 +40,11 @@ const previewRef = ref<InstanceType<typeof FormPreview>>();
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Button variant="secondary" size="icon" class="h-6 w-6 !p-3 hover:bg-destructive/20">
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  class="h-6 w-6 !p-3 hover:bg-destructive/20 dark:hover:bg-destructive/70"
+                >
                   <Trash2 />
                 </Button>
               </TooltipTrigger>

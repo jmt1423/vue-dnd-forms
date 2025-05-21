@@ -805,6 +805,13 @@ function insertItemsIntoParentFromOutside<T>(
   // Ensure new elements have col-span-2 by default
   const processedInsertValues = insertValues.map(value => {
     if (typeof value === 'object' && value !== null) {
+      const val = value as any;
+      if (val.$formkit === 'submit') {
+       return {
+         ...value,
+         outerClass: '!col-span-2 pt-2'
+       }
+      }
       return {
         ...value,
         outerClass: '!col-span-2' // Force default col-span-2
