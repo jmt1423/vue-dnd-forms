@@ -3,7 +3,10 @@ import { Button } from "../components/ui/button";
 import { FormKitSchema } from "@formkit/vue";
 import { Trash2, ChevronsLeftRight, Loader2 } from "lucide-vue-next";
 import { customInsertPlugin } from "../utils/custom-insert-plugin.ts";
-import { formSchema, selectedIndex } from "../utils/default-form-elements.ts";
+import {
+  formSchema,
+  selectedIndex,
+} from "../utils/default-form-elements.ts";
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
 import type { FormKitSchemaFormKit } from "@formkit/core";
 import { isLoading } from "../utils/composable.ts";
@@ -65,6 +68,8 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
     nativeDrag: true,
     draggingClass: "opacity-30 rounded-md bg-green-400/50",
     accepts: () => true,
+    sortable: true,
+    draggable: () => true,
     handleNodePointerup(data) {
       data.targetData.node.el.setAttribute("draggable", "true");
     },
@@ -111,7 +116,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
           :key="(field as FormKitSchemaFormKit)?.$formkit + index"
           :class="
             cn(
-              'rounded-lg transition-all duration-200 p-1 !cursor-grab h-full !z-20 relative',
+              'rounded-lg transition-all duration-200 p-1 !cursor-drag h-full !z-20 relative',
               selectedIndex === index
                 ? 'border border-ring/30 bg-ring/20'
                 : 'border bg-ring/5 border-transparent hover:border-ring/30',

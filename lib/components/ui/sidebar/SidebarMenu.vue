@@ -15,7 +15,7 @@ function generateKey() {
 const [formEls, els] = useDragAndDrop(defaultFormElements, {
   group: "form-builder",
   nativeDrag: true,
-  draggingClass: "opacity-50",
+  draggingClass: "opacity-70",
   sortable: false,
   accepts: () => false,
   onDragstart: ({ draggedNodes }) => {

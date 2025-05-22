@@ -3311,6 +3311,7 @@ const globals: Record<string, Record<string, boolean>> = {
     "text-sm": true
   },
   "label": {
+    "pointer-events-none": true,
     "block": true,
     "text-stone-700": true,
     "text-xs": true,

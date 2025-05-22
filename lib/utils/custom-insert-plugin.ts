@@ -27,7 +27,6 @@ import {
   isSynthDragState,
   removeClass,
   addEvents,
-  remapNodes,
   nodes,
 } from "@formkit/drag-and-drop";
 
@@ -848,8 +847,6 @@ export function handleEnd<T>(
     );
 
     const transferred = state.initialParent.el !== state.currentParent.el;
-
-    remapNodes(state.initialParent.el);
 
     const draggedValues = state.draggedNodes.map((node) => node.data.value);
 
