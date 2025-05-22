@@ -63,7 +63,6 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
   {
     group: "form-builder",
     nativeDrag: true,
-    draggable: (element) => element.tagName.toLowerCase() === "li",
     draggingClass: "opacity-30 rounded-md bg-green-400/50",
     accepts: () => true,
     handleNodePointerup(data) {
@@ -120,10 +119,9 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
             )
           "
           @click="clickedField(index)"
-          draggable="true"
         >
-          <div class="flex gap-1.5 p-1 w-full" draggable="true">
-            <div class="flex-1 w-full" draggable="true">
+          <div class="flex gap-1.5 p-1 w-full">
+            <div class="flex-1 w-full">
               <FormKitSchema
                 :schema="[field as FormKitSchemaFormKit]"
                 :key="`form-item-${index}`"
