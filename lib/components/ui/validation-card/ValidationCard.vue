@@ -17,7 +17,7 @@ const delegatedProps = computed(() => {
 <template>
   <div
     v-bind="delegatedProps"
-    :class="cn('border-1 border-ring/20 p-2 rounded-lg flex items-center', props.class)"
+    :class="cn('py-2 rounded-lg flex flex-col justify-center gap-2', props.class)"
   >
     <slot />
   </div>

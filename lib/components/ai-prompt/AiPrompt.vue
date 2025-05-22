@@ -76,8 +76,9 @@ const isFocused = () => {
     v-show="!isMobile"
     :class="
       cn(
-        'flex rounded-lg max-md:w-[80%] !w-[50%] card relative bg-secondary items-center justify-center',
-        isFocusedVal ? 'ring-2 ring-ring' : 'border border-primary/10',
+        'flex rounded-lg max-md:w-[80%] !w-[50%] card relative items-center justify-center',
+        'bg-gradient-to-br from-secondary to-emerald-100 dark:from-secondary dark:to-emerald-950',
+        isFocusedVal ? 'ring-2 ring-ring transition-all duration-300' : 'border border-ring/20 dark:border-ring/10 transition-all duration-300',
         isLoading
           ? 'bg-primary/5 shadow-inner animate-pulse transition-colors duration-300'
           : '',
@@ -112,7 +113,8 @@ const isFocused = () => {
       <div
         :class="
           cn(
-            'flex rounded-lg w-[50vw] card relative bg-secondary items-center justify-center',
+            'flex rounded-lg w-[50vw] card relative items-center justify-center',
+            'bg-gradient-to-br from-secondary to-emerald-100 dark:from-zinc-800 dark:to-emerald-950',
             isFocusedVal ? 'border ring ring-ring' : 'border border-primary/10',
             isLoading
               ? 'bg-primary/5 shadow-inner animate-pulse transition-colors duration-300'

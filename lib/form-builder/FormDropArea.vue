@@ -63,10 +63,12 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
   {
     group: "form-builder",
     nativeDrag: true,
-    multiDrag: true,
+    draggable: (element) => element.tagName.toLowerCase() === "li",
     draggingClass: "opacity-30 rounded-md bg-green-400/50",
     accepts: () => true,
-    sortable: true,
+    handleNodePointerup(data) {
+      data.targetData.node.el.setAttribute("draggable", "true");
+    },
     plugins: [
       customInsertPlugin({
         insertPoint: () => {
@@ -81,9 +83,9 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
 </script>
 
 <template>
-  <div class="flex flex-1 flex-col justify-start mb-3">
+  <div class="flex flex-1 flex-col justify-start mb-15">
     <div
-      class="relative mx-auto md:top-10 min-h-[80%] p-4 !h-fit w-[90%] lg:w-[70%] rounded-xl bg-primary/10 dark:bg-primary/10 shadow-xl"
+      class="border-1 border-ring/5 relative mx-auto md:top-10 min-h-[80%] p-4 !h-fit w-[90%] lg:w-[70%] rounded-xl bg-ring/5 dark:bg-primary/10 shadow-md"
     >
       <Loader v-show="isLoading">
         <div
@@ -110,25 +112,24 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
           :key="(field as FormKitSchemaFormKit)?.$formkit + index"
           :class="
             cn(
-              'rounded-lg transition-all duration-200 p-1 !cursor-grab h-full !z-20 relative', // Added 'relative' here
+              'rounded-lg transition-all duration-200 p-1 !cursor-grab h-full !z-20 relative',
               selectedIndex === index
-                ? 'border border-primary/30 bg-primary/5'
-                : 'border bg-primary/5 border-transparent hover:border-border/20 hover:bg-primary/10',
+                ? 'border border-ring/30 bg-ring/20'
+                : 'border bg-ring/5 border-transparent hover:border-ring/30',
               formSchema[index].outerClass,
             )
           "
           @click="clickedField(index)"
           draggable="true"
         >
-          <div class="flex gap-1.5 p-1 w-full">
-            <div class="flex-1 w-full">
+          <div class="flex gap-1.5 p-1 w-full" draggable="true">
+            <div class="flex-1 w-full" draggable="true">
               <FormKitSchema
                 :schema="[field as FormKitSchemaFormKit]"
                 :key="`form-item-${index}`"
               />
             </div>
           </div>
-          <!-- Moved the buttons outside the flex container and positioned absolutely -->
           <div class="absolute bottom-1 right-1 flex flex-row">
             <Button
               variant="ghost"

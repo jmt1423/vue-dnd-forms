@@ -288,6 +288,23 @@ export function useFormField(
     );
   });
 
+  const hasField = computed(() => !!formSchema.value[selectedIndex.value]);
+  const currentFieldType = computed(() =>
+    hasField.value ? formSchema.value[selectedIndex.value].$formkit : null,
+  );
+
+  const showPlaceholder = computed(() => {
+    if(!hasField.value) return false
+    const excludedFields = ['checkbox', 'radio', 'date', 'time', 'datetime-local', 'color', 'file', 'select', 'range', 'submit']
+    return !excludedFields.includes(formSchema.value[selectedIndex.value].$formkit)
+  })
+
+  const showListItems = computed(() => {
+    if(!hasField.value) return false
+    const excludedFields = ['checkbox', 'radio', 'select']
+    return excludedFields.includes(formSchema.value[selectedIndex.value].$formkit)
+  })
+
   return {
     label,
     placeholder,
@@ -296,6 +313,10 @@ export function useFormField(
     getParameterizedValidation,
     hasParameterizedValidation,
     isActive,
+    showPlaceholder,
+    showListItems,
+    currentFieldType,
+    hasField,
     help,
     whichNumber,
     validationString,

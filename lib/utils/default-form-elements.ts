@@ -33,7 +33,7 @@ export const defaultFormElements: FormKitSchemaFormKit[] = [
     outerClass: "!col-span-2",
     placeholder: "Enter your address",
     help: "This is help text",
-    validation: "", // TODO: add in ability to change max and min characters
+    validation: "",
     validationVisibility: "live",
     description: "Multi-line text field",
   },

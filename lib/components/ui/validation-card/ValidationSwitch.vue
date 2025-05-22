@@ -35,18 +35,20 @@ function updateValue(value: boolean) {
 </script>
 
 <template>
-  <div v-bind="delegatedProps" :class="cn('flex flex-row gap-2 mb-2', props.class)">
+  <div v-bind="delegatedProps" :class="cn('flex flex-row gap-2', props.class)">
     <Switch :model-value="isActive" @update:model-value="updateValue" />
-    <span class="text-xs">{{ label }}</span>
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger>
-          <CircleHelp class="h-4 w-4 muted rounded-full text-ring" />
-        </TooltipTrigger>
-        <TooltipContent>
-          {{ tooltip }}
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <div class="flex flex-row justify-between w-full">
+      <span class="text-xs">{{ label }}</span>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <CircleHelp class="h-4 w-4 muted rounded-full text-ring" />
+          </TooltipTrigger>
+          <TooltipContent>
+            {{ tooltip }}
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </div>
   </div>
 </template>

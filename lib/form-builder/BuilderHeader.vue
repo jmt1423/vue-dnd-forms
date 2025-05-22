@@ -32,7 +32,7 @@ const previewRef = ref<InstanceType<typeof FormPreview>>();
 
 <template>
   <header
-    class="sticky md:top-5 flex h-14 shrink-0 items-center rounded-2xl z-[1000]"
+    class="sticky top-0 md:top-5 flex h-14 shrink-0 items-center rounded-2xl z-[1000]"
   >
     <div class="w-full flex justify-center items-center gap-3 rounded-lg">
       <AlertDialog>
@@ -48,7 +48,7 @@ const previewRef = ref<InstanceType<typeof FormPreview>>();
                   <Trash2 />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent class="bg-destructive">
+              <TooltipContent class="bg-destructive dark:text-white">
                 <p>Clear form</p>
               </TooltipContent>
             </Tooltip>

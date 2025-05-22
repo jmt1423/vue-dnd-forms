@@ -252,7 +252,6 @@ function createVerticalRange(
   otherCoords: Coordinates | undefined,
   isAscending: boolean,
 ): Range {
-  console.log('creating vertical range');
   const center = nodeCoords.top + nodeCoords.height / 2;
 
   if (!otherCoords) {
@@ -293,7 +292,6 @@ function createHorizontalRange(
   isAscending: boolean,
   lastInRow = false,
 ): Range {
-  console.log('creating horizontal range');
   const center = nodeCoords.left + nodeCoords.width / 2;
 
   if (!otherCoords) {

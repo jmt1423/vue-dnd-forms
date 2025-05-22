@@ -64,5 +64,6 @@ function toggleLength() {
         />
       </div>
     </div>
+    <span v-show="max < min && active" class="text-xs text-destructive">Minimum is higher than maximum</span>
   </ValidationCard>
 </template>

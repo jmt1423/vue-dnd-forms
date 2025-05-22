@@ -23,6 +23,7 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
+  --color-border-red: var(--border-red);
   --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -61,6 +62,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: oklch(0.923 0.003 48.717);
+  --border-red: oklch(0.5493 0.131 26.86);
   --input: oklch(0.923 0.003 48.717);
   --ring: oklch(72.3% 0.219 149.579);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -88,6 +90,7 @@
   --popover-foreground: oklch(0.985 0.001 106.423);
   --primary: oklch(0.985 0.001 106.423);
   --primary-foreground: oklch(0.216 0.006 56.043);
+  --border-red: oklch(0.5493 0.131 26.86);
   --secondary: oklch(0.268 0.02 145); /* Added green tint to secondary */
   --secondary-foreground: oklch(0.985 0.001 106.423);
   --muted: oklch(0.268 0.015 145); /* Added green tint to muted */

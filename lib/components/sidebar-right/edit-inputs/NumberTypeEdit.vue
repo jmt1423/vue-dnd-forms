@@ -14,8 +14,8 @@ const {
 
 <template>
   <FormFieldLayout>
-    <ToggleGroup type="single" v-model="whichNumber" variant="outline">
-      <ToggleGroupItem value="float">Decimal</ToggleGroupItem>
+    <ToggleGroup type="single" v-model="whichNumber" variant="outline" size="sm">
+      <ToggleGroupItem class="hover:bg-ring/30 active:bg-ring/40" value="float">Decimal</ToggleGroupItem>
       <ToggleGroupItem value="integer">Integer</ToggleGroupItem>
     </ToggleGroup>
   </FormFieldLayout>

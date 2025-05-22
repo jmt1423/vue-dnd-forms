@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Toaster } from '../components/ui/sonner'
+import { Toaster } from "../components/ui/sonner";
 
 import {
   SidebarInset,
@@ -18,15 +18,21 @@ import BuilderHeader from "./BuilderHeader.vue";
   <SidebarProvider>
     <SidebarLeft />
     <div class="relative">
-      <SidebarTrigger class="max-md:hidden absolute left-5 top-6 z-20 hover:text-white" />
+      <SidebarTrigger
+        class="max-md:hidden absolute left-5 top-6 z-20 hover:text-white"
+      />
     </div>
     <SidebarProvider>
-      <SidebarInset class="sidebar-inset-curve rounded-2xl my-3 mr-2 max-h-[calc(100vh-1.5rem)] overflow-y-scroll z-0 border-1 border-ring/20">
+      <SidebarInset
+        class="rounded-2xl my-3 mr-2 max-h-[calc(100vh-1.5rem)] overflow-y-scroll z-0 border-1 border-ring/20 relative bg-gradient-to-br from-secondary to-emerald-100 dark:from-secondary dark:to-emerald-950"
+      >
         <BuilderHeader />
         <FormDropArea />
       </SidebarInset>
       <div class="relative">
-        <SidebarTrigger class="absolute right-8 top-6 z-20 w-7 h-7 hover:text-white"/>
+        <SidebarTrigger
+          class="absolute right-8 top-6 z-20 w-7 h-7 hover:text-white"
+        />
       </div>
       <SidebarRight side="right" />
     </SidebarProvider>
