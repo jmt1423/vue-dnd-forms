@@ -11,9 +11,9 @@ export const buttonVariants = cva(
         destructive:
           'bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
         outline:
-          'border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground hover:border-ring dark:bg-input/30 dark:border-input dark:hover:bg-input/50 text-foreground/90 enabled:hover:bg-accent/50 enabled:hover:border-ring/50',
+          'border !border-ring/20 dark:!border-ring/5 bg-background shadow-xs hover:bg-accent/10 hover:text-accent-foreground hover:border-ring dark:bg-input/30 dark:border-input dark:hover:bg-input/50 text-foreground/90 enabled:hover:bg-accent/50 enabled:hover:border-ring/50',
         secondary: 'bg-gradient-to-br from-secondary to-emerald-100 dark:from-sidebar-border dark:to-stone-900 text-secondary-foreground dark:text-white shadow-md hover:from-secondary hover:to-emerald-200 dark:hover:from-zinc-700 dark:hover:to-emerald-900 dark:border-1 border-primary/10 dark:border-primary/0 !backdrop-blur-2xl dark:shadow-ring/10',
-        ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
+        ghost: 'hover:bg-accent/20 hover:text-accent-foreground dark:hover:bg-accent/50',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {

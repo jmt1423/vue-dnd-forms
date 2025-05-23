@@ -22,9 +22,7 @@
           <h3 class="text-[11px] font-medium mb-2 text-foreground/80">
             Form Data:
           </h3>
-          <pre>
-            {{JSON.stringify(formSchema, null, 2)}}
-          </pre>
+
           <pre class="text-[11px] text-muted-foreground">{{
             JSON.stringify(data, null, 2)
           }}</pre>

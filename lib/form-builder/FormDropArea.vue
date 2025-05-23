@@ -64,7 +64,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
   {
     group: "form-builder",
     nativeDrag: true,
-    draggingClass: "opacity-30 rounded-md bg-green-400/50 w-fit h-fit",
+    draggingClass: "opacity-5 bg-green-400/50",
     accepts: () => true,
     sortable: true,
     draggable: () => true,
@@ -87,9 +87,9 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
 <template>
   <div class="flex flex-1 flex-col justify-start mb-15">
     <div
-      class="border-1 border-ring/5 dark:border-none relative mx-auto md:top-10 min-h-[80%] p-4 !h-fit w-[90%] lg:w-[70%] rounded-xl bg-ring/5 dark:bg-sidebar shadow-md "
+      class="border-1 border-ring/5 dark:border-none relative mx-auto md:top-10 min-h-[80%] p-4 !h-fit w-[90%] lg:w-[70%] rounded-xl bg-ring/5 dark:bg-sidebar shadow-md"
     >
-      <Loader v-show="isLoading">
+      <Loader v-if="isLoading">
         <div
           class="flex flex-col items-center justify-center gap-3 p-4 bg-secondary rounded-lg shadow-md"
         >

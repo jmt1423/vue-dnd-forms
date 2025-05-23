@@ -55,7 +55,7 @@ const filteredFormElements = computed(() => {
                   />
                   <div
                       class="ml-3 flex flex-col justify-center overflow-hidden max-md:hidden"
-                      v-show="state !== 'collapsed'"
+                      v-if="state !== 'collapsed'"
                   >
                     <span class="!text-[11px] text-secondary-foreground/80 font-medium">{{ item.name }}</span>
                     <span class="!text-[9px] text-muted-foreground truncate">{{ item.description }}</span>

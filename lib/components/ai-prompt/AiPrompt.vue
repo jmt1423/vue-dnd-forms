@@ -16,8 +16,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
-import { Dialog, DialogContent } from "../ui/dialog";
 import { Textarea } from "../ui/textarea";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 const { isMobile } = useSidebar();
 
@@ -73,12 +73,14 @@ const isFocused = () => {
 
 <template>
   <div
-    v-show="!isMobile"
+    v-if="!isMobile"
     :class="
       cn(
         'flex rounded-lg max-md:w-[80%] !w-[50%] card relative items-center justify-center',
         'bg-gradient-to-br from-secondary to-emerald-100 dark:from-sidebar-border dark:to-stone-900 dark:border-ring/5',
-        isFocusedVal ? 'ring-2 ring-ring transition-all duration-300' : 'border border-ring/20 dark:border-ring/10 transition-all duration-300',
+        isFocusedVal
+          ? 'ring-2 ring-ring transition-all duration-300'
+          : 'border border-ring/20 dark:border-ring/10 transition-all duration-300',
         isLoading
           ? 'bg-primary/5 shadow-inner animate-pulse transition-colors duration-300'
           : '',
@@ -105,11 +107,28 @@ const isFocused = () => {
     </Button>
   </div>
 
-  <Dialog v-model:open="isOpen" class="bg-none" v-if="isMobile && isOpen">
-    <DialogContent
-      class="bg-transparent border-none shadow-none p-0 ml-20 pr-28 top-24 w-fit"
-      :show-overlay="false"
-    >
+  <Popover>
+    <PopoverTrigger>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger v-if="isMobile">
+            <Button
+              id="form-dialog-portal"
+              variant="secondary"
+              size="icon"
+              class="h-6 w-6 !p-3"
+              @click="isOpen = !isOpen"
+            >
+              <BotMessageSquare />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>AI Assistant</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </PopoverTrigger>
+    <PopoverContent>
       <div
         :class="
           cn(
@@ -141,24 +160,6 @@ const isFocused = () => {
           <SendHorizonal />
         </Button>
       </div>
-    </DialogContent>
-  </Dialog>
-  <TooltipProvider>
-    <Tooltip>
-      <TooltipTrigger v-show="isMobile">
-        <Button
-          id="form-dialog-portal"
-          variant="secondary"
-          size="icon"
-          class="h-6 w-6 !p-3"
-          @click="isOpen = !isOpen"
-        >
-          <BotMessageSquare />
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>AI Assistant</p>
-      </TooltipContent>
-    </Tooltip>
-  </TooltipProvider>
+    </PopoverContent>
+  </Popover>
 </template>

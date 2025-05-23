@@ -3,6 +3,18 @@ import { ref } from "vue";
 
 export const formSchema = ref<FormKitSchemaFormKit[]>([
   {
+    $formkit: "text",
+    name: "Text",
+    label: "Client Name",
+    outerClass: "!col-span-2",
+    id: "text_field",
+    placeholder: "Enter your name",
+    help: "This is help text",
+    validation: "",
+    validationVisibility: "live",
+    description: "Single line text field",
+  },
+  {
     $formkit: "submit",
     outerClass: "!col-span-2 pt-2",
     type: "submit",
