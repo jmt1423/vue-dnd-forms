@@ -82,36 +82,39 @@
 }
 
 .dark {
-  --background: oklch(0.258 0.025 144.793); /* Enhanced green tint in dark background */
+  --background: oklch(0.258 0.015 144.793); /* Reduced saturation in dark background */
   --foreground: oklch(0.985 0.001 106.423);
-  --card: oklch(0.18 0.03 145); /* Added slight green tint to cards */
+  --card: oklch(0.18 0.015 145); /* Reduced green tint in cards */
   --card-foreground: oklch(0.985 0.001 106.423);
-  --popover: oklch(0.18 0.03 145); /* Matched card green tint */
+  --popover: oklch(0.18 0.015 145); /* Matched card with reduced tint */
   --popover-foreground: oklch(0.985 0.001 106.423);
   --primary: oklch(0.985 0.001 106.423);
   --primary-foreground: oklch(0.216 0.006 56.043);
   --border-red: oklch(0.5493 0.131 26.86);
-  --secondary: oklch(0.268 0.02 145); /* Added green tint to secondary */
+  --secondary: oklch(0.268 0.01 145); /* Reduced green tint in secondary */
   --secondary-foreground: oklch(0.985 0.001 106.423);
-  --muted: oklch(0.268 0.015 145); /* Added green tint to muted */
+  --muted: oklch(0.268 0.008 145); /* Reduced green tint in muted */
   --muted-foreground: oklch(0.709 0.01 56.259);
-  --accent: oklch(0.5 0.15 145); /* Dark mode green accent */
+  --accent: oklch(0.5 0.08 145); /* Toned down green accent */
   --accent-foreground: oklch(0.985 0.001 106.423);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.268 0.02 145); /* Green-tinted borders */
-  --input: oklch(0.268 0.02 145); /* Green-tinted inputs */
-  --ring: oklch(72.3% 0.219 149.579);
+  --border: oklch(0.268 0.01 145); /* Reduced green tint in borders */
+  --input: oklch(0.268 0.01 145); /* Reduced green tint in inputs */
+  --ring: oklch(72.3% 0.15 149.579); /* Reduced saturation */
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.196 0.052 144.251); /* Lighter sidebar with stronger green tint */
+  --sidebar: oklch(0.103 0.024 143.596); /* Reduced green tint in sidebar */
   --sidebar-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-primary: oklch(0.6 0.15 145); /* Green-tinted primary sidebar element */
+  --sidebar-primary: oklch(0.6 0.08 145); /* Reduced green tint in sidebar primary */
   --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-accent: oklch
+  --sidebar-accent: oklch(0.4 0.06 145); /* Added missing value with subtle green */
+  --sidebar-accent-foreground: oklch(0.985 0.001 106.423);
+  --sidebar-border: oklch(0.164 0.016 144.825); /* Added missing sidebar border */
+  --sidebar-ring: oklch(0.5 0.05 145); /* Added missing sidebar ring */
 }
 
 @layer base {

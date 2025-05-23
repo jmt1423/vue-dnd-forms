@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useFormField} from "../../../utils/composable.ts";
-import {formSchema, selectedIndex} from "../../../utils/default-form-elements.ts";
 import {
   TagsInput,
   TagsInputInput,
@@ -9,14 +8,11 @@ import {
   TagsInputItemText
 } from "../../ui/tags-input";
 import {Label} from "../../ui/label";
-import {computed} from "vue";
 import FormFieldLayout from "./FormFieldLayout.vue";
-
-const selectedField = computed(() => formSchema.value[selectedIndex.value])
 
 const {
   modelValue
-} = useFormField(selectedField, selectedIndex, formSchema)
+} = useFormField()
 </script>
 
 <template>

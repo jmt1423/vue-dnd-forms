@@ -5,6 +5,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export const getValueParts = (value: string) => {
+  const parts = value.split(",");
+  return [parts[0] || "", parts[1] || ""];
+};
+
 export function eqRegExp(x: RegExp, y: RegExp): boolean {
   return (
     x.source === y.source &&

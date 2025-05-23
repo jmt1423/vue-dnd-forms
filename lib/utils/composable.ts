@@ -1,15 +1,22 @@
 import type { WritableComputedRef } from "vue";
-import { computed, type Ref, ref } from "vue";
-import type { FormKitSchemaFormKit } from "@formkit/core";
-import { formSchema } from "./default-form-elements.ts";
+import { computed, ref } from "vue";
+import { formSchema, selectedIndex } from "./default-form-elements.ts";
 
 export const isLoading = ref(false);
+export const selectedField = computed(() => formSchema.value[selectedIndex.value]);
 
 export function useFormField(
-  selectedField: Ref<FormKitSchemaFormKit | undefined>,
-  selectedIndex: Ref<number>,
-  fields?: Ref<FormKitSchemaFormKit[]>,
 ) {
+
+  const createValidationValue = (validationType: string, active: boolean = true) => {
+    return computed({
+      get: () => getParameterizedValidation(validationType),
+      set: (value: string) => {
+        updateValidationString(`${validationType}:${value}`, active);
+      },
+    })
+  }
+
   const label = computed({
     get: () => selectedField.value?.label || "",
     set: (newLabel: string) => {
@@ -20,11 +27,6 @@ export function useFormField(
           label: newLabel,
         };
         formSchema.value = updatedSchema;
-
-        // Update fields as well if it exists
-        if (fields) {
-          fields.value = updatedSchema;
-        }
       }
     },
   });
@@ -40,9 +42,6 @@ export function useFormField(
         };
         formSchema.value = updatedSchema;
 
-        if (fields) {
-          fields.value = updatedSchema;
-        }
       }
     },
   });
@@ -57,9 +56,6 @@ export function useFormField(
           validation: value,
         };
         formSchema.value = updatedSchema;
-        if (fields) {
-          fields.value = updatedSchema;
-        }
       }
     },
   });
@@ -161,11 +157,6 @@ export function useFormField(
           help: newHelp,
         };
         formSchema.value = updatedSchema;
-
-        // Update fields as well if it exists
-        if (fields) {
-          fields.value = updatedSchema;
-        }
       }
     },
   });
@@ -182,9 +173,6 @@ export function useFormField(
             step: "1",
           };
           formSchema.value = updatedSchema;
-          if (fields) {
-            fields.value = updatedSchema;
-          }
         }
       } else {
         if (formSchema.value.length > 0) {
@@ -195,9 +183,6 @@ export function useFormField(
             step: "0.1",
           };
           formSchema.value = updatedSchema;
-          if (fields) {
-            fields.value = updatedSchema;
-          }
         }
       }
     },
@@ -213,9 +198,6 @@ export function useFormField(
           multiple: value,
         };
         formSchema.value = updatedSchema;
-        if (fields) {
-          fields.value = updatedSchema;
-        }
       }
     },
   });
@@ -230,9 +212,6 @@ export function useFormField(
           options: newOptions,
         };
         formSchema.value = updatedSchema;
-        if (fields) {
-          fields.value = updatedSchema;
-        }
       }
     },
   });
@@ -247,10 +226,6 @@ export function useFormField(
           min: newMin,
         };
         formSchema.value = updatedSchema;
-
-        if (fields) {
-          fields.value = updatedSchema;
-        }
       }
     },
   });
@@ -265,10 +240,6 @@ export function useFormField(
           max: newMax,
         };
         formSchema.value = updatedSchema;
-
-        if (fields) {
-          fields.value = updatedSchema;
-        }
       }
     },
   });
@@ -313,6 +284,7 @@ export function useFormField(
     getParameterizedValidation,
     hasParameterizedValidation,
     isActive,
+    createValidationValue,
     showPlaceholder,
     showListItems,
     currentFieldType,

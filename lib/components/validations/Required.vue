@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import { useFormField } from "../../utils/composable.ts";
-import {
-  formSchema,
-  selectedIndex,
-} from "../../utils/default-form-elements.ts";
-import { computed } from "vue";
 import ValidationCard from "../ui/validation-card/ValidationCard.vue";
 import ValidationSwitch from "../ui/validation-card/ValidationSwitch.vue";
 
-const selectedField = computed(() => formSchema.value[selectedIndex.value]);
-
 const {isActive, updateValidationString, isValidationChecked } =
-  useFormField(selectedField, selectedIndex, formSchema);
+  useFormField();
 
 const active = isActive(isValidationChecked, 'required')
 

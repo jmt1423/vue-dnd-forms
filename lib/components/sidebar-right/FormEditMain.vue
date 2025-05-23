@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import {
-  formSchema,
-  selectedIndex,
-} from "../../utils/default-form-elements.ts";
 import UniversalEdits from "./edit-inputs/UniversalEdits.vue";
 import PlaceholderEdit from "./edit-inputs/PlaceholderEdit.vue";
 import ListItemsEdit from "./edit-inputs/ListItemsEdit.vue";
@@ -13,9 +8,8 @@ import { Separator } from "../ui/separator";
 import ValidationSection from "../validations/ValidationSection.vue";
 import { useFormField } from "../../utils/composable.ts";
 
-const selectedField = computed(() => formSchema.value[selectedIndex.value]);
 const { currentFieldType, hasField, showPlaceholder, showListItems } =
-  useFormField(selectedField, selectedIndex, formSchema);
+  useFormField();
 </script>
 
 <template>

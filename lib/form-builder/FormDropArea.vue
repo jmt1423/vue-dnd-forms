@@ -3,10 +3,7 @@ import { Button } from "../components/ui/button";
 import { FormKitSchema } from "@formkit/vue";
 import { Trash2, ChevronsLeftRight, Loader2 } from "lucide-vue-next";
 import { customInsertPlugin } from "../utils/custom-insert-plugin.ts";
-import {
-  formSchema,
-  selectedIndex,
-} from "../utils/default-form-elements.ts";
+import { formSchema, selectedIndex } from "../utils/default-form-elements.ts";
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
 import type { FormKitSchemaFormKit } from "@formkit/core";
 import { isLoading } from "../utils/composable.ts";
@@ -43,8 +40,9 @@ const insertPointClasses = [
   "before:block",
   'before:content-["Drop_here"]',
   "before:whitespace-nowrap",
-  "before:bg-green-500",
+  "before:bg-green-900",
   "before:py-1",
+  "before:h-6",
   "before:px-3",
   "before:rounded-lg",
   "before:text-xs",
@@ -66,7 +64,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
   {
     group: "form-builder",
     nativeDrag: true,
-    draggingClass: "opacity-30 rounded-md bg-green-400/50",
+    draggingClass: "opacity-30 rounded-md bg-green-400/50 w-fit h-fit",
     accepts: () => true,
     sortable: true,
     draggable: () => true,
@@ -89,7 +87,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
 <template>
   <div class="flex flex-1 flex-col justify-start mb-15">
     <div
-      class="border-1 border-ring/5 relative mx-auto md:top-10 min-h-[80%] p-4 !h-fit w-[90%] lg:w-[70%] rounded-xl bg-ring/5 dark:bg-primary/10 shadow-md"
+      class="border-1 border-ring/5 dark:border-none relative mx-auto md:top-10 min-h-[80%] p-4 !h-fit w-[90%] lg:w-[70%] rounded-xl bg-ring/5 dark:bg-sidebar shadow-md "
     >
       <Loader v-show="isLoading">
         <div
@@ -116,10 +114,10 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
           :key="(field as FormKitSchemaFormKit)?.$formkit + index"
           :class="
             cn(
-              'rounded-lg transition-all duration-200 p-1 !cursor-drag h-full !z-20 relative',
+              'rounded-lg transition-all duration-200 p-1 !cursor-grab h-full !z-20 relative',
               selectedIndex === index
-                ? 'border border-ring/30 bg-ring/20'
-                : 'border bg-ring/5 border-transparent hover:border-ring/30',
+                ? 'border border-ring/30 bg-ring/20 dark:bg-ring/8 dark:border-ring/5 transition-all duration-300'
+                : 'border bg-ring/5 border-transparent hover:border-ring/30 dark:bg-ring/3 dark:hover:border-ring/10 transition-all duration-200',
               formSchema[index].outerClass,
             )
           "

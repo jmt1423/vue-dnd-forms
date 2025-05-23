@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import {useFormField} from "../../../utils/composable.ts";
-import {formSchema, selectedIndex} from "../../../utils/default-form-elements.ts";
 import {Input} from "../../ui/input";
 import {MoveRight} from "lucide-vue-next";
 import FormFieldLayout from "./FormFieldLayout.vue";
-import {computed} from "vue";
-
-const selectedField = computed(() => formSchema.value[selectedIndex.value])
 
 const {
   min,
   max
-} = useFormField(selectedField, selectedIndex, formSchema)
+} = useFormField()
 </script>
 
 <template>

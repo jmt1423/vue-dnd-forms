@@ -30,7 +30,7 @@ export const sidebarMenuButtonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'hover:shadow-[0_0_10px_rgba(0,0,0,0.15)] dark:hover:shadow-primary/20 transition-all duration-200 ease-out cursor-grab active:cursor-grabbing hover:bg-transparent',
+        default: 'hover:shadow-[0_0_10px_rgba(0,0,0,0.15)] dark:hover:shadow-ring/15 transition-all duration-200 ease-out cursor-grab active:cursor-grabbing hover:bg-transparent',
         outline:
           'bg-background shadow-[0_0_0_1px_hsl(var(--sidebar-border))] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))]',
       },

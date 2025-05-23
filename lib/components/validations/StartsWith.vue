@@ -5,26 +5,20 @@ import {
   selectedIndex,
 } from "../../utils/default-form-elements.ts";
 import { Input } from "../ui/input";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import ValidationCard from "../ui/validation-card/ValidationCard.vue";
 import ValidationSwitch from "../ui/validation-card/ValidationSwitch.vue";
 
 const selectedField = computed(() => formSchema.value[selectedIndex.value]);
 
-const { isActive, updateValidationString, isValidationChecked } = useFormField(
+const { isActive, updateValidationString, isValidationChecked, createValidationValue } = useFormField(
   selectedField,
   selectedIndex,
   formSchema,
 );
 
-const startsWith = ref("");
 const active = isActive(isValidationChecked, "starts_with");
-
-function updateMinValue() {
-  if (active.value && startsWith.value ) {
-    updateValidationString(`starts_with:${startsWith.value}`, active.value);
-  }
-}
+const startsWith = createValidationValue("starts_with");
 
 function toggleStartsWith() {
   updateValidationString(`starts_with:${startsWith.value}`, !active.value);
@@ -43,8 +37,6 @@ function toggleStartsWith() {
     <Input
       v-show="active"
       v-model="startsWith"
-      @blur="updateMinValue"
-      @keyup.enter="updateMinValue"
       placeholder="Value"
       class="h-7 rounded-md px-2 py-1 text-[10px]"
       style="font-size: 10px"

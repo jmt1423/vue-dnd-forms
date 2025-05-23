@@ -4,19 +4,9 @@ import type { SidebarProps } from "../ui/sidebar";
 import { Sidebar, SidebarContent } from "../ui/sidebar";
 import FormEditMain from "./FormEditMain.vue";
 import { fieldProps } from "../../utils/field-props.ts";
-import {
-  formSchema,
-  selectedIndex,
-} from "../../utils/default-form-elements.ts";
 import { useFormField } from "../../utils/composable.ts";
-import { computed } from "vue";
 
-const selectedField = computed(() => formSchema.value[selectedIndex.value]);
-const { currentFieldType } = useFormField(
-  selectedField,
-  selectedIndex,
-  formSchema,
-);
+const { currentFieldType } = useFormField();
 
 const props = withDefaults(defineProps<SidebarProps>(), {
   collapsible: "offcanvas",
@@ -32,13 +22,8 @@ const props = withDefaults(defineProps<SidebarProps>(), {
       >
         <component
           :is="fieldProps.find((prop) => prop.name === currentFieldType)?.icon"
-          class="!h-8 !w-8 rounded-md text-green-700 bg-ring/20 p-1.5"
+          class="!h-8 !w-8 rounded-md text-green-700 dark:text-sidebar-accent bg-ring/10 p-1.5"
         />
-<!--        <span-->
-<!--          class="text-sm font-medium text-green-800 capitalize tracking-wide"-->
-<!--        >-->
-<!--          {{ currentFieldType }}-->
-<!--        </span>-->
       </div>
     </SidebarHeader>
     <SidebarContent>

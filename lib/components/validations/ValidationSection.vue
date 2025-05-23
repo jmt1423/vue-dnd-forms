@@ -4,6 +4,8 @@ import Maximum from "./Maximum.vue";
 import Length from "./Length.vue";
 import Required from "./Required.vue";
 import StartsWith from "./StartsWith.vue";
+import Between from "./Between.vue";
+import Matches from "./Matches.vue";
 </script>
 
 <template>
@@ -12,4 +14,6 @@ import StartsWith from "./StartsWith.vue";
   <Maximum />
   <Length />
   <StartsWith />
+  <Between />
+  <Matches />
 </template>

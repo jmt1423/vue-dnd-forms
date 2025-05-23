@@ -43,9 +43,9 @@ const previewRef = ref<InstanceType<typeof FormPreview>>();
                 <Button
                   variant="secondary"
                   size="icon"
-                  class="h-6 w-6 !p-3 hover:bg-destructive/20 dark:hover:bg-destructive/70"
+                  class="h-6 w-6 !p-3"
                 >
-                  <Trash2 />
+                  <Trash2 class="dark:text-green-200"/>
                 </Button>
               </TooltipTrigger>
               <TooltipContent class="bg-destructive dark:text-white">
@@ -79,7 +79,7 @@ const previewRef = ref<InstanceType<typeof FormPreview>>();
               @click="previewRef?.open()"
               class="h-6 w-6 !p-3"
             >
-              <Eye />
+              <Eye class="dark:text-green-200"/>
             </Button>
           </TooltipTrigger>
           <TooltipContent>

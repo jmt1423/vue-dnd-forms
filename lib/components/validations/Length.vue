@@ -1,32 +1,54 @@
 <script setup lang="ts">
 import { useFormField } from "../../utils/composable.ts";
-import {
-  formSchema,
-  selectedIndex,
-} from "../../utils/default-form-elements.ts";
+import { getValueParts } from "../../utils/utils";
 import { Input } from "../ui/input";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { MoveRight } from "lucide-vue-next";
 import ValidationCard from "../ui/validation-card/ValidationCard.vue";
 import ValidationSwitch from "../ui/validation-card/ValidationSwitch.vue";
 
-const selectedField = computed(() => formSchema.value[selectedIndex.value]);
+const {
+  updateValidationString,
+  isValidationChecked,
+  isActive,
+  createValidationValue,
+} = useFormField();
 
-const {updateValidationString, isValidationChecked, isActive } =
-  useFormField(selectedField, selectedIndex, formSchema);
-
-const min = ref("");
-const max = ref("");
 const active = isActive(isValidationChecked, "length");
+const lengthValue = createValidationValue("length", active.value);
 
-function updateLengthValue() {
-  if (active.value && min.value && max.value) {
-    updateValidationString(`length:${min.value},${max.value}`, active.value);
-  }
-}
+const min = computed({
+  get: () => getValueParts(lengthValue.value)[0],
+  set: (value: string) => {
+    const [_, maxVal] = getValueParts(lengthValue.value);
+    if (maxVal) {
+      lengthValue.value = `${value || "0"},${maxVal}`;
+    } else {
+      lengthValue.value = value;
+    }
+  },
+});
+
+const max = computed({
+  get: () => getValueParts(lengthValue.value)[1],
+  set: (value: string) => {
+    const [minVal, _] = getValueParts(lengthValue.value);
+    if (value === "") {
+      lengthValue.value = minVal || "";
+    } else {
+      lengthValue.value = `${minVal || "0"},${value}`;
+    }
+  },
+});
 
 function toggleLength() {
-  updateValidationString(`length:${min.value},${max.value}`, !active.value);
+  if (!max.value) {
+    updateValidationString(`length:${min.value}`, !active.value);
+  } else if (!min.value) {
+    updateValidationString(`length:0,${max.value}`, !active.value);
+  } else {
+    updateValidationString(`length:${min.value},${max.value}`, !active.value);
+  }
 }
 </script>
 
@@ -44,8 +66,6 @@ function toggleLength() {
         <span class="text-xs">Min</span>
         <Input
           v-model="min"
-          @blur="updateLengthValue"
-          @keyup.enter="updateLengthValue"
           placeholder="0"
           class="h-7 rounded-md px-2 py-1 text-[10px]"
           style="font-size: 10px"
@@ -56,14 +76,11 @@ function toggleLength() {
         <span class="text-xs">Max</span>
         <Input
           v-model="max"
-          @blur="updateLengthValue"
-          @keyup.enter="updateLengthValue"
           placeholder="10"
           class="h-7 rounded-md px-2 py-1 text-[10px]"
           style="font-size: 10px"
         />
       </div>
     </div>
-    <span v-show="max < min && active" class="text-xs text-destructive">Minimum is higher than maximum</span>
   </ValidationCard>
 </template>
