@@ -7,6 +7,8 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+*.env
+
 node_modules
 dist
 dist-ssr
@@ -25,10 +27,10 @@ dist-ssr
 
 # Playwright
 /test-results/
-/playwright-report/
 /blob-report/
 /playwright/.cache/
 
 # Vitest
 /coverage/
 /html/
+/playwright-report/

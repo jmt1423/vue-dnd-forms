@@ -2,14 +2,14 @@ import { describe, test, expect } from 'vitest';
 import { render } from 'vitest-browser-vue';
 import '../../src/style.css';
 import {h} from 'vue';
-import SidebarProvider from '../../lib/ui/sidebar/SidebarProvider.vue';
-import AppSidebar from '../../lib/form-builder/sidebar-component/left-sidebar/AppSidebar.vue';
+import SidebarProvider from '../../lib/components/ui/sidebar/SidebarProvider.vue';
+import SidebarLeft from '../../lib/components/sidebar-left/SidebarLeft.vue';
 
 const renderWithProvider = () => {
     return render({
         render() {
             return h(SidebarProvider, {}, {
-                default: () => h(AppSidebar)
+                default: () => h(SidebarLeft)
             });
         }
     });

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BuilderMain from "../lib/form-builder/builder/BuilderMain.vue";
+import BuilderMain from "../lib/form-builder/BuilderMain.vue";
 </script>
 
 <template>

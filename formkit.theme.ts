@@ -71,7 +71,6 @@ const classes: Record<string, Record<string, boolean>> = {
     "ring-green-500": true,
     "focus-visible:ring-2": true,
     "group-data-[disabled]:!cursor-not-allowed": true,
-    "shadow-md": true,
     "group-data-[prefix-icon]:pl-4": true,
     "group-data-[suffix-icon]:pr-4": true,
     "border": true,
@@ -3303,8 +3302,8 @@ const classes: Record<string, Record<string, boolean>> = {
 const globals: Record<string, Record<string, boolean>> = {
   "outer": {
     "group": true,
-    "max-w-[24em]": true,
-    "min-w-0": true,
+    "max-w-full": true,
+    "min-w-full": true,
     "grow": true,
     "mb-3.5": true,
     "data-[disabled]:select-none": true,
@@ -3312,6 +3311,7 @@ const globals: Record<string, Record<string, boolean>> = {
     "text-sm": true
   },
   "label": {
+    "pointer-events-none": true,
     "block": true,
     "text-stone-700": true,
     "text-xs": true,
