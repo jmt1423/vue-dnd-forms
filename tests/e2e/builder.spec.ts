@@ -6,7 +6,7 @@ const dragElement = async (page: Page, originElement: Locator, destinationElemen
   await page.mouse.down();
   const box = (await destinationElement.boundingBox())!;
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-  await destinationElement.hover();
+  await page.mouse.move(box.x + box.width / 2, box.y - 30 + box.height / 2);
   await page.mouse.up();
 }
 
@@ -15,7 +15,7 @@ test.describe("Test drag and drop functions", () => {
     await page.goto("http://localhost:5173");
 
     const originElement = page.getByRole("button", { name: "Text Single line text field" })
-    const destinationElement = page.getByTestId("drop-area")
+    const destinationElement = page.getByTestId('drop-area').locator('div').filter({ hasText: 'Submit' }).nth(1)
 
     await dragElement(page, originElement, destinationElement)
 
@@ -24,20 +24,15 @@ test.describe("Test drag and drop functions", () => {
 
   test("Text and number should be visible", async ({ page }) => {
     await page.goto("http://localhost:5173");
-
+    //
     const o1 = page.getByRole('button', { name: 'Number Single number input' })
-    const d1 = page.getByTestId("drop-area")
+    const d1 = page.getByTestId('drop-area').locator('div').filter({ hasText: 'Submit' }).nth(1)
     await dragElement(page, o1, d1)
-
     await expect(page.getByText("Client Age")).toBeVisible();
 
-
-
     const o2 = page.getByRole("button", { name: "Text Single line text field" })
-    const d2 = page.getByText("Client Age")
-
+    const d2 = page.getByTestId('drop-area').locator('div').filter({ hasText: 'Client AgeThis is help text' }).nth(1)
     await dragElement(page, o2, d2)
-
     await expect(page.getByText("Client Name")).toBeVisible();
   })
 })
