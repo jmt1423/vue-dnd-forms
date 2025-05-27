@@ -18,7 +18,6 @@ const {
           v-model="min"
           placeholder="0"
           class="h-7 rounded-md px-2 py-1 text-[10px]"
-          style="font-size: 10px"
       />
     </div>
     <MoveRight class="pt-4" />
@@ -28,7 +27,6 @@ const {
           v-model="max"
           placeholder="10"
           class="h-7 rounded-md px-2 py-1 text-[10px]"
-          style="font-size: 10px"
       />
     </div>
   </FormFieldLayout>

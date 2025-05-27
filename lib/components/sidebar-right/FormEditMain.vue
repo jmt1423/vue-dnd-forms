@@ -7,6 +7,7 @@ import RangeEdit from "./edit-inputs/RangeEdit.vue";
 import { Separator } from "../ui/separator";
 import ValidationSection from "../validations/ValidationSection.vue";
 import { useFormField } from "../../utils/composable.ts";
+import FileEdit from "./edit-inputs/FileEdit.vue";
 
 const { currentFieldType, hasField, showPlaceholder, showListItems } =
   useFormField();
@@ -27,6 +28,7 @@ const { currentFieldType, hasField, showPlaceholder, showListItems } =
         <ListItemsEdit v-if="showListItems" />
         <NumberTypeEdit v-if="currentFieldType === 'number'" />
         <RangeEdit v-if="currentFieldType === 'range'" />
+        <FileEdit v-if="currentFieldType === 'file'" />
         <Separator />
         <ValidationSection />
       </div>

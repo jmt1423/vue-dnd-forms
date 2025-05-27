@@ -36,14 +36,14 @@ const toggleSwitch = () => {
       :show-switch="true"
     />
     <Input
-      v-if="active && props.value !== 'date_after'"
+      v-if="active && props.value !== 'date_after' && props.value !== 'date_before'"
       v-model="paramValue"
       :placeholder="props.placeholder"
       class="h-7 rounded-md px-2 py-1 text-[10px]"
       style="font-size: 10px"
     />
     <DatePicker
-      v-if="active && props.value === 'date_after'"
+      v-if="active && (props.value === 'date_after' || props.value === 'date_before')"
       v-model="paramValue"
     />
   </ValidationCard>

@@ -3,19 +3,22 @@ import { computed, ref } from "vue";
 import { formSchema, selectedIndex } from "./default-form-elements.ts";
 
 export const isLoading = ref(false);
-export const selectedField = computed(() => formSchema.value[selectedIndex.value]);
+export const selectedField = computed(
+  () => formSchema.value[selectedIndex.value],
+);
 
-export function useFormField(
-) {
-
-  const createValidationValue = (validationType: string, active: boolean = true) => {
+export function useFormField() {
+  const createValidationValue = (
+    validationType: string,
+    active: boolean = true,
+  ) => {
     return computed({
       get: () => getParameterizedValidation(validationType),
       set: (value: string) => {
         updateValidationString(`${validationType}:${value}`, active);
       },
-    })
-  }
+    });
+  };
 
   const label = computed({
     get: () => selectedField.value?.label || "",
@@ -41,7 +44,6 @@ export function useFormField(
           placeholder: newPlaceholder,
         };
         formSchema.value = updatedSchema;
-
       }
     },
   });
@@ -103,26 +105,6 @@ export function useFormField(
     return computed(() => fn(strVal));
   };
 
-  const updateParameterizedValidation = (
-    validationType: string,
-    value: string | number,
-    active: boolean = true,
-  ) => {
-    const currentValidation = validationString.value.split("|").filter(Boolean);
-
-    // First, remove all existing validations of this type
-    let newValidation = currentValidation.filter(
-      (item: string) => !item.startsWith(`${validationType}:`),
-    );
-
-    // Add the new validation if active is true and value exists
-    if (active && value !== undefined && value !== null && value !== "") {
-      newValidation.push(`${validationType}:${value}`);
-    }
-
-    validationString.value = newValidation.join("|");
-  };
-
   const getParameterizedValidation = (validationType: string) => {
     if (!validationString.value) return "";
 
@@ -134,17 +116,6 @@ export function useFormField(
     if (!validation) return "";
 
     return validation.replace(`${validationType}:`, "");
-  };
-
-  const hasParameterizedValidation = (validationType: string) => {
-    if (!validationString.value) return false;
-
-    const validations = validationString.value.split("|");
-    const validation = validations.find((item: string) =>
-      item.startsWith(`${validationType}:`),
-    );
-
-    return !!validation;
   };
 
   const help = computed({
@@ -189,8 +160,8 @@ export function useFormField(
   });
 
   const numOfFiles = computed({
-    get: () => selectedField.value?.multiple || false,
-    set: (value: boolean) => {
+    get: () => selectedField.value?.multiple || "false",
+    set: (value: string) => {
       if (formSchema.value.length > 0) {
         const updatedSchema = [...formSchema.value];
         updatedSchema[selectedIndex.value] = {
@@ -217,7 +188,7 @@ export function useFormField(
   });
 
   const min: WritableComputedRef<any, number> = computed({
-    get: () => selectedField.value?.min || 0,
+    get: () => selectedField.value?.min,
     set: (newMin: number) => {
       if (formSchema.value.length > 0) {
         const updatedSchema = [...formSchema.value];
@@ -231,7 +202,7 @@ export function useFormField(
   });
 
   const max = computed({
-    get: () => selectedField.value?.max || 10,
+    get: () => selectedField.value?.max,
     set: (newMax: number) => {
       if (formSchema.value.length > 0) {
         const updatedSchema = [...formSchema.value];
@@ -244,14 +215,22 @@ export function useFormField(
     },
   });
 
+  const hasField = computed(() => !!formSchema.value[selectedIndex.value]);
+
   const isValidationChecked = (validationType: string) => {
-    const hasField = computed(() => !!formSchema.value[selectedIndex.value]);
     if (!hasField.value) return false;
-    return selectedField?.value?.validation?.includes(validationType) || false;
+    if (!selectedField?.value?.validation) return false;
+
+    const validations = selectedField.value.validation.split("|");
+    return validations.some((validation: string) => {
+      if (validation === validationType) return true;
+
+      const [type] = validation.split(":");
+      return type === validationType;
+    });
   };
 
   const showTextValidation = computed(() => {
-    const hasField = computed(() => !!formSchema.value[selectedIndex.value]);
     if (!hasField.value) return false;
     const excludedFields = ["text", "textarea", "password"];
     return excludedFields.includes(
@@ -259,30 +238,41 @@ export function useFormField(
     );
   });
 
-  const hasField = computed(() => !!formSchema.value[selectedIndex.value]);
   const currentFieldType = computed(() =>
     hasField.value ? formSchema.value[selectedIndex.value].$formkit : null,
   );
 
   const showPlaceholder = computed(() => {
-    if(!hasField.value) return false
-    const excludedFields = ['checkbox', 'radio', 'date', 'time', 'datetime-local', 'color', 'file', 'select', 'range', 'submit']
-    return !excludedFields.includes(formSchema.value[selectedIndex.value].$formkit)
-  })
+    if (!hasField.value) return false;
+    const excludedFields = [
+      "checkbox",
+      "radio",
+      "date",
+      "time",
+      "datetime-local",
+      "color",
+      "file",
+      "select",
+      "range",
+      "submit",
+    ];
+    return !excludedFields.includes(
+      formSchema.value[selectedIndex.value].$formkit,
+    );
+  });
 
   const showListItems = computed(() => {
-    if(!hasField.value) return false
-    const excludedFields = ['checkbox', 'radio', 'select']
-    return excludedFields.includes(formSchema.value[selectedIndex.value].$formkit)
-  })
+    if (!hasField.value) return false;
+    const excludedFields = ["checkbox", "radio", "select"];
+    return excludedFields.includes(
+      formSchema.value[selectedIndex.value].$formkit,
+    );
+  });
 
   return {
     label,
     placeholder,
     updateValidationString,
-    updateParameterizedValidation,
-    getParameterizedValidation,
-    hasParameterizedValidation,
     isActive,
     createValidationValue,
     showPlaceholder,

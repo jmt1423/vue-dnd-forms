@@ -714,7 +714,7 @@ const classes: Record<string, Record<string, boolean>> = {
     "flex": true,
     "appearance-none": true,
     "items-center": true,
-    "text-[0px]": true,
+    "text-[8px]": true,
     "outline-none": true,
     "hover:!text-red-500": true,
     "focus-visible:ring-2": true,
