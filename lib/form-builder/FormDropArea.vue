@@ -158,9 +158,6 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
           </div>
         </li>
       </ul>
-      <pre>
-        {{JSON.stringify(formSchema, null, 2)}}
-      </pre>
     </div>
   </div>
 </template>
