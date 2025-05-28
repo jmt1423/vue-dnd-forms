@@ -1,7 +1,7 @@
 <!-- src/components/form-builder/FormPreview.vue -->
 <template>
   <Dialog v-model:open="isOpen" class="form-preview">
-    <DialogContent class="max-h-[90vh] overflow-y-auto sm:max-w-[500px]" :show-overlay="true">
+    <DialogContent class="max-h-[90vh] overflow-y-auto sm:max-w-[500px] border-none" :show-overlay="true">
       <DialogHeader class="pb-3 border-b border-border/50">
         <DialogTitle class="text-sm font-medium">Form Preview</DialogTitle>
         <DialogDescription class="text-[11px] text-muted-foreground">

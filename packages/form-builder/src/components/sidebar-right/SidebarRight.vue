@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<SidebarProps>(), {
       >
         <component
           :is="fieldProps.find((prop) => prop.name === currentFieldType)?.icon"
-          class="!h-8 !w-8 rounded-md text-green-700 dark:text-sidebar-accent bg-ring/10 p-1.5"
+          class="!h-8 !w-8 rounded-md text-green-700 dark:text-white/70 bg-ring/20 p-1.5"
         />
       </div>
     </SidebarHeader>

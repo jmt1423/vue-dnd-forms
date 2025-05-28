@@ -81,7 +81,7 @@ const isFocused = () => {
     :class="
       cn(
         'flex rounded-lg max-md:w-[80%] !w-[50%] card relative items-center justify-center',
-        'bg-gradient-to-br from-secondary to-emerald-100 dark:from-sidebar-border dark:to-stone-900 dark:border-ring/5',
+        'bg-gradient-to-br from-secondary to-emerald-100/50 dark:from-secondary dark:to-emerald-800/30 dark:border-ring/5',
         isFocusedVal
           ? 'ring-2 ring-ring transition-all duration-300'
           : 'border border-ring/20 dark:border-ring/10 transition-all duration-300',
@@ -137,7 +137,7 @@ const isFocused = () => {
         :class="
           cn(
             'flex rounded-lg w-[50vw] card relative items-center justify-center',
-            'bg-gradient-to-br from-secondary to-emerald-100 dark:from-zinc-800 dark:to-emerald-950',
+            'bg-gradient-to-br from-secondary to-emerald-100/50 dark:from-secondary dark:to-emerald-800/30',
             isFocusedVal ? 'border ring ring-ring' : 'border border-primary/10',
             isLoading
               ? 'bg-primary/5 shadow-inner animate-pulse transition-colors duration-300'

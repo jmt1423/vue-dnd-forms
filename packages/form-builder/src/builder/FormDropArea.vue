@@ -87,7 +87,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
 <template>
   <div class="flex flex-1 flex-col justify-start mb-15">
     <div
-      class="border-1 border-ring/5 dark:border-none relative mx-auto md:top-10 min-h-[80%] p-4 !h-fit w-[90%] lg:w-[70%] rounded-xl bg-ring/5 dark:bg-sidebar shadow-md"
+      class="border-1 border-ring/5 dark:border-none relative mx-auto md:top-10 min-h-[80%] p-4 !h-fit w-[90%] lg:w-[70%] rounded-xl bg-ring/5 dark:bg-neutral-800/70 shadow-md"
     >
       <Loader v-if="isLoading">
         <div
@@ -116,7 +116,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
             cn(
               'rounded-lg transition-all duration-200 p-1 !cursor-grab h-full !z-20 relative',
               selectedIndex === index
-                ? 'border border-ring/30 bg-ring/20 dark:bg-ring/8 dark:border-ring/5 transition-all duration-300'
+                ? 'border border-ring/30 bg-ring/20 dark:bg-accent/20 dark:border-ring/5 transition-all duration-300'
                 : 'border bg-ring/5 border-transparent hover:border-ring/30 dark:bg-ring/3 dark:hover:border-ring/10 transition-all duration-200',
               formSchema[index].outerClass,
             )

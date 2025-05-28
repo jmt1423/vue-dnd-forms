@@ -25,7 +25,7 @@ import BuilderHeader from "./BuilderHeader.vue";
     </div>
     <SidebarProvider>
       <SidebarInset
-        class="rounded-2xl my-3 mr-2 max-h-[calc(100vh-1.5rem)] overflow-y-scroll z-0 border-1 border-ring/20 dark:border-ring/5 relative bg-gradient-to-br from-secondary to-emerald-100 dark:from-sidebar-border dark:to-neutral-950"
+        class="rounded-2xl my-3 mr-2 max-h-[calc(100vh-1.5rem)] overflow-y-scroll z-0 border-1 border-ring/20 dark:border-none relative bg-gradient-to-br from-secondary to-emerald-100/50 dark:from-secondary dark:to-emerald-800/20"
       >
         <BuilderHeader />
         <FormDropArea />

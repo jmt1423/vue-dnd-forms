@@ -82,39 +82,39 @@
 }
 
 .dark {
-  --background: oklch(0.258 0.015 144.793); /* Reduced saturation in dark background */
-  --foreground: oklch(0.985 0.001 106.423);
-  --card: oklch(0.18 0.015 145); /* Reduced green tint in cards */
-  --card-foreground: oklch(0.985 0.001 106.423);
-  --popover: oklch(0.18 0.015 145); /* Matched card with reduced tint */
-  --popover-foreground: oklch(0.985 0.001 106.423);
-  --primary: oklch(0.985 0.001 106.423);
+  --background: oklch(0.35 0.008 145); /* Much less green saturation */
+  --foreground: oklch(0.92 0.003 145); /* Very subtle greenish white */
+  --card: oklch(0.32 0.006 145); /* Much less green in cards */
+  --card-foreground: oklch(0.92 0.003 145);
+  --popover: oklch(0.32 0.006 145);
+  --popover-foreground: oklch(0.92 0.003 145);
+  --primary: oklch(0.92 0.003 145);
   --primary-foreground: oklch(0.216 0.006 56.043);
   --border-red: oklch(0.5493 0.131 26.86);
-  --secondary: oklch(0.268 0.01 145); /* Reduced green tint in secondary */
-  --secondary-foreground: oklch(0.985 0.001 106.423);
-  --muted: oklch(0.268 0.008 145); /* Reduced green tint in muted */
-  --muted-foreground: oklch(0.709 0.01 56.259);
-  --accent: oklch(0.5 0.08 145); /* Toned down green accent */
-  --accent-foreground: oklch(0.985 0.001 106.423);
+  --secondary: oklch(0.4 0.01 145); /* Much less green in secondary */
+  --secondary-foreground: oklch(0.92 0.003 145);
+  --muted: oklch(0.38 0.008 145); /* Much less green in muted */
+  --muted-foreground: oklch(0.75 0.005 145); /* Much less green in muted text */
+  --accent: oklch(0.6 0.08 145); /* Less saturated green accent */
+  --accent-foreground: oklch(0.92 0.003 145);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.268 0.01 145); /* Reduced green tint in borders */
-  --input: oklch(0.268 0.01 145); /* Reduced green tint in inputs */
-  --ring: oklch(72.3% 0.15 149.579); /* Reduced saturation */
+  --border: oklch(0.45 0.01 145); /* Much less green in borders */
+  --input: oklch(0.45 0.01 145); /* Much less green in inputs */
+  --ring: oklch(72.3% 0.15 149.579);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.103 0.024 143.596); /* Reduced green tint in sidebar */
-  --sidebar-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-primary: oklch(0.6 0.08 145); /* Reduced green tint in sidebar primary */
-  --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-accent: oklch(0.4 0.06 145); /* Added missing value with subtle green */
-  --sidebar-accent-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-border: oklch(0.164 0.016 144.825); /* Added missing sidebar border */
-  --sidebar-ring: oklch(0.5 0.05 145); /* Added missing sidebar ring */
+  --sidebar: oklch(0.25 0.008 145); /* Much less green in sidebar */
+  --sidebar-foreground: oklch(0.92 0.003 145);
+  --sidebar-primary: oklch(0.7 0.05 145); /* Less green in sidebar primary */
+  --sidebar-primary-foreground: oklch(0.92 0.003 145);
+  --sidebar-accent: oklch(0.5 0.01 145); /* Much less green in sidebar accent */
+  --sidebar-accent-foreground: oklch(0.92 0.003 145);
+  --sidebar-border: oklch(0.3 0.008 145); /* Much less green in sidebar border */
+  --sidebar-ring: oklch(0.6 0.05 145);
 }
 
 @layer base {

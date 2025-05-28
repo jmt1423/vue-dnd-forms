@@ -28,7 +28,7 @@ const mode = useColorMode(colorModeOptions);
         <span class="sr-only">Toggle theme</span>
       </Button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent align="end">
+    <DropdownMenuContent align="end" class="">
       <DropdownMenuItem @click="mode = 'light'"> Light </DropdownMenuItem>
       <DropdownMenuItem @click="mode = 'dark'"> Dark </DropdownMenuItem>
       <DropdownMenuItem @click="mode = 'auto'"> System </DropdownMenuItem>
