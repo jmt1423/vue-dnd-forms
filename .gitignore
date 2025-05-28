@@ -28,7 +28,7 @@ dist-ssr
 # Playwright
 /test-results/
 /blob-report/
-/playwright/.cache/
+/packages/app/playwright/.cache/
 
 # Vitest
 /coverage/
