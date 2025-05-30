@@ -229,7 +229,7 @@ const classes: Record<string, Record<string, boolean>> = {
     "group-[]/repeater:shadow-none": true,
     "group-[]/multistep:shadow-none": true,
     "dark:bg-transparent": true,
-    "dark:border-green-800/20": true,
+    "dark:border-green-500/20": true,
     "dark:group-data-[disabled]:bg-stone-800/5": true,
     "dark:group-data-[invalid]:border-red-500": true,
     "dark:group-data-[invalid]:ring-red-500": true
@@ -306,7 +306,7 @@ const classes: Record<string, Record<string, boolean>> = {
     "group-[]/repeater:shadow-none": true,
     "group-[]/multistep:shadow-none": true,
     "dark:bg-transparent": true,
-    "dark:border-green-800/20": true,
+    "dark:border-green-500/20": true,
     "dark:group-data-[disabled]:bg-stone-700/40": true,
     "dark:group-data-[invalid]:border-red-500": true,
     "dark:group-data-[invalid]:ring-red-500": true
@@ -908,7 +908,7 @@ const classes: Record<string, Record<string, boolean>> = {
     "group-[]/multistep:shadow-none": true,
     "group-data-[multiple]:rounded-xl": true,
     "dark:bg-transparent": true,
-    "dark:border-green-800/20": true,
+    "dark:border-green-500/20": true,
     "dark:group-data-[disabled]:bg-stone-800/5": true,
     "dark:group-data-[invalid]:border-red-500": true,
     "dark:group-data-[invalid]:ring-red-500": true
@@ -1092,7 +1092,7 @@ const classes: Record<string, Record<string, boolean>> = {
     "shadow-md": true,
     "group-[]/repeater:shadow-none": true,
     "group-[]/multistep:shadow-none": true,
-    "dark:border-green-800/20": true,
+    "dark:border-green-500/20": true,
     "dark:group-data-[disabled]:bg-stone-800/5": true,
     "dark:group-data-[invalid]:border-red-500": true,
     "dark:group-data-[invalid]:ring-red-500": true,

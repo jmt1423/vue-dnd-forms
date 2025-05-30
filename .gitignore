@@ -34,3 +34,4 @@ dist-ssr
 /coverage/
 /html/
 /playwright-report/
+/packages/cli/form-builder-src/

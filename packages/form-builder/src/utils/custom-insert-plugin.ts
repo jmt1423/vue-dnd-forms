@@ -51,7 +51,7 @@ let documentController: AbortController | undefined;
  */
 const throttle = (fn: Function) => {
   const delay = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ? 100 : 0;
-  let timerFlag: number | NodeJS.Timeout | null = null; // Variable to keep track of the timer
+  let timerFlag: number | null = null; // Variable to keep track of the timer
   // Returning a throttled version
   return (...args: any[]) => {
     if (timerFlag === null) {

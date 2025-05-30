@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from "../components/ui/tooltip";
 import { Eye, Trash2 } from "lucide-vue-next";
-import FormPreview from "./FormPreview.vue";
+import BuilderPreview from "./BuilderPreview.vue";
 import AiPrompt from "../components/ai-prompt/AiPrompt.vue";
 import ThemeSwitcher from "../components/ui/theme-switcher/ThemeSwitcher.vue";
 import { formSchema } from "../utils/default-form-elements";
@@ -27,7 +27,7 @@ import {
 const clearForm = () => {
   formSchema.value = [];
 };
-const previewRef = ref<InstanceType<typeof FormPreview>>();
+const previewRef = ref<InstanceType<typeof BuilderPreview>>();
 </script>
 
 <template>
@@ -87,7 +87,7 @@ const previewRef = ref<InstanceType<typeof FormPreview>>();
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <FormPreview ref="previewRef" />
+      <BuilderPreview ref="previewRef" />
       <AiPrompt />
       <ThemeSwitcher />
     </div>

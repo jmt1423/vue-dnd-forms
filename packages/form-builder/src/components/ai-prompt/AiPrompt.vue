@@ -81,7 +81,7 @@ const isFocused = () => {
     :class="
       cn(
         'flex rounded-lg max-md:w-[80%] !w-[50%] card relative items-center justify-center',
-        'bg-gradient-to-br from-secondary to-emerald-100/50 dark:from-secondary dark:to-emerald-800/30 dark:border-ring/5',
+        'bg-gradient-to-br from-secondary to-emerald-100/80 dark:from-secondary dark:to-emerald-800/80 dark:border-ring/5',
         isFocusedVal
           ? 'ring-2 ring-ring transition-all duration-300'
           : 'border border-ring/20 dark:border-ring/10 transition-all duration-300',
@@ -103,7 +103,7 @@ const isFocused = () => {
     />
     <Button
       variant="ghost"
-      class="hover:bg-green-500 dark:hover:bg-green-500 hover:text-white dark:hover:text-black w-7 h-7 mr-2"
+      class="hover:bg-green-500 dark:hover:bg-green-500/30 hover:text-white w-7 h-7 mr-2"
       @click="handleClick()"
       :disabled="isLoading"
     >

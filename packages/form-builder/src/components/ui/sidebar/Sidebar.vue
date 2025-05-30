@@ -43,7 +43,7 @@ const props = withDefaults(defineProps<SidebarProps>(), {
       data-sidebar="sidebar"
       data-slot="sidebar"
       :side="side"
-      class="bg-sidebar text-sidebar-foreground max-w-[15rem] p-0 [&>button]:hidden"
+      class="bg-sidebar text-sidebar-foreground max-w-[15rem] p-0 [&>button]:hidden border-none rounded-l-lg"
     >
       <SheetHeader class="sr-only">
         <SheetTitle>Sidebar</SheetTitle>

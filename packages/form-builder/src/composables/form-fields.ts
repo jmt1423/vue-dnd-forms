@@ -62,6 +62,11 @@ export function useFormField() {
     },
   });
 
+  const validationStringLength = computed(() => {
+    if (!validationString.value) return 0;
+    return formSchema.value[selectedIndex.value].validation.split("|").length;
+  })
+
   const updateValidationString = (value: string, active: boolean = true) => {
     const currentValidation = validationString.value.split("|").filter(Boolean);
     let newValidation: string[];
@@ -275,6 +280,7 @@ export function useFormField() {
     updateValidationString,
     isActive,
     createValidationValue,
+    validationStringLength,
     showPlaceholder,
     showListItems,
     currentFieldType,

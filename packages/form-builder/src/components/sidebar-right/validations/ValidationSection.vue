@@ -235,7 +235,7 @@ const visibleValidations = computed(() => {
 
 <template>
   <div v-if="formSchema[selectedIndex].$formkit !== 'submit'">
-    <span class="text-sm">Validations</span>
+    <span class="text-sm">Validation Rules</span>
   </div>
 
   <template

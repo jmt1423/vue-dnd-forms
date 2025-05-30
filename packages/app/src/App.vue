@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {
   FormBuilder,
-  FormBuilderProvider,
+  BuilderProvider,
   type FormBuilderConfig,
 } from "@vue-form-forge/form-builder/src/main.ts";
 import { computed } from "vue";
@@ -12,7 +12,7 @@ const formBuilderConfig = computed<FormBuilderConfig>(() => ({
 </script>
 
 <template>
-  <FormBuilderProvider :config="formBuilderConfig">
+  <BuilderProvider :config="formBuilderConfig">
     <FormBuilder />
-  </FormBuilderProvider>
+  </BuilderProvider>
 </template>

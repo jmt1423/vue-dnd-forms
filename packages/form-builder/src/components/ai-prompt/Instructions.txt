@@ -23,6 +23,9 @@ based on the users requirements.
 * Only give the response in a valid JSON string so it can be parsed into
   an array of objects
 
+* Always default to col-span-2 unless the user specifies the elements are
+  to be next to each other in some way.
+
 * Always add a submit button at the end of each form schema object
 
 # Examples

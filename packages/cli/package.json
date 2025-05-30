@@ -1,6 +1,6 @@
 {
   "name": "@vue-form-forge/cli",
-  "version": "0.0.15",
+  "version": "0.0.24",
   "description": "CLI tool to install Vue DnD Forms builder",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,9 +8,10 @@
     "vue-form-forge": "dist/bin/index.js"
   },
   "scripts": {
-    "prepare-templates": "rm -rf templates/form-builder && mkdir -p templates/form-builder && cp -r ../form-builder/src/* templates/form-builder/",
-    "build": "npm run prepare-templates && tsc",
-    "prepublishOnly": "npm run build"
+    "prebuild": "node scripts/bundle-form-builder.js",
+    "build": "tsc",
+    "bundle": "node scripts/bundle-form-builder.js",
+    "prepublishOnly": "npm run prebuild && npm run build"
   },
   "keywords": [
     "vue",
@@ -18,6 +19,9 @@
     "formkit",
     "cli",
     "dnd",
+    "forge",
+    "form forge",
+    "form-forge",
     "drag-and-drop",
     "drag and drop",
     "form builder"
@@ -35,7 +39,7 @@
   "type": "module",
   "files": [
     "dist",
-    "templates"
+    "form-builder-src"
   ],
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

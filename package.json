@@ -12,7 +12,6 @@
     "test": "npm run test -w packages/app",
     "test-e2e": "npm run test-e2e -w packages/app",
     "test:browser": "npm run test:browser -w packages/app",
-    "publish:form-builder": "npm publish -w packages/form-builder --access public",
     "publish:cli": "npm publish -w packages/cli --access public"
   },
   "devDependencies": {

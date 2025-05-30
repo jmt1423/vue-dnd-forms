@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Button } from "../components/ui/button";
 import { FormKitSchema } from "@formkit/vue";
-import { Trash2, ChevronsLeftRight, Loader2 } from "lucide-vue-next";
+import { Trash2, ChevronsLeftRight } from "lucide-vue-next";
 import { customInsertPlugin } from "../utils/custom-insert-plugin";
 import { formSchema, selectedIndex } from "../utils/default-form-elements";
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
@@ -9,6 +9,11 @@ import type { FormKitSchemaFormKit } from "@formkit/core";
 import { isLoading } from "../composables/form-fields";
 import { Loader } from "../components/ui/loader";
 import { cn } from "../utils/utils";
+import { useFormField } from "../composables/form-fields";
+import { useSidebar } from "../components/ui/sidebar";
+
+const { validationStringLength } = useFormField();
+const { isMobile } = useSidebar();
 
 const deleteField = (index: number) => {
   formSchema.value = formSchema.value.filter(
@@ -29,6 +34,10 @@ const changeColSpan = async (index: number) => {
 
 const clickedField = (index: number) => {
   selectedIndex.value = index;
+};
+
+const pluralize = (count: number, noun: string, suffix = "s") => {
+  return count === 1 ? noun : noun + suffix;
 };
 
 const insertPointClasses = [
@@ -86,19 +95,10 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
 
 <template>
   <div class="flex flex-1 flex-col justify-start mb-15">
+    <Loader v-if="isLoading" />
     <div
       class="border-1 border-ring/5 dark:border-none relative mx-auto md:top-10 min-h-[80%] p-4 !h-fit w-[90%] lg:w-[70%] rounded-xl bg-ring/5 dark:bg-neutral-800/70 shadow-md"
     >
-      <Loader v-if="isLoading">
-        <div
-          class="flex flex-col items-center justify-center gap-3 p-4 bg-secondary rounded-lg shadow-md"
-        >
-          <span class="font-medium text-sm text-zinc-700 dark:text-zinc-300"
-            >Creating your new form...</span
-          >
-          <Loader2 class="animate-spin" />
-        </div>
-      </Loader>
       <ul
         ref="formFields"
         :class="
@@ -123,7 +123,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
           "
           @click="clickedField(index)"
         >
-          <div class="flex gap-1.5 p-1 w-full">
+          <div class="flex gap-1.5 p-1 w-full pb-2">
             <div class="flex-1 w-full">
               <FormKitSchema
                 :schema="[field as FormKitSchemaFormKit]"
@@ -132,6 +132,15 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
             </div>
           </div>
           <div class="absolute bottom-1 right-1 flex flex-row">
+            <div
+              class="px-2 border-1 border-ring/40 dark:border-ring/20 rounded-md flex items-center justify-center"
+              v-if="selectedIndex === index"
+            >
+              <span class="text-xs"
+                >{{ validationStringLength }}
+                {{ pluralize(validationStringLength, "rule") }}</span
+              >
+            </div>
             <Button
               variant="ghost"
               size="icon"
