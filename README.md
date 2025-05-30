@@ -4,6 +4,8 @@
 
 # Vue Form Forge
 
+[Documentation](https://vueformforge.com/)
+
 A powerful and customizable form builder built with Vue 3, FormKit, FormKit DnD, Shadcn-Vue, and Tailwind CSS v4.
 This drag-and-drop form builder allows you or your users to create complex forms with a user-friendly interface.
 
