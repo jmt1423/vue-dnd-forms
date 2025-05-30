@@ -64,7 +64,7 @@ based on the users requirements.
     "id": "email_field",
     "placeholder": "Enter your email",
     "help": "This is help text",
-    "validation": "",
+    "validation": "email",
     "validationVisibility": "live",
     "description": "Email field input"
   },
@@ -77,7 +77,7 @@ based on the users requirements.
     "placeholder": "Enter your age",
     "number": "integer",
     "help": "This is help text",
-    "validation": "",
+    "validation": "number",
     "validationVisibility": "live",
     "description": "Single number input"
   },
@@ -89,7 +89,7 @@ based on the users requirements.
     "placeholder": "www.example.com",
     "name": "URL",
     "id": "url_field",
-    "validation": "",
+    "validation": "url",
     "validationVisibility": "live",
     "description": "URL field input"
   },

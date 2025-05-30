@@ -14,9 +14,11 @@ const dependencies = [
   "class-variance-authority",
   "clsx",
   "lucide-vue-next",
+  "openai",
   "reka-ui",
   "tailwind-merge",
   "vue-sonner",
+  "tw-animate-css"
 ];
 
 const getDirname = (): string => {

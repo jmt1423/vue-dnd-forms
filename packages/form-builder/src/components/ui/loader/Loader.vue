@@ -16,7 +16,7 @@ const props = defineProps<{ class?: HTMLAttributes["class"] }>();
     "
   >
     <div
-      class="flex flex-col items-center bg-neutral-600 justify-center gap-3 p-4 rounded-lg shadow-md"
+      class="flex flex-col items-center bg-white dark:bg-neutral-600 justify-center gap-3 p-4 rounded-lg shadow-md"
     >
       <span class="font-medium text-sm text-zinc-700 dark:text-zinc-300"
         >Creating your new form...</span
