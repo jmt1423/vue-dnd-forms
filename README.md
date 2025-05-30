@@ -2,7 +2,7 @@
 
 [![CI Tests](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/CI-tests.yml/badge.svg?branch=master)](https://github.com/jmt1423/vue-dnd-forms/actions/workflows/CI-tests.yml)
 
-# Vue DnD Forms
+# Vue Form Forge
 
 A powerful and customizable form builder built with Vue 3, FormKit, FormKit DnD, Shadcn-Vue, and Tailwind CSS v4.
 This drag-and-drop form builder allows you or your users to create complex forms with a user-friendly interface.
