@@ -69,7 +69,7 @@ const validations = {
       value: "contains_numeric",
       label: "Contains numeric",
       tooltip: "Input must contain a number",
-    }
+    },
   ],
   singleParam: [
     {
@@ -191,22 +191,8 @@ const showForFieldType = (validationType: string, fieldType: string | null) => {
     min: ["number", "text", "file"],
     max: ["number", "text", "file"],
     matches: ["text", "password", "url", "tel"],
-    starts_with: [
-      "text",
-      "textarea",
-      "password",
-      "url",
-      "tel",
-      "email",
-    ],
-    ends_with: [
-      "text",
-      "textarea",
-      "password",
-      "url",
-      "tel",
-      "email",
-    ],
+    starts_with: ["text", "textarea", "password", "url", "tel", "email"],
+    ends_with: ["text", "textarea", "password", "url", "tel", "email"],
     date_after: ["date", "datetime-local"],
     date_before: ["date", "datetime-local"],
     date_between: ["date", "datetime-local"],

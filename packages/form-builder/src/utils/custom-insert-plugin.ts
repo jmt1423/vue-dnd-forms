@@ -50,7 +50,9 @@ let documentController: AbortController | undefined;
  * delay will throttle the number of calls it is allowed in milliseconds
  */
 const throttle = (fn: Function) => {
-  const delay = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ? 100 : 0;
+  const delay = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+    ? 100
+    : 0;
   let timerFlag: number | null = null; // Variable to keep track of the timer
   // Returning a throttled version
   return (...args: any[]) => {
@@ -61,7 +63,7 @@ const throttle = (fn: Function) => {
       }, delay);
     }
   };
-}
+};
 
 export function customInsertPlugin<T>(insertConfig: InsertConfig<T>) {
   return (parent: HTMLElement) => {
@@ -798,20 +800,19 @@ function insertItemsIntoParentFromOutside<T>(
     state.currentParent.data,
   );
 
-
   // Ensure new elements have col-span-2 by default
-  const processedInsertValues = insertValues.map(value => {
-    if (typeof value === 'object' && value !== null) {
+  const processedInsertValues = insertValues.map((value) => {
+    if (typeof value === "object" && value !== null) {
       const val = value as any;
-      if (val.$formkit === 'submit') {
-       return {
-         ...value,
-         outerClass: '!col-span-2 pt-2'
-       }
+      if (val.$formkit === "submit") {
+        return {
+          ...value,
+          outerClass: "!col-span-2 pt-2",
+        };
       }
       return {
         ...value,
-        outerClass: '!col-span-2' // Force default col-span-2
+        outerClass: "!col-span-2", // Force default col-span-2
       };
     }
     return value;
@@ -819,7 +820,6 @@ function insertItemsIntoParentFromOutside<T>(
 
   // Insert the processed values
   targetParentValues.splice(index, 0, ...processedInsertValues);
-
 
   setParentValues(state.currentParent.el, state.currentParent.data, [
     ...targetParentValues,
@@ -938,9 +938,19 @@ export function handleEnd<T>(
       ];
 
       if (state.currentParent.el.contains(state.initialParent.el)) {
-        insertItemsIntoParentFromOutside(state, newParentValues, index, insertValues);
+        insertItemsIntoParentFromOutside(
+          state,
+          newParentValues,
+          index,
+          insertValues,
+        );
       } else {
-        insertItemsIntoParentFromOutside(state, newParentValues, index, insertValues);
+        insertItemsIntoParentFromOutside(
+          state,
+          newParentValues,
+          index,
+          insertValues,
+        );
       }
 
       const data = {
@@ -1004,7 +1014,6 @@ export function handleEnd<T>(
         ...(draggedOverParentValues as FormKitSchemaFormKit[]),
       ];
     } else {
-
       const draggedValues = state.draggedNodes.map((node) => node.data.value);
 
       const draggedOverParentValues = parentValues(

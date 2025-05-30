@@ -54,8 +54,8 @@ const handleClick = async () => {
     dangerouslyAllowBrowser: true,
   });
 
-
-  const defaultInstructions = "Generate a FormKit schema based on the user's description";
+  const defaultInstructions =
+    "Generate a FormKit schema based on the user's description";
 
   const response = await client.responses.create({
     model: "gpt-4.1-mini",

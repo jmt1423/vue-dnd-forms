@@ -11,7 +11,6 @@ import SidebarLeft from "../components/sidebar-left/SidebarLeft.vue";
 import SidebarRight from "../components/sidebar-right/SidebarRight.vue";
 import BuilderDropArea from "./BuilderDropArea.vue";
 import BuilderHeader from "./BuilderHeader.vue";
-
 </script>
 
 <template>

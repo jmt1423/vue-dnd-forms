@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { provideFormBuilderConfig } from "../composables/use-config";
-import type { FormBuilderConfig} from "../types/env";
+import type { FormBuilderConfig } from "../types/env";
 
 interface Props {
   config: FormBuilderConfig;

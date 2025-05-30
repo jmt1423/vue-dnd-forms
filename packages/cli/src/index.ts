@@ -26,23 +26,25 @@ const getDirname = (): string => {
 
 const findFormBuilderSrcPath = (): string => {
   const currentDir = getDirname();
-  
+
   // Look for bundled source files in CLI package
   const bundledPath = path.resolve(currentDir, "../../form-builder-src");
   if (fs.existsSync(bundledPath)) {
     return bundledPath;
   }
-  
+
   throw new Error(
     "Could not locate form-builder source files.\n" +
-    "This seems to be a CLI package issue. Please report this bug."
+      "This seems to be a CLI package issue. Please report this bug.",
   );
 };
 
 export async function main(): Promise<void> {
   console.log(chalk.green.bold("Vue Form Forge Installer"));
   console.log(
-    chalk.gray("This tool will copy all form-builder components to your Vue 3 project."),
+    chalk.gray(
+      "This tool will copy all form-builder components to your Vue 3 project.",
+    ),
   );
 
   const answers = await inquirer.prompt<CliOptions>([
@@ -56,7 +58,7 @@ export async function main(): Promise<void> {
           return "Please enter a valid directory path";
         }
         return true;
-      }
+      },
     },
     {
       type: "confirm",
@@ -88,7 +90,11 @@ export async function main(): Promise<void> {
       if (installVue) {
         dependencies.push("vue");
       } else {
-        console.log(chalk.yellow("Skipping Vue installation. Please install Vue 3 manually."));
+        console.log(
+          chalk.yellow(
+            "Skipping Vue installation. Please install Vue 3 manually.",
+          ),
+        );
         process.exit(1);
       }
     }
@@ -108,11 +114,11 @@ export async function main(): Promise<void> {
     // Find the form-builder source path
     const formBuilderSrcPath = findFormBuilderSrcPath();
     spinner.text = "Found form-builder source files...";
-    
+
     // Create the target directory (including parent directories)
     await fs.ensureDir(destPath);
     spinner.text = "Created target directory...";
-    
+
     // Check if directory already has content
     const existingFiles = await fs.readdir(destPath);
     if (existingFiles.length > 0) {
@@ -125,40 +131,45 @@ export async function main(): Promise<void> {
           default: false,
         },
       ]);
-      
+
       if (!overwrite) {
         console.log(chalk.yellow("Installation cancelled."));
         process.exit(0);
       }
       spinner.start("Copying form-builder components...");
     }
-    
+
     // Copy all files from bundled source to target directory
     await fs.copy(formBuilderSrcPath, destPath, {
       overwrite: true,
       filter: (src) => {
         // Skip the bundle metadata file
-        return !src.endsWith('.bundle-info.json');
-      }
+        return !src.endsWith(".bundle-info.json");
+      },
     });
 
     spinner.succeed("Form-builder components copied successfully!");
-    
+
     // Show what was copied
-    console.log(chalk.cyan(`\n📁 Components installed to: ${chalk.bold(answers.targetDir)}`));
-    
+    console.log(
+      chalk.cyan(
+        `\n📁 Components installed to: ${chalk.bold(answers.targetDir)}`,
+      ),
+    );
+
     // List the main items that were copied
     const copiedItems = await fs.readdir(destPath);
     if (copiedItems.length > 0) {
       console.log(chalk.gray("   Contents:"));
-      copiedItems.slice(0, 10).forEach(item => {
+      copiedItems.slice(0, 10).forEach((item) => {
         console.log(chalk.gray(`   ├── ${item}`));
       });
       if (copiedItems.length > 10) {
-        console.log(chalk.gray(`   └── ... and ${copiedItems.length - 10} more items`));
+        console.log(
+          chalk.gray(`   └── ... and ${copiedItems.length - 10} more items`),
+        );
       }
     }
-
   } catch (error) {
     spinner.fail("Failed to copy components");
     if (error instanceof Error) {
@@ -174,8 +185,11 @@ export async function main(): Promise<void> {
     const depSpinner = ora("Installing dependencies...").start();
 
     try {
-      const packageManager = fs.existsSync("yarn.lock") ? "yarn" : 
-                           fs.existsSync("pnpm-lock.yaml") ? "pnpm" : "npm";
+      const packageManager = fs.existsSync("yarn.lock")
+        ? "yarn"
+        : fs.existsSync("pnpm-lock.yaml")
+          ? "pnpm"
+          : "npm";
 
       depSpinner.text = `Installing dependencies with ${packageManager}...`;
 
@@ -197,5 +211,7 @@ export async function main(): Promise<void> {
 
   // Final success message
   console.log("\n" + chalk.green.bold("🎉 Installation complete!"));
-  console.log(chalk.cyan("You can now import and use the form-builder components:"));
+  console.log(
+    chalk.cyan("You can now import and use the form-builder components:"),
+  );
 }

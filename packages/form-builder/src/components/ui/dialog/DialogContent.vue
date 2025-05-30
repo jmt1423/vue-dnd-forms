@@ -33,7 +33,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <DialogPortal>
-    <DialogOverlay v-if="showOverlay"/>
+    <DialogOverlay v-if="showOverlay" />
     <DialogContent
       data-slot="dialog-content"
       v-bind="forwarded"

@@ -9,7 +9,10 @@ const props = defineProps<{ class?: HTMLAttributes["class"] }>();
 <template>
   <div
     :class="
-      cn('absolute inset-0 mb-30 flex items-center justify-center z-50', props.class)
+      cn(
+        'absolute inset-0 mb-30 flex items-center justify-center z-50',
+        props.class,
+      )
     "
   >
     <div
