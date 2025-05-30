@@ -35,3 +35,4 @@ dist-ssr
 /html/
 /playwright-report/
 /packages/cli/form-builder-src/
+/packages/app/playwright-report/
