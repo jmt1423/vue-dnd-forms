@@ -1,0 +1,35 @@
+{
+  "name": "@vue-form-forge/form-builder",
+  "version": "0.0.1",
+  "description": "Drag and drop form builder for Vue 3",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --external vue"
+  },
+  "peerDependencies": {
+    "@formkit/drag-and-drop": "^0.5.3",
+    "@formkit/vue": "^1.6.9",
+    "@vueuse/core": "^13.2.0",
+    "vue": "^3.5.13"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.503.0",
+    "openai": "^4.103.0",
+    "reka-ui": "^2.3.0",
+    "tailwind-merge": "^3.2.0",
+    "vue-sonner": "^1.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.23",
+    "tsup": "^8.0.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.3.5"
+  }
+}
