@@ -252,9 +252,9 @@ createApp(App).use(plugin, defaultConfig(config)).mount("#app");
 ## 🚀 Usage
 
 > The BuilderProvider.vue file is mainly for easy importing of api keys incase your are running a monorepo setup.
-> 
+>
 > This example is for using an openai api key that allows a user to quickly build a form.
-> 
+>
 > The instructions file for the model can be found in the `/form-builder/componenets/ai-prompt` directory.
 
 ```vue
