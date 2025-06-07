@@ -10,10 +10,8 @@ import { isLoading } from "../composables/form-fields";
 import { Loader } from "../components/ui/loader";
 import { cn } from "../utils/utils";
 import { useFormField } from "../composables/form-fields";
-import { useSidebar } from "../components/ui/sidebar";
 
 const { validationStringLength } = useFormField();
-const { isMobile } = useSidebar();
 
 const deleteField = (index: number) => {
   formSchema.value = formSchema.value.filter(
@@ -133,7 +131,7 @@ const [formFields, fields] = useDragAndDrop<FormKitSchemaFormKit>(
           </div>
           <div class="absolute bottom-1 right-1 flex flex-row">
             <div
-              class="px-2 border-1 border-ring/40 dark:border-ring/20 rounded-md flex items-center justify-center"
+              class="px-2 mr-1 border-1 border-ring/40 dark:border-ring/20 rounded-md flex items-center justify-center"
               v-if="selectedIndex === index"
             >
               <span class="text-xs"

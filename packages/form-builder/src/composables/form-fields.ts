@@ -235,44 +235,9 @@ export function useFormField() {
     });
   };
 
-  const showTextValidation = computed(() => {
-    if (!hasField.value) return false;
-    const excludedFields = ["text", "textarea", "password"];
-    return excludedFields.includes(
-      formSchema.value[selectedIndex.value].$formkit,
-    );
-  });
-
   const currentFieldType = computed(() =>
     hasField.value ? formSchema.value[selectedIndex.value].$formkit : null,
   );
-
-  const showPlaceholder = computed(() => {
-    if (!hasField.value) return false;
-    const excludedFields = [
-      "checkbox",
-      "radio",
-      "date",
-      "time",
-      "datetime-local",
-      "color",
-      "file",
-      "select",
-      "range",
-      "submit",
-    ];
-    return !excludedFields.includes(
-      formSchema.value[selectedIndex.value].$formkit,
-    );
-  });
-
-  const showListItems = computed(() => {
-    if (!hasField.value) return false;
-    const excludedFields = ["checkbox", "radio", "select"];
-    return excludedFields.includes(
-      formSchema.value[selectedIndex.value].$formkit,
-    );
-  });
 
   return {
     label,
@@ -281,8 +246,6 @@ export function useFormField() {
     isActive,
     createValidationValue,
     validationStringLength,
-    showPlaceholder,
-    showListItems,
     currentFieldType,
     hasField,
     help,
@@ -293,6 +256,5 @@ export function useFormField() {
     min,
     max,
     isValidationChecked,
-    showTextValidation,
   };
 }
