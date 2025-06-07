@@ -9,7 +9,7 @@
 A powerful and customizable form builder built with Vue 3, FormKit, FormKit DnD, Shadcn-Vue, and Tailwind CSS v4.
 This drag-and-drop form builder allows you or your users to create complex forms with a user-friendly interface.
 
-## 🚀 Features
+## Features
 
 - **Drag and Drop Interface**: Build forms by dragging and dropping components
 - **Form Element Editing**: Configure properties, validations, and styling for each form element
@@ -19,14 +19,14 @@ This drag-and-drop form builder allows you or your users to create complex forms
 - **Dark Mode Support**: Built-in light and dark mode themes
 - **Type-Safe**: Built with TypeScript
 
-## 📦 Installation and setup
+## Installation and setup
 
 > Note: This is not an NPM package, while the default form builder is somewhat opinionated, I have
 > decided to use the npx cli and copy the files in your src/components directory.
 > You now have full control over the source code and you may update and change this
 > how you see fit.
 
-## 🛠️ Setup Requirements
+## Setup Requirements
 
 ### Prerequisites
 
@@ -251,7 +251,7 @@ createApp(App).use(plugin, defaultConfig(config)).mount("#app");
 
 [Link to formkit.theme.ts file](https://github.com/jmt1423/vue-form-forge/blob/570e590ea06c90a542858f36b76f6944de2cdd4e/packages/app/formkit.theme.ts)
 
-## 🚀 Usage
+## Usage
 
 > The BuilderProvider.vue file is mainly for easy importing of api keys incase your are running a monorepo setup.
 >
